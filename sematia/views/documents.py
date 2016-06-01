@@ -14,10 +14,11 @@ documents = Blueprint('documents', __name__, static_folder='/static')
 @documents.route('/')
 def index():
     documents = Records.all('Document')
+    user_role = session['user_role'] if 'user_role' in session else 0
 
     return render_template('pages/documents.html', documents=documents, 
                             user_id=session['user_id'], my=False, 
-                            user_role=session['user_role'])
+                            user_role=user_role)
 
 @documents.route('/add_document', methods=['POST'])
 def add_document():
