@@ -1,0 +1,67 @@
+{% extends "layouts/normal.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block main %}
+
+<table width="100%" class="table table-bordered table-hover small" id="dataTables">
+    <thead> 
+        <tr> 
+            <th class="col-xs-4">Name</th>
+            <th class="col-xs-4 no-sort">Documents</th>  
+            <th class="col-xs-2">Role</th> 
+            <th class="col-xs-2">Edit</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        {% for user in users %}
+            <tr class="data-container user id" data-id="{{user.id}}"> 
+                <td class="col-md-4">
+                  <span class="data-container document meta_title">
+                      {{user.name}}
+                  </span></td> 
+                
+                <td class="col-md-4">
+                    <table style="margin-bottom:10px">
+                    </table>
+                </td> 
+                <td class="col-md-2">
+                    {{user.role}}
+                </td> 
+                <td class="col-md-2">
+                    {% if user.id == user_id %}
+                        <a href="#" class="operation edit" data-toggle="modal" data-target="#edit_document" data-model="document"><i class="fa fa-cog"></i></a>
+                        <a href="#" class="operation delete" data-toggle="modal" data-target="#delete_document" data-model="document"><i class="fa fa-close"></i></a>
+                    {% endif %}
+                </td>
+            </tr> 
+        {% endfor %}
+    </tbody> 
+</table> 
+
+{% endblock %}
+
+{% block scripts %}
+
+{{super()}}
+
+<script>
+
+$(document).ready(function() {
+    $("#dataTables").DataTable({
+        responsive: true,
+        "columnDefs": [ {
+            "targets"  : 'no-sort',
+            "orderable": false,
+        }]
+    });
+});
+
+</script>
+
+{% endblock %}
+

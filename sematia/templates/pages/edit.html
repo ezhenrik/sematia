@@ -1,0 +1,566 @@
+{% extends "layouts/normal.html" %}
+
+{% block title %}Layer{% endblock %}
+
+{% block titlehtml %}
+{% if xstr(ltb.body) == '' %}{% if my %}<a class="operation btn btn-default upload-treebank" href="" data-toggle="modal" data-target="#add_treebank">Upload treebank <i class="fa fa-cloud-upload" aria-hidden="true"></i></a>{% endif %}{% else %}<a class="operation btn btn-info show-treebank" href="" data-toggle="modal" data-target="#delete_treebank">Show treebank <i class="fa fa-sitemap" aria-hidden="true"></i></a>{% endif %}
+{% endblock %}
+
+{% block sidebar %}
+
+<h4>Type</h4>
+<p><span class="badge">{{ltb.type}}</span></p>
+<h4>Hand no.</h4>
+<p>{{hand.hand_no}}</p>
+<h4>Document</h4>
+<p>{{doc.meta_title}}</p>
+<h4>Contributors</h4>
+<p>
+    {% for user in doc.users %}
+        <span class="user">
+            {% if user.id == user_id %}
+                <span class="text-muted">You</span>
+            {% else %}
+                {{user.name}}
+            {% endif %}
+        </span>
+    {% endfor %}
+</p>
+<h4>URL</h4>
+<p><a class="source-url" href="{{doc.url}}">{{doc.url}}</a></p>
+<h4>Elements</h4>
+<div class="elements">
+{#
+<ul class="list-group">
+    {% for item in data.tags %}
+        {% if item != 'div' and item != 'lb'%}
+            <li class="{{item}} list-group-item"><span>{{item}}</span></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+#}
+</div>
+
+{% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <h3>Transcription</h1>
+        <div class="editorview clearfix window"><span class="loader"></span></div>
+        <div class="originaltext hidden">{{doc.html|safe}}</div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <h3>Plain text</h3>
+        <div class="text-content clearfix window"></div>
+    </div>
+</div>
+
+<div id="add_treebank" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add treebank</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <form action="" class="upload" method=post enctype=multipart/form-data>
+                        <label class="btn btn-default btn-file">
+                            <span>Choose file</span> <input type="file" name="file" class="file" style="display: none;">
+                        </label>
+                        <input type="hidden" class="id" name="id" value="{{ltb.id}}">
+                    </form>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning save">Import to Sematia</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete_treebank" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Treebank</h4>
+            </div>
+            <div class="modal-body" class="xml" id="treebank">
+                <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" class="data-sender id" name="id" value="{{ltb.id}}">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                {% if my %}<button type="button" class="btn btn-danger delete">Remove</button>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{{super()}}
+
+<script>
+
+/* Select to clipboard */
+function selectText(element) {
+    var range, selection;
+    var doc = document;
+    var text = element[0];
+    if (doc.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
+
+/* Get text values from the transcription window */
+function getTextValues(el, handno) {
+    textcontent = '<div class="part">';
+    {% if my %}
+    textcontent = '<div class="part"><span class="glyphicon glyphicon-briefcase copy"></span>';
+    {% endif %}
+
+    currentHand = 1;
+    el.find('*:not(:has(*), .lb, .delete, .textpart-indicator)').each(function() {
+
+        if ($(this).is('.handShift')) {
+            currentHand++;
+        }
+
+        var a = (currentHand == handno);
+        if (
+            !$(this).parents('.delete').length 
+            && !$(this).parents('.manualDisSelection').length 
+            && !$(this).parents('.manualDeepParent').length
+            ||
+            (
+                (
+                $(this).parents('.manualDeepParent').length && $(this).parents('.manualSelection').length) 
+                && 
+                (
+                    $(this).closest('.choice, .app').children('.manualSelection').length 
+                    ||
+                    (
+                        !$(this).closest('.choice, .app').children('.manualSelection').length && 
+                        !$.contains($(this).closest('.choice, .app')[0], $(this).closest('.delete')[0])
+                    )
+                ) 
+            )
+        ) {
+
+            if ($(this).closest('.modified').length && !$(this).parents('.modified').last().is('.processed')) {
+                var mod = $(this).closest('.modified');
+                textcontent += a ? mod.data('layerValue') : '';
+                mod.addClass('processed');
+            }
+
+            else if ($(this).is('.modified')) {
+                textcontent += a ? mod.data('layerValue') : '';
+            }
+
+            else if ($(this).is('.gap')) {
+                textcontent += a ? 'G' : '';
+            }
+
+            else if (!$(this).parents('.modified').last().is('.processed') && !$(this).is('.handShift')) {
+                textcontent += a ? $(this).text() : '';
+            } 
+        }
+    });
+    el.find('*').removeClass('processed');
+    textcontent += '</div>';
+    return textcontent;
+}
+
+/* Format windows according to layer type */
+function formatLayer(type, paths, handno) {
+
+    var el = $('.originaltext').clone(true);
+    var tags = [];
+    var skiptags = ['textpart-indicator', 
+                  'text',
+                  'tail',
+                  'modified',
+                  'delete', 
+                  'ab', 
+                  'div', 
+                  'manualSelection', 
+                  'manualDisSelection', 
+                  'originaltext'
+                  ];
+    
+    el.find('*').each(function() {
+        var eltags = $(this).attr('class').split(/\s+/);
+        
+        for (var i in eltags) {
+            if (tags.indexOf(eltags[i]) < 0 && skiptags.indexOf(eltags[i]) < 0) {
+                tags.push(eltags[i]);
+            }
+        }
+    })
+    tags = tags.sort();
+    tagHtml = '<ul class="list-group">';
+    for (tag in tags) {
+        tagHtml += '<li class="'+tags[tag]+' list-group-item"><span>'+tags[tag]+'</span></li>';
+    }
+    tagHtml += '</ul>';
+    $('.elements').html(tagHtml);
+
+    el2 = generalFormatting(el);
+    el3 = enableHand(el2, handno);
+    enableLayer(type, el2, paths, handno);
+    
+}
+
+/* Transcription window: Common formatting */
+function generalFormatting(el) {
+    el.add(el.find('*')).each(function() {
+        if ($(this).attr('data-type') && $(this).attr('data-type') == 'textpart') {
+            var n = $(this).data('n');
+            $(this).prepend('<span class="textpart-indicator">Part '+n+'</span>');
+        }
+    })
+    
+    // Gaps
+    el.find('.gap').each(function() {
+        var w = $(this).data('quantity');
+        if (w) {
+            $(this).width(w * 10);
+        }
+        $(this).html('');
+    });
+
+    // Handshift
+    el.find('.handShift').each(function() {
+        $(this).html('HS');
+    });
+
+    // Lbs
+    el.find('.lb').each(function() {
+        $(this).text($(this).data('n'))
+
+        if ($(this).data('break') == 'no') {
+            $(this).prev('.text').text($(this).prev('.text').text().replace(/[ \n]+$/,''));
+        } else {
+            $(this).prev('.text').text($(this).prev('.text').text().replace(/\s*$/," "));
+        }
+    });
+
+    return el;
+}
+
+/* Enable hand */
+function enableHand(el, handno) {
+    currentHand = 1;
+    var ti = 0;
+    var si = 'None';
+    var li = 'None';
+
+    // Fade effect
+    el.find('*:not(.ab, .div)').each(function() {
+        if ($(this).is('.handShift')) {
+            currentHand++;
+        }
+        if (currentHand == handno) {
+            if (si == 'None') {
+                si = ti;
+            }
+            $(this).addClass('activeHand');
+        } else {
+            if (si != 'None' && li == 'None') {
+                li = ti;
+            }
+        }
+        ti++;
+
+    });
+
+    if (li == 'None') {
+        li = ti;
+    }
+
+    var ti = 0;
+    el.find('*:not(.ab, .div)').each(function() {
+        if (ti < si) {
+            if (si - ti < 30) {
+                $(this).css({'opacity': 1-((si-ti)/30), 'color':'#ddd', 'border':'none'});
+            } else {
+                $(this).css('display', 'none');
+            }
+        } else if (ti > li) {
+            if (ti - li < 30) {
+                $(this).css({'opacity': 1-((ti-li)/30), 'color':'#ddd', 'border':'none'});
+            } else {
+                $(this).css('display', 'none');
+            }
+        }
+        ti++;
+    })
+}
+
+/* Transcription window: Enable layer formatting */
+function enableLayer(layer, el, paths, handno) {
+
+    var clone = el;
+
+    if (layer == "original" || layer == "standard" || layer == "variation") {
+
+        // subst
+        clone.find('.subst').each(function() {
+            $(this).find('.del').remove();
+        });
+
+        // app
+        clone.find('.app').each(function() {
+           /* if ($(this).is(':not(.lem)') && !$(this).closest('.lem').length) {
+                $(this).remove();
+            }*/
+          $(this).find('>:not(.lem)').addClass('delete');
+        });
+
+    }
+
+    // Orig layer
+    if (layer == "original" || layer == "variation") {
+
+        // ex
+        clone.find('.ex').each(function() {
+            $(this).addClass('modified');
+            $(this).data('layerValue', 'A');
+        });
+
+        // supplied
+        clone.find('.supplied').each(function() {
+          var replaceString = 'SU';
+          if ($(this).attr('data-reason') == 'omitted') {
+            replaceString = 'OM';
+          }
+          var text = $(this).text();
+          var text = text.replace(/([“”—\"‘’\.,:;··;\?!\[\]{}\-])/g, " $1 ");
+          var text = text.replace(/([ ]{2,})/g, " ");
+          var text = text.replace(/[^\s^\.]+/g, replaceString);
+          $(this).addClass('modified');
+          $(this).data('layerValue', text);
+        });
+
+        // choice
+        clone.find('.choice').each(function() {
+          $(this).find('.reg').addClass('delete');
+          $(this).find('.corr').addClass('delete');
+        });
+
+    // Standard layer
+    } else if (layer == "standard") {
+
+        // surplus
+        clone.find('.surplus').each(function() {
+            $(this).addClass('modified');
+            $(this).data('layerValue', 'SR');
+        });
+
+        // choice
+        clone.find('.choice').each(function() {
+            $(this).find('.orig').addClass('delete');
+            $(this).find('.sic').addClass('delete');
+        });
+    }
+
+    if (paths != '' && paths != 'None') {
+        paths =  $.parseJSON(paths);
+        for (i in paths) {
+            path = paths[i];
+            el = clone.find('>'+path);
+            deepparent = el.parents('.choice,.app').last();
+            deepparent.toggleClass('manualDeepParent');
+            el.parent().find('> * ').removeClass('manualSelection').addClass('manualDisSelection');
+            el.removeClass('manualDisSelection').addClass('manualSelection');
+        }
+    }
+
+    $('.editorview').empty().html(clone.find('> *'));
+
+    var textContent = getTextValues($('.editorview'), handno);
+    $('.text-content').html(textContent);
+}
+
+
+/* Manual selection helper */
+jQuery.fn.getPath = function () {
+    if (this.length != 1) throw 'Requires one element.';
+
+    var path, node = this;
+    while(!$(node).is('.editorview')) {
+        var realNode = node[0], name = realNode.localName;
+        if (!name) break;
+        name = name.toLowerCase();
+
+        var parent = node.parent();
+
+        var siblings = parent.children(name);
+        if (siblings.length > 1) { 
+            name += ':eq(' + siblings.index(realNode) + ')';
+        }
+
+        path = name + (path ? '>' + path : '');
+        node = parent;
+    }
+    return path;
+};
+
+$(document).ready(function() {
+    formatLayer('{{ltb.type}}', '{{xstr(ltb.settings)|safe}}', '{{hand.hand_no}}');
+});
+
+$(document).on('change', 'input:file', function (){
+    var filename = $(this).val().split('\\').pop();
+    $('.btn-file span').html(filename+' <i class="fa fa-check" aria-hidden="true"></i>')
+    $('.btn-file').attr('class', 'btn btn-success btn-file');
+});
+
+$(document).on('show.bs.modal', function (e) {
+    var target = $(e.target);
+    var source = e.relatedTarget;
+    target.find('.btn-file').attr('class', 'btn btn-default btn-file').find('span').html('Choose file');
+    $(target).find('.messages').removeClass('label-danger, label-success').text('');
+
+    if (target.is('#delete_treebank')) {
+        $('#treebank').html('<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>');
+        getTreebank(target.find('.id').val());
+    }
+});
+
+$(document).on('click', '.modal .save, .modal .delete', function(e) {
+    var data = {};
+    var modal = $(this).closest('.modal');
+    var action = modal.attr('id');
+    var sendData = modal.find('.data-sender');
+
+    if (action == 'add_treebank') {
+        data = new FormData($('.upload')[0]);
+    }
+    sendData.each(function() {
+        key = $(this).attr('class').split(' ')[1];
+        data[key] = $(this).val().trim();
+    });
+
+    var dataSettings = (typeof data == "object" && data.constructor.name == "FormData")
+        ? {processData:false,contentType:false} : {},
+        retval,
+        settings = {
+        type: 'POST',
+        url: $SCRIPT_ROOT + action,
+        dataType: 'json',
+        data:data,
+        success: function(data) { 
+            if (data.status == 'ok') {
+                $('.modal.in').modal('toggle');
+                $('h1 a').remove();
+                if (data.mode == 'added') {
+                    $('h1').append('<a class="operation btn btn-info show-treebank" href="" data-toggle="modal" data-target="#delete_treebank">Show treebank <i class="fa fa-sitemap" aria-hidden="true"></i></a>');
+                } else {
+                    $('h1').append('<a class="operation btn btn-default upload-treebank" href="" data-toggle="modal" data-target="#add_treebank">Upload treebank <i class="fa fa-cloud-upload" aria-hidden="true"></i></a>');
+                }
+            } else {
+                $('.modal.in .label').addClass('label-danger').text(data.message);
+            }
+        }
+    }
+    $.ajax($.extend(settings, dataSettings));
+});
+
+function getTreebank(id) {
+    $.ajax({
+        data:{id:id}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'get_treebank',
+        success: function(data) { 
+            if (data.data) {
+                var editor = $('#treebank')[0];
+                var docSpec = { 
+                    elements: {
+                        "annotator": { 
+                            collapsed: function(jsElement){return true;}
+                        },
+                        "date": { 
+                            collapsed: function(jsElement){return true;}
+                        },
+                    }
+                }
+                try {
+                    Xonomy.render(data.data, editor, docSpec);
+                } catch(err) {
+                    console.log(err.message);  
+                }  
+            }
+            if (data.approve) {
+                $('button.approval').attr('class', 'btn approval save btn-danger').text('Disapprove');
+            } else {
+                $('button.approval').attr('class', 'btn approval save btn-success').text('Approve');
+            }
+        }
+    });
+}
+
+{% if my %}
+    
+$(document).on('click', '.copy', function() {
+    selectText($(this).parent());
+});
+
+$(document).on('click', '.ab .choice > *, .ab .app > *', function(e) {
+    e.stopPropagation();
+    deepparent = $(this).parents('.choice,.app').last();
+    if ($(this).hasClass('manualSelection')) {
+        deepparent.find('*').removeClass('manualSelection manualDisSelection')
+        deepparent.removeClass('manualDeepParent');
+    } else {
+        deepparent.find('*').removeClass('manualSelection manualDisSelection')
+        $(this).siblings().addClass('manualDisSelection');
+        $(this).addClass('manualSelection');
+        deepparent.addClass('manualDeepParent');
+    }
+
+    custompaths = [];
+    $('.editorview .manualSelection').each(function() {
+        var elem = $(this);
+        var path = elem.getPath();
+        custompaths.push(path);
+    });
+
+    var data = {
+        id: {{ltb.id}},
+        paths:JSON.stringify(custompaths)
+    };
+
+    $.ajax({
+        data:data,
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'save_paths',
+        success: function(data) { 
+            var textContent = getTextValues($('.editorview'), {{hand.hand_no}});
+            $('.text-content').html(textContent);
+        }
+    })
+});
+
+{% endif %}
+
+</script>
+
+{% endblock %}
+

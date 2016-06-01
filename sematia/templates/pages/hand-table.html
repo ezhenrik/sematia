@@ -1,0 +1,190 @@
+{% for hand in hands %}
+    <tr class="data-container hand id" data-id={{hand.id}}>
+        <td class="col-md-1" style="text-align:center;">
+            <h4>
+                {{hand.hand_no}}
+                {% if my %}
+                    <a href="#" class="operation edit" data-toggle="modal" data-target="#edit_hand" data-model="hand"><i class="fa fa-cog"></i></a>
+                {% endif %}
+            </h4>
+        </td>
+        <td class="col-md-5">
+            <ul class="list-unstyled">
+                {% for layertb in hand.layertreebanks %}
+                    <li style="margin-bottom:10px" class="data-container layertreebank id" data-id="{{layertb.id}}">
+                        
+                        <a href="/edit/{{layertb.id}}" class="btn btn-sm btn-{% if layertb.type=='original' %}primary{% elif layertb.type=='standard'%}success{% elif layertb.type=='variation'%}warning{% endif %}" style="width:85px">{{layertb.name}}</a>
+                        {% if xstr(layertb.body) != "" %}
+                            <a class="treebank-link get_treebank" href="#" data-toggle="modal" data-target="#update_treebank" data-model="layertreebank"><i class="fa fa-file" aria-hidden="true"></i></a>
+                        
+                            {% if xstr(layertb.approved_user_id) != "" %}
+                                <span class="approved-sign" title="Approved"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                            {% else %}
+                                <span class="unapproved-sign" title="Not yet approved"><i class="fa fa-unlock" aria-hidden="true"></i></span>
+                            {% endif %}
+                            <span class="data-container layertreebank status hidden">{% if xstr(layertb.approved_user_id) != "" %}1{% else %}0{% endif %}</span>
+                        {% endif %}
+
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </td>
+        <td class="col-md-6">
+            <table class="small table-condensed" style="margin-bottom:10px">
+                <tr {% if xstr(hand.meta_handwriting_description_edition) == '' %}class="hidden"{% endif %}>
+                    <td>Description (edition)</td>
+                    <td>
+                        <span class="data-container hand meta_handwriting_description_edition">
+                            {% if xstr(hand.meta_handwriting_description_edition) != '' %}
+                                {{hand.meta_handwriting_description_edition}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_handwriting_description_custom) == '' %}class="hidden"{% endif %}>
+                    <td>Description (custom)</td>
+                    <td>
+                        <span class="data-container hand meta_handwriting_description_custom">
+                            {% if xstr(hand.meta_handwriting_description_custom) != '' %}
+                                {{hand.meta_handwriting_description_custom}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_handwriting_professional) == '' %}class="hidden"{% endif %}>
+                    <td>Professional</td>
+                    <td>{% if xstr(hand.meta_handwriting_professional) != '' %}
+                        {% for key, val in config.METADATA_VALUES.meta_handwriting_professional %}
+                            {% if key==hand.meta_handwriting_professional %}
+                                <span class="data-container hand meta_handwriting_professional" data-override_value="{{key}}">
+                                    {{val}}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="data-container hand meta_handwriting_professional" data-override_value=""></span>
+                    {% endif %}</td>
+                </tr>
+                <tr {% if xstr(hand.meta_handwriting_same_hand) == '' %}class="hidden"{% endif %}>
+                    <td>Same hand</td>
+                    <td>
+                        <span class="data-container hand meta_handwriting_same_hand">
+                            {% if xstr(hand.meta_handwriting_same_hand) != '' %}
+                                {{hand.meta_handwriting_same_hand}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_writer_name) == '' %}class="hidden"{% endif %}>
+                    <td>Writer name</td>
+                    <td>
+                        <span class="data-container hand meta_writer_name">
+                            {% if xstr(hand.meta_writer_name) != '' %}
+                                {{hand.meta_writer_name}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_writer_title) == '' %}class="hidden"{% endif %}>
+                    <td>Writer title</td>
+                    <td>
+                        <span class="data-container hand meta_writer_title">
+                            {% if xstr(hand.meta_writer_title) != '' %}
+                                {{hand.meta_writer_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_scribal_name) == '' %}class="hidden"{% endif %}>
+                    <td>Scibal name</td>
+                    <td>
+                        <span class="data-container hand meta_scribal_name">
+                            {% if xstr(hand.meta_scribal_name) != '' %}
+                                {{hand.meta_scribal_name}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_scribal_title) == '' %}class="hidden"{% endif %}>
+                    <td>Scribal title</td>
+                    <td>
+                        <span class="data-container hand meta_scribal_title">
+                            {% if xstr(hand.meta_scribal_title) != '' %}
+                                {{hand.meta_scribal_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_author_name) == '' %}class="hidden"{% endif %}>
+                    <td>Author name</td>
+                    <td>
+                        <span class="data-container hand meta_author_name">
+                            {% if xstr(hand.meta_author_name) != '' %}
+                                {{hand.meta_author_name}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_author_title) == '' %}class="hidden"{% endif %}>
+                    <td>Author title</td>
+                    <td>
+                        <span class="data-container hand meta_author_title">
+                            {% if xstr(hand.meta_author_title) != '' %}
+                                {{hand.meta_author_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_text_type) == '' %}class="hidden"{% endif %}>
+                    <td>Text type</td>
+                    <td>{% if xstr(hand.meta_text_type) != '' %}
+                        {% for key, val in config.METADATA_VALUES.meta_text_type %}
+                            {% if key==hand.meta_text_type %}
+                                <span class="data-container hand meta_text_type" data-override_value="{{key}}">
+                                    {{val}}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="data-container hand meta_text_type" data-override_value=""></span>
+                    {% endif %}</td>
+                </tr>
+                <tr {% if xstr(hand.meta_addressee) == '' %}class="hidden"{% endif %}>
+                    <td>Addressee</td>
+                    <td>{% if xstr(hand.meta_addressee) != '' %}
+                        {% for key, val in config.METADATA_VALUES.meta_addressee %}
+                            {% if key==hand.meta_addressee %}
+                                <span class="data-container hand meta_addressee" data-override_value="{{key}}">
+                                    {{val}}
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <span class="data-container hand meta_addressee" data-override_value=""></span>
+                    {% endif %}</td>
+                </tr>
+                <tr {% if xstr(hand.meta_addressee_name) == '' %}class="hidden"{% endif %}>
+                    <td>Addressee name</td>
+                    <td>
+                        <span class="data-container hand meta_addressee_name">
+                            {% if xstr(hand.meta_addressee_name) != '' %}
+                                {{hand.meta_addressee_name}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_addressee_title) == '' %}class="hidden"{% endif %}>
+                    <td>Addressee title</td>
+                    <td>
+                        <span class="data-container hand meta_addressee_title">
+                            {% if xstr(hand.meta_addressee_title) != '' %}
+                                {{hand.meta_addressee_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endfor %}

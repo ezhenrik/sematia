@@ -1,0 +1,27 @@
+How to use Sematia
+************
+
+#. Google sign in (and allow everything; sign-in does not work if you block something in Google). The sign in is used in order to direct users to their own dashboards.
+ 
+#. Import a document you wish to work with. Click ”Import a document” and provide the source URL to the box. It is of the form http://papyri.info/ddbdp/p.adl;;G1/source. You can get it for the text you want from the Papyrological Navigator either by 
+
+   * Taking the “Canonical URI” and adding “/source” behind it, or
+   
+   * going down to “DDbDP transcription” in the PN page of the document and clicking the [xml] and then copying the URL. You can simply paste the address into the box in Sematia. 
+
+ 
+#. Sematia creates automatically two layers of the document you imported: original and standard layer (see below what they mean). Moreover, the text is divided into parts according to the handshifts. Click the symbol \(three lines) next to the title of your imported document and it expands the view, so that you can select which layer of which act of writing you want to work with. (if you click the title itself, it goes to the source xml of the document like in PN). All your imported documents can be expanded at the same time from the small arrow next to the title “Imported documents”. The alphabetical order can be switched between a-->z and z-->a.)
+ 
+#. When you go to a layer, you see the list of EpiDoc XML elements present in the current text and the color codes show how they are shown in the Edit view. The Edit view is the same in both layers and you have the possibility to edit the layer text (e.g. if there are two or more options given in the apparatus of the text in the Papyrological Navigator, you can choose the one you want with the slider). The Text view is the one where you take the text from into the annotation environment (by clicking the suitcase icon which selects the text and then copying it).
+
+    * Original layer gives you the text as it is preserved in the original papyrus, that is, the abbreviations are not resolved (simply marked with a dummy marker “A”), supplied text is omitted (marked with dummy “SU”), the forms written in the papyrus are taken in (not the regularized forms). The unclear letters (underdot) are taken in as “certain” letters, so, if you hesitate with some underdotted letters, you can decide not to annotate them. It is always advisable to keep the Papyrological Navigator page open as well!
+
+    * The standard layer gives the text in the form the editor has interpreted it (i.e. according to the Papyrological Navigator, where later corrections may also be available): the abbreviated words are expanded, the supplied text is included, as are regularized spellings. If the editor has not supplied anything in a lacuna, the gap is marked with G. 
+ 
+#. After you have annotated your treebank (e.g. in Arethusa in Perseids platform), import the XML to Sematia by copying the treebank xml and pasting it to the window which pops up when you click ”Add treebank” by the layer you want to attach the treebank with.
+
+Metadata:
+The date and provenance for each document will be taken automatically from the PN...
+
+For each hand (act of writing) you can add metadata about the handwriting, about the writer / author.
+… to be continued...

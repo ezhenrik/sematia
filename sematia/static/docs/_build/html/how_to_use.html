@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to use Sematia &mdash; Sematia documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="author" title="About these documents"
+              href="about.html"/>
+    <link rel="top" title="Sematia documentation" href="index.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Sematia
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Sematia</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Sematia</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>How to use Sematia</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/how_to_use.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-use-sematia">
+<h1>How to use Sematia<a class="headerlink" href="#how-to-use-sematia" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Google sign in (and allow everything; sign-in does not work if you block something in Google). The sign in is used in order to direct users to their own dashboards.</p>
+</li>
+<li><p class="first">Import a document you wish to work with. Click ”Import a document” and provide the source URL to the box. It is of the form <a class="reference external" href="http://papyri.info/ddbdp/p.adl;;G1/source">http://papyri.info/ddbdp/p.adl;;G1/source</a>. You can get it for the text you want from the Papyrological Navigator either by</p>
+<ul class="simple">
+<li>Taking the “Canonical URI” and adding “/source” behind it, or</li>
+<li>going down to “DDbDP transcription” in the PN page of the document and clicking the [xml] and then copying the URL. You can simply paste the address into the box in Sematia.</li>
+</ul>
+</li>
+<li><p class="first">Sematia creates automatically two layers of the document you imported: original and standard layer (see below what they mean). Moreover, the text is divided into parts according to the handshifts. Click the symbol (three lines) next to the title of your imported document and it expands the view, so that you can select which layer of which act of writing you want to work with. (if you click the title itself, it goes to the source xml of the document like in PN). All your imported documents can be expanded at the same time from the small arrow next to the title “Imported documents”. The alphabetical order can be switched between a&#8211;&gt;z and z&#8211;&gt;a.)</p>
+</li>
+<li><p class="first">When you go to a layer, you see the list of EpiDoc XML elements present in the current text and the color codes show how they are shown in the Edit view. The Edit view is the same in both layers and you have the possibility to edit the layer text (e.g. if there are two or more options given in the apparatus of the text in the Papyrological Navigator, you can choose the one you want with the slider). The Text view is the one where you take the text from into the annotation environment (by clicking the suitcase icon which selects the text and then copying it).</p>
+<blockquote>
+<div><ul class="simple">
+<li>Original layer gives you the text as it is preserved in the original papyrus, that is, the abbreviations are not resolved (simply marked with a dummy marker “A”), supplied text is omitted (marked with dummy “SU”), the forms written in the papyrus are taken in (not the regularized forms). The unclear letters (underdot) are taken in as “certain” letters, so, if you hesitate with some underdotted letters, you can decide not to annotate them. It is always advisable to keep the Papyrological Navigator page open as well!</li>
+<li>The standard layer gives the text in the form the editor has interpreted it (i.e. according to the Papyrological Navigator, where later corrections may also be available): the abbreviated words are expanded, the supplied text is included, as are regularized spellings. If the editor has not supplied anything in a lacuna, the gap is marked with G.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">After you have annotated your treebank (e.g. in Arethusa in Perseids platform), import the XML to Sematia by copying the treebank xml and pasting it to the window which pops up when you click ”Add treebank” by the layer you want to attach the treebank with.</p>
+</li>
+</ol>
+<p>Metadata:
+The date and provenance for each document will be taken automatically from the PN...</p>
+<p>For each hand (act of writing) you can add metadata about the handwriting, about the writer / author.
+… to be continued...</p>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Marja Vierros &amp; Erik Henriksson.
+      Last updated on May 16, 2016.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'latest',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="google-signin-client_id" content="560653073276-5g4aulhbgifmhleu4k887oehtoscgljc.apps.googleusercontent.com">
+
+    <title>{% block title %}{% endblock %} - Sematia</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- DataTables CSS -->
+    <link href="/static/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- Xonomy -->
+    <link href="{{url_for('static', filename='css/xonomy.css')}}" rel="stylesheet" >
+
+    <!-- Custom CSS -->
+    <link href="{{url_for('static', filename='css/sb-admin-2.css')}}"" rel="stylesheet">
+
+    <!-- JQuery UI -->
+    <link href="{{url_for('static', filename='css/jquery-ui.min.css')}}" rel="stylesheet" >
+
+    <!-- Custom Fonts -->
+    <script src="https://use.fontawesome.com/37eb9474ba.js"></script>
+
+    <!-- Theme CSS -->
+    <link href="/static/css/style.css" rel="stylesheet">
+
+    <!-- Custom Template CSS -->
+    {% block styles %}{% endblock %}
+
+</head>
+
+<body> {% block body %}{% endblock %}
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="{{url_for('static', filename='plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static', filename='plugins/datatables/dataTables.responsive.js')}}"></script>
+
+    <!-- Xonomy -->
+    <script src="{{url_for('static', filename='js/xonomy.js')}}"></script>
+
+    <!-- JQuery UI -->
+    <script src="{{url_for('static', filename='js/jquery-ui.min.js')}}"></script>
+
+    <!-- Global Script Root -->
+    <script type=text/javascript>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+
+
+
+    <!-- Custom Template JavaScript -->
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</html>

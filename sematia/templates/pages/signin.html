@@ -1,0 +1,49 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Log in{% endblock %}
+    
+{% block body %}
+
+<a class="navbar-brand" href="" style="position:absolute;">SEMATIA</a>
+
+<div id="wrapper">
+<div class="container">
+        <div style="text-align:center;">
+            <div class="col-sm-4 col-centered col-fixed">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#wrapper -->
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{super()}}
+    <!-- Google login -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script>
+    function onSignIn(googleUser) {
+
+        var id_token = googleUser.getAuthResponse().id_token;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/user/tokensignin');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            window.location = xhr.responseText;
+        };
+        xhr.send('idtoken=' + id_token);
+    }
+
+    </script>
+{% endblock %}

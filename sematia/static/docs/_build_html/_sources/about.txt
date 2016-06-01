@@ -1,0 +1,13 @@
+About
+#####
+
+Sematia is a ... \
+The Goals of Sematia are:
+
+* Do something 1
+
+* Do something else
+
+* And more, open source, become a global phenomenon
+
+The project's source is hosted `on GitHub <https://github.com/ezhenrik/sematia/>`_.

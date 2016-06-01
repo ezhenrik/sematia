@@ -1,0 +1,597 @@
+{% extends "layouts/normal.html" %}
+
+{% block title %}Documents{% endblock %}
+{% block titlehtml %}
+ <a class="operation add btn btn-default add-document" href="" data-toggle="modal" data-target="#add_document" data-model="document"> 
+    New <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+</a>
+ <a class="add btn btn-default my-contributions" href="">
+    Your contributions
+</a>
+{% endblock %}
+
+
+{% block sidebar %}
+  <p><strong>Documents, <br>layers &<br>treebanks</strong></p>
+{% endblock %}
+
+{% block main %}
+
+
+<table width="100%" class="table table-bordered table-hover small" id="dataTables">
+    <thead> 
+        <tr> 
+            <th class="col-xs-2">Title</th>
+            <th class="col-xs-7 no-sort">Data</th>  
+            <th class="col-xs-2">Contributors</th> 
+            <th class="col-xs-1 no-sort">Edit</th> 
+        </tr> 
+    </thead> 
+    <tbody> 
+        {% for document in documents %}
+            {% set own = [] %}
+            {% for user in document.users %}
+                {% if user.id == user_id %}
+                    {% if own.append(1) %}{% endif %}
+                {% endif %}
+            {% endfor %}
+            <tr class="data-container document id load-hand" data-id="{{document.id}}" data-my="{% if own %}1{% endif %}" data-toggle="collapse" data-target="#hands-{{document.id}}"> 
+                <td class="col-md-2">
+                  <span class="data-container document meta_title">
+                      <a href="{{document.url}}" target="_blank" style="color:#333">{{document.meta_title}}</a>
+                  </span></td> 
+                
+                <td class="col-md-7">
+                    <table style="margin-bottom:10px" class="table-fixed">
+                        <tr>
+                            <td class="col-md-2">
+                                
+                                <i class="fa fa-calendar"></i>
+                                <i class="fa fa-angle-right"></i>
+                                <span class="data-container document meta_date_not_before">
+                                    {% if xstr(document.meta_date_not_before) != '' %}
+                                        {{ xstr(document.meta_date_not_before) }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td class="col-md-2">
+                                
+                                <i class="fa fa-calendar"></i>
+                                <i class="fa fa-angle-left"></i>
+                                <span class="data-container document meta_date_not_after">
+                                    {% if xstr(document.meta_date_not_after) != '' %}
+                                        {{ xstr(document.meta_date_not_after) }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td class="col-md-6">
+                                <i class="fa fa-globe"></i>
+                                <span class="data-container document meta_provenience">
+                                    {% if xstr(document.meta_provenience) != '' %}
+                                        {{ xstr(document.meta_provenience) }}
+                                    {% endif %}
+                                </span>
+                            </td>
+                            <td class="col-md-2 small">
+                                <i class="fa fa-hand-paper-o"></i> {{document.hands.count()}} {% set count = [0] %} {% for hand in document.hands %}{% for layertb in hand.layertreebanks %}{% if xstr(layertb.body) != "" %}{% if count.append(count.pop() + 1) %}{% endif %}{% endif %}{% endfor %}{% endfor %} {% if count.0 > 0 %}<i class="fa fa-sitemap"></i> {{count.0}}{% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="hands-{{document.id}}" class="collapse"></table>
+                </td> 
+                <td class="col-md-2 contributor-cell" data-search="{% if own %}# You {% endif %} {% for user in document.users %}{{user.name}} {% endfor %}" data-order="{% if own %}0{% else %}{% for user in document.users %}{{user.name.split(' ')[1]}} {% endfor %}{% endif %}">
+                    <span class="data-container document users hidden">{% for user in document.users %}{{user.id}} {% endfor %}</span>
+                    {% for user in document.users %}
+                        <span class="user">
+                            {% if user.id == user_id %}
+                                <span class="text-muted">You</span>
+                            {% else %}
+                                {{user.name}}
+                            {% endif %}
+                        </span>
+                    {% endfor %}
+                </td>
+                <td class="col-md-1">
+                    {% if own %}
+                        <a href="#" class="operation edit" data-toggle="modal" data-target="#edit_document" data-model="document"><i class="fa fa-cog"></i></a>
+                        <a href="#" class="operation edit_users" data-toggle="modal" data-target="#edit_document_users" data-model="document"><i class="fa fa-user"></i></a>
+                        <a href="#" class="operation delete" data-toggle="modal" data-target="#delete_document" data-model="document"><i class="fa fa-close"></i></a>
+                    {% endif %}
+                </td>
+            </tr> 
+        {% endfor %}
+    </tbody> 
+</table> 
+
+<div id="add_document" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add document</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>XML Document URL</strong><small class="pull-right">Example: <em>http://papyri.info/ddbdp/p.petra;1;1/source</em></small></p>
+                <p><input class="data-sender url form-control" type="text"></p>
+                <input type="hidden" class="data-sender model">
+                <input type="hidden" class="data-sender operation">
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning save">Import to Sematia</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="delete_document" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete document</h4>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you wish to delete this document?</p>
+                <small>This will also remove layers and treebanks.</small>
+                <input type="hidden" class="data-sender id">
+                <input type="hidden" class="data-sender model">
+                <input type="hidden" class="data-sender operation">
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger delete">Yes</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="edit_document_users" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add or remove contributors</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Current contributors</strong></p>
+                <ul class="current-contributors list-group">
+
+                </ul>
+                <p><strong>Add contributor</strong></p>
+                <p><input class="user-selector form-control" type="text"></p>
+                <input type="hidden" class="data-sender id">
+                <input type="hidden" class="data-sender users">
+                <input type="hidden" class="data-sender model">
+                <input type="hidden" class="data-sender operation">
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit_document" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit document</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Title</strong></p>
+                <p><input class="data-sender meta_title form-control" type="text"></p>
+                <p><strong>Date, not before</strong></p>
+                <p><input class="data-sender meta_date_not_before form-control" type="text"></p>
+                <p><strong>Date, not after</strong></p>
+                <p><input class="data-sender meta_date_not_after form-control" type="text"></p>
+                <p><strong>Provenience</strong></p>
+                <p><input class="data-sender meta_provenience form-control" type="text"></p>
+
+                <input type="hidden" class="data-sender id">
+                <input type="hidden" class="data-sender model">
+                <input type="hidden" class="data-sender operation">
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="update_treebank" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Treebank</h4>
+            </div>
+            <div class="modal-body" class="xml" id="treebank">
+                <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" class="data-sender id" value="">
+                <input type="hidden" class="data-sender status" value="">
+                <input type="hidden" class="data-sender operation" value="">
+                <input type="hidden" class="data-sender model" value="">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                {% if user_role and user_role > 1 %}<button type="button" class="approval">Approve</button>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit_hand" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit hand</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Handwriting</h4>
+                <p><strong>Description in the edition:</strong></p>
+                <p><input class="data-sender meta_handwriting_description_edition form-control" type="text"></p>
+                <p><strong>Custom description:</strong></p>
+                <p><input class="data-sender meta_handwriting_description_custom form-control" type="text"></p>
+                <p><strong>Professional:</strong></p>
+                <p><select class="data-sender meta_handwriting_professional form-control">
+                    {% for key, val in config.METADATA_VALUES.meta_handwriting_professional %}
+                      <option value="{{key}}">{{val}}</option>
+                    {% endfor %}
+                </select></p>
+                <p><strong>Same hand in other documents:</strong></p>
+                <p><input class="data-sender meta_handwriting_same_hand form-control" type="text"></p>
+
+                <h4>Writer and author</h4>
+                <p><strong>Actual writer (name):</strong></p>
+                <p><input class="data-sender meta_writer_name form-control" type="text"></p>
+                <p><strong>Actual writer (title):</strong></p>
+                <p><input class="data-sender meta_writer_title form-control" type="text"></p>
+                <p><strong>Scribal official (name):</strong></p>
+                <p><input class="data-sender meta_scribal_name form-control" type="text"></p>
+                <p><strong>Scribal official (title):</strong></p>
+                <p><input class="data-sender meta_scribal_title form-control" type="text"></p>
+                <p><strong>Author (name):</strong></p>
+                <p><input class="data-sender meta_author_name form-control" type="text"></p>
+                <p><strong>Author (title):</strong></p>
+                <p><input class="data-sender meta_author_title form-control" type="text"></p>
+
+                <h4>Text type</h4>
+                <p><select class="data-sender meta_text_type form-control">
+                    {% for key, val in config.METADATA_VALUES.meta_text_type %}
+                      <option value="{{key}}" {% if key=="SEPARATOR" %}disabled{% endif %}>{% if key=="SEPARATOR" %}──────────{% else%}{{val}}{% endif %}</option>
+                    {% endfor %}
+                </select></p>
+
+                <h4>Addressee</h4>
+                <p><select class="data-sender meta_addressee form-control">
+                  {% for key, val in config.METADATA_VALUES.meta_addressee %}
+                    <option value="{{key}}">{{val}}</option>
+                  {% endfor %}
+                </select></p>
+                <p><strong>Name:</strong></p>
+                <p><input class="data-sender meta_addressee_name form-control" type="text"></p>
+                <p><strong>Title:</strong></p>
+                <p><input class="data-sender meta_addressee_title form-control" type="text"></p>
+                <input type="hidden" class="data-sender id">
+                <input type="hidden" class="data-sender model">
+                <input type="hidden" class="data-sender operation">
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{{super()}}
+
+<script>
+
+var table;
+
+$(document).ready(function() {
+    table = $("#dataTables").DataTable({
+        responsive: true,
+        "order": [[ 0, "asc" ]],
+        "columnDefs": [ {
+            "targets"  : 'no-sort',
+            "orderable": false,
+        }],
+        "pageLength": 50
+    });
+
+    $('.my-contributions').click(function(e) {
+        e.preventDefault();
+        $(this).blur();
+
+        if ($(this).is('.up')) {
+            table.search('').columns().search('').draw();
+            $(this).text('My contributions');
+            $(this).removeClass('active');
+        } else {
+            table.columns(2).search('#').draw();
+            $(this).text('All documents');
+            $(this).addClass('up')
+        }
+    })
+});
+
+$(document).on('show.bs.modal', function (e) {
+    var target = e.target;
+    var source = e.relatedTarget;
+    var model = $(source).data('model');
+    var operation = $(source).attr('class').split(' ')[1];
+    var datasource = $(source).closest('.data-container.id.'+model)
+    var id = datasource.data('id');
+    $(target).find('.data-sender.id').val(id);
+    $(target).find('.data-sender.model').val(model);
+    $(target).find('.data-sender.operation').val(operation);
+    datasource.find('.data-container.'+model).each(function() {
+        var field = $(this).attr('class').split(' ')[2];
+        var val = $(this).text().trim();
+        if ($(this).data('override_value')) {
+            val = $(this).data('override_value');
+        }
+        $(target).find('.data-sender.'+field).val(val).change();
+    })
+    $(target).find('.messages').removeClass('label-danger, label-success').text('');
+
+    if (operation == 'get_treebank') {
+        $('#treebank').html('<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>');
+        getTreebank(id);
+    }
+
+});
+
+$(document).on('click', '.load-hand', function(e) {
+    var t = $(e.target);
+    if (t.is('td, tr')) {
+        var id = $(this).data('id');
+        var my = $(this).data('my');
+        t.removeClass('load-hand');
+        t.closest('tr').removeClass('load-hand');
+        $.ajax({
+            data:{id:id, my:my}, 
+            type: 'POST', 
+            url: $SCRIPT_ROOT + 'get_hands',
+            success: function(data) { 
+                $('table[id="hands-'+id+'"]').html(data);
+            }
+        })
+    }
+});
+
+$(document).on('click', '.operation, a, button', function(e) {
+    e.stopPropagation();
+});
+
+$(document).on('click', '.modal .save, .modal .delete', function(e) {
+    var data = {};
+    var modal = $(this).closest('.modal');
+    var action = modal.attr('id');
+    var data_senders = modal.find('.data-sender');
+
+    data_senders.each(function() {
+        key = $(this).attr('class').split(' ')[1];
+        if ($(this).is('select')) {
+            data[key+'-select'] = $(this).find('option:selected').text();
+        }
+        data[key] = $(this).val().trim();
+    });
+    senddata(action, data);
+});
+
+function senddata(action, data) {
+    var dataSettings = (typeof data == "object" && data.constructor.name == "FormData")
+        ? {processData:false,contentType:false} : {},
+        retval,
+        settings = {
+        type: 'POST',
+        url: $SCRIPT_ROOT + action,
+        dataType: 'json',
+        data:data,
+        success: function(ret) { 
+            onSuccess(ret, data)
+        }
+    }
+    $.ajax($.extend(settings, dataSettings));
+}
+
+function onSuccess(ret, data) {
+    if (ret.status == 'ok') {
+        var op = data['operation'];
+        var model = data['model'];
+        var id = data['id'];
+        if (op == 'edit') {
+
+            delete data['model'];
+            delete data['id'];
+
+            for (field in data) {
+                var element = $('.data-container.id.'+model+'[data-id="'+id+'"]').find('.data-container.'+field);
+                if (element.attr('data-override_value')) {
+                    element.attr('data-override_value', data[field]);
+                    element.text(data[field+'-select']);
+                } else {
+                    element.text(data[field]);
+                }
+
+                if (model == 'hand') {
+
+                    if (data[field] && data[field] != '') {
+                        element.closest('tr').removeClass('hidden');
+                    } else {
+                        element.closest('tr').addClass('hidden');
+                    }
+                }
+
+            }
+        } else if (op == 'delete') {
+            $('.data-container.id.'+model+'[data-id="'+id+'"]').remove();
+        } else if (op == 'get_treebank') {
+            var status = data['status'] == '0' ? 1 : 0;
+            var element = $('.data-container.id.'+model+'[data-id="'+id+'"]');
+            element.find('.status').text(status);
+            element.find('.approved-sign, .unapproved-sign').remove();
+            if (status == 1) {
+                element.find('.status').before('<span class="approved-sign" title="Approved"><i class="fa fa-lock" aria-hidden="true"></i></span>');
+            } else {
+                element.find('.status').before('<span class="unapproved-sign" title="Not yet approved"><i class="fa fa-unlock" aria-hidden="true"></i></span>');
+            }
+            
+        } else if (op == 'add' && model == 'document') {
+            location.reload();
+        }
+
+
+        $('.modal.in').modal('toggle');
+
+    } else {
+        $('.modal.in .label').addClass('label-danger').text(ret.message);
+    }
+}
+
+$('#edit_document_users input.users').bind('change', function() {
+    $('.current-contributors').empty();
+    $('.user-selector').val('').empty();
+    ids = $(this).val().trim().split(' ');
+    $.ajax({
+        data:{ids:ids}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'get_contributors',
+        success: function(data) { 
+
+            for (i in data.contributors) {
+                d = data.contributors[i];
+                html = '<li class="list-group-item" data-id="'+d['id']+'" data-you="'+d['you']+'">'+d.name;
+
+                if (d['you'] != 1) {
+
+                    html += '<a href="#" class="remove-contributor"><i class="fa fa-close"></i></a>';
+                }
+                $('.current-contributors').append(html)
+            }
+
+            var source = data.all_users;
+            $('.user-selector').autocomplete({
+                source: source,
+                select: function( event, ui ) {
+                    var document_id = $('#edit_document_users input.id').val();
+                    var id = ui.item['value'];
+                    var name = ui.item['label'];
+
+                    $.ajax({
+                        data:{id:id, document_id:document_id}, 
+                        type: 'POST', 
+                        url: $SCRIPT_ROOT + 'add_contributor',
+                        success: function(data) { 
+                            if (data.status == 'ok') {
+                                html = '<li class="list-group-item" data-id="'+id+'" data-you="0">'+name;
+                                html += '<a href="#" class="remove-contributor"><i class="fa fa-close"></i></a>';
+
+                                $('.current-contributors').append(html);
+                                
+                                updateContributors();
+                            }
+
+                            $('.user-selector').val('').empty();
+                        }
+                    })
+
+                }
+            });
+        }
+    })
+});
+
+function getTreebank(id) {
+    $.ajax({
+        data:{id:id}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'get_treebank',
+        success: function(data) { 
+            if (data.data) {
+                var editor = $('#treebank')[0];
+                var docSpec = { 
+                    elements: {
+                        "annotator": { 
+                            collapsed: function(jsElement){return true;}
+                        },
+                        "date": { 
+                            collapsed: function(jsElement){return true;}
+                        },
+                    }
+                }
+                try {
+                    Xonomy.render(data.data, editor, docSpec);
+                } catch(err) {
+                    console.log(err.message);  
+                }  
+            }
+            if (data.approve) {
+                $('button.approval').attr('class', 'btn approval save btn-danger').text('Disapprove');
+            } else {
+                $('button.approval').attr('class', 'btn approval save btn-success').text('Approve');
+            }
+        }
+    });
+}
+
+$(document).on('click', '.remove-contributor', function(e) {
+    e.preventDefault();
+    var document_id = $('#edit_document_users input.id').val();
+    var id = $(e.target).closest('li').data('id');
+    $.ajax({
+        data:{id:id, document_id:document_id}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'remove_contributor',
+        success: function(data) { 
+            if (data.status == 'ok') {
+                $(e.target).closest('li').remove();
+
+                updateContributors();
+            }
+        }
+    })
+});
+
+function updateContributors() {
+    var document_id = $('#edit_document_users input.id').val();
+    var element = $('.data-container.document.id[data-id="'+document_id+'"] .contributor-cell');
+    element.find('.data-container.document.users').empty();
+    element.find('.user').remove();
+
+    $('.current-contributors li').each(function(){
+        var id = $(this).data('id');
+        var you = $(this).data('you');
+        element.find('.data-container.document.users').append(id+' ');
+        if (you == 1) {
+            element.append('<span class="user"><span class="text-muted">You </span> </span> ');
+        } else {
+            element.append('<span class="user">'+$(this).text()+' </span> ');
+        }
+    });
+}
+
+
+
+
+</script>
+
+{% endblock %}

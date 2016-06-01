@@ -1,0 +1,14 @@
+import sys
+import os
+
+from config import VENV_PATH
+
+sys.path.append(VENV_PATH + '/lib/python3.5/site-packages')
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+
+from sematia import app
+
+application = app.app
+
+if __name__ == '__main__':
+    application.run(threaded=True)
