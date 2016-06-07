@@ -21,7 +21,7 @@ def index(id):
     if layertreebank:
         hand = layertreebank.hand
         document = hand.document
-        my = Userdocument.is_my(document.id, session['user_id'])
+        my = Userdocument.get_editable(document.id, session['user_id'])
         return render_template('pages/edit.html', ltb=layertreebank, 
                                 doc=document, my=my, hand=hand)
     else:

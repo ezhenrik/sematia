@@ -15,13 +15,13 @@ class Userdocument():
 
     @staticmethod
     def get_editable(id, user_id):
-        return models.Userdocument.query.filter_by(document_id=document_id, 
+        return models.Userdocument.query.filter_by(document_id=id, 
                     user_id=user_id).first() or session['user_admin']
 
     @staticmethod
     def add(user_id, document_id):
         try:
-            if Document.get_editable(document_id):
+            if Document.get_editable(document_id, user_id):
                 userdocument = models.Userdocument.query.filter_by(
                     document_id=document_id, user_id=user_id).first()
                 if not userdocument:
