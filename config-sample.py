@@ -15,6 +15,7 @@ SECRET_KEY = 'xxxxxx'
 
 # Database settings
 SQLALCHEMY_DATABASE_URI = 'mysql://user:password/database'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Google client ID
 GOOGLE_CLIENT_ID = ''

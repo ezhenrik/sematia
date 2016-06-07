@@ -1,7 +1,7 @@
 import os
 import logging
 
-from flask import Flask, redirect, request, session, url_for, g
+from flask import Flask, redirect, request, session, url_for
 from flask.ext.bootstrap import Bootstrap
 
 from .models import db

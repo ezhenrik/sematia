@@ -1,22 +1,25 @@
 {% extends "layouts/normal.html" %}
 
 {% block title %}Documents{% endblock %}
+
 {% block titlehtml %}
+
  <a class="operation add btn btn-default add-document" href="" data-toggle="modal" data-target="#add_document" data-model="document"> 
     New <i class="fa fa-cloud-upload" aria-hidden="true"></i>
 </a>
  <a class="add btn btn-default my-contributions" href="">
     Your contributions
 </a>
+
 {% endblock %}
 
-
 {% block sidebar %}
+
   <p><strong>Documents, <br>layers &<br>treebanks</strong></p>
+
 {% endblock %}
 
 {% block main %}
-
 
 <table width="100%" class="table table-bordered table-hover small" id="dataTables">
     <thead> 
@@ -592,9 +595,6 @@ function updateContributors() {
         $('.modal.in').modal('toggle');
     }
 }
-
-
-
 
 </script>
 
