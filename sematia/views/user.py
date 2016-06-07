@@ -45,4 +45,5 @@ def tokensignin():
     session['user_name'] = idinfo['name']
     session['user_id'] = user.id
     session['user_role'] = user.role
+    session['user_admin'] = user.role > 1
     return url_for('documents.index')

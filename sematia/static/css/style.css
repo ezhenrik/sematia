@@ -129,6 +129,9 @@ body {
     font-size: 16px;
     margin-left:10px;
 }
+.treebank-link:focus {
+    color:#333;
+}
 .approved-sign {
     color:#4cae4c;
     margin-left:5px;
@@ -158,8 +161,15 @@ tr.hand table tr td:first-child {
     color:#333;
 }
 
+.current-contributors > li:only-child a {
+    display:none;
+}
+
 .remove-contributor {
     float:right;
+    color:#333;
+}
+.remove-contributor:focus {
     color:#333;
 }
 

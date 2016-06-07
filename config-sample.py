@@ -19,9 +19,6 @@ SQLALCHEMY_DATABASE_URI = 'mysql://user:password/database'
 # Google client ID
 GOOGLE_CLIENT_ID = ''
 
-# Allowed upload ypes 
-ALLOWED_EXTENSIONS = ['txt','xml','xsl']
-
 # Hand metadata fields
 METADATA_VALUES = {
     'meta_handwriting_professional': [

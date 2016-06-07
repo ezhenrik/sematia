@@ -35,7 +35,7 @@
                     {% if own.append(1) %}{% endif %}
                 {% endif %}
             {% endfor %}
-            <tr class="data-container document id load-hand" data-id="{{document.id}}" data-my="{% if own %}1{% endif %}" data-toggle="collapse" data-target="#hands-{{document.id}}"> 
+            <tr class="data-container document id load-hand" data-id="{{document.id}}" data-my="{% if own or admin %}1{% endif %}" data-toggle="collapse" data-target="#hands-{{document.id}}"> 
                 <td class="col-md-2">
                   <span class="data-container document meta_title">
                       <a href="{{document.url}}" target="_blank" style="color:#333">{{document.meta_title}}</a>
@@ -92,7 +92,7 @@
                     {% endfor %}
                 </td>
                 <td class="col-md-1">
-                    {% if own %}
+                    {% if own or admin %}
                         <a href="#" class="operation edit" data-toggle="modal" data-target="#edit_document" data-model="document"><i class="fa fa-cog"></i></a>
                         <a href="#" class="operation edit_users" data-toggle="modal" data-target="#edit_document_users" data-model="document"><i class="fa fa-user"></i></a>
                         <a href="#" class="operation delete" data-toggle="modal" data-target="#delete_document" data-model="document"><i class="fa fa-close"></i></a>
@@ -304,6 +304,7 @@
 <script>
 
 var table;
+var admin = '{{admin}}' == 'True';
 
 $(document).ready(function() {
     table = $("#dataTables").DataTable({
@@ -315,21 +316,6 @@ $(document).ready(function() {
         }],
         "pageLength": 50
     });
-
-    $('.my-contributions').click(function(e) {
-        e.preventDefault();
-        $(this).blur();
-
-        if ($(this).is('.up')) {
-            table.search('').columns().search('').draw();
-            $(this).text('My contributions');
-            $(this).removeClass('active');
-        } else {
-            table.columns(2).search('#').draw();
-            $(this).text('All documents');
-            $(this).addClass('up')
-        }
-    })
 });
 
 $(document).on('show.bs.modal', function (e) {
@@ -481,10 +467,7 @@ $('#edit_document_users input.users').bind('change', function() {
                 d = data.contributors[i];
                 html = '<li class="list-group-item" data-id="'+d['id']+'" data-you="'+d['you']+'">'+d.name;
 
-                if (d['you'] != 1) {
-
-                    html += '<a href="#" class="remove-contributor"><i class="fa fa-close"></i></a>';
-                }
+                html += '<a href="#" class="remove-contributor"><i class="fa fa-close"></i></a>';
                 $('.current-contributors').append(html)
             }
 
@@ -502,7 +485,7 @@ $('#edit_document_users input.users').bind('change', function() {
                         url: $SCRIPT_ROOT + 'add_contributor',
                         success: function(data) { 
                             if (data.status == 'ok') {
-                                html = '<li class="list-group-item" data-id="'+id+'" data-you="0">'+name;
+                                html = '<li class="list-group-item" data-id="'+id+'" data-you="'+(+data.owner)+'">'+name;
                                 html += '<a href="#" class="remove-contributor"><i class="fa fa-close"></i></a>';
 
                                 $('.current-contributors').append(html);
@@ -571,22 +554,43 @@ $(document).on('click', '.remove-contributor', function(e) {
     })
 });
 
+$(document).on('click', '.my-contributions', function(e) {
+    e.preventDefault();
+    $(this).blur();
+
+    if ($(this).is('.up')) {
+        table.search('').columns().search('').draw();
+        $(this).text('My contributions');
+        $(this).removeClass('up');
+    } else {
+        table.columns(2).search('#').draw();
+        $(this).text('All documents');
+        $(this).addClass('up')
+    }
+})
+
 function updateContributors() {
     var document_id = $('#edit_document_users input.id').val();
     var element = $('.data-container.document.id[data-id="'+document_id+'"] .contributor-cell');
     element.find('.data-container.document.users').empty();
     element.find('.user').remove();
-
+    owner = false;
     $('.current-contributors li').each(function(){
+        console.log($(this).data());
         var id = $(this).data('id');
         var you = $(this).data('you');
         element.find('.data-container.document.users').append(id+' ');
         if (you == 1) {
+            owner = true;
             element.append('<span class="user"><span class="text-muted">You </span> </span> ');
         } else {
             element.append('<span class="user">'+$(this).text()+' </span> ');
         }
     });
+
+    if (!owner && !admin) {
+        $('.modal.in').modal('toggle');
+    }
 }
 
 

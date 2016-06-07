@@ -32,8 +32,9 @@ def before_request():
         and request.endpoint != 'user.logout' \
         and '/static/' not in request.path:
             return redirect(url_for('user.index'))
-    elif 'user_name' in session:
-        g.user = session['user_name']
+    else:
+        if 'user_role' not in session or 'user_admin' not in session:
+            session.clear()
 
 @app.route('/')
 def index():
