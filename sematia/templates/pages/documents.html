@@ -82,7 +82,7 @@
                     </table>
                     <table id="hands-{{document.id}}" class="collapse"></table>
                 </td> 
-                <td class="col-md-2 contributor-cell" data-search="{% if own %}# You {% endif %} {% for user in document.users %}{{user.name}} {% endfor %}" data-order="{% if own %}0{% else %}{% for user in document.users %}{{user.name.split(' ')[1]}} {% endfor %}{% endif %}">
+                <td class="col-md-2 contributor-cell" data-search="{% if own %}# You {% endif %} {% for user in document.users %}{{user.name}} {% endfor %}" data-order="{% if own %}0{% else %}{% for user in document.users %}{{user.name.split(' ')[1]}} {% endfor %}{% endif %}" data-owner="{% if own or admin %}1{% else %}0{% endif %}">
                     <span class="data-container document users hidden">{% for user in document.users %}{{user.id}} {% endfor %}</span>
                     {% for user in document.users %}
                         <span class="user">
@@ -100,6 +100,7 @@
                         <a href="#" class="operation edit_users" data-toggle="modal" data-target="#edit_document_users" data-model="document"><i class="fa fa-user"></i></a>
                         <a href="#" class="operation delete" data-toggle="modal" data-target="#delete_document" data-model="document"><i class="fa fa-close"></i></a>
                     {% endif %}
+                    <a href="#" class="operation add messages" data-toggle="modal" data-target="#show_messages" data-model="document"><i class="fa fa-envelope{% if document.messages %}-o{% endif %}"></i></a>
                 </td>
             </tr> 
         {% endfor %}
@@ -232,6 +233,34 @@
     </div>
 </div>
 
+<div id="show_messages" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Discussion</h4>
+            </div>
+            <div class="modal-body">
+                <p><strong>Comments</strong></p>
+                <ul class="current-messages list-group list-unstyled">
+                </ul>
+                <div class="new-message" style="display:none;">
+                    <p><strong>Add Comment</strong></p>
+                    <p><textarea class="form-control comment-text"></textarea></p>
+                    <input type="hidden" class="data-sender id">
+                    <input type="hidden" class="data-sender model">
+                    <input type="hidden" class="data-sender operation">
+                    <p><button type="button" class="btn btn-warning add-message">Add</button></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span class="messages label"></span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="edit_hand" class="modal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -308,6 +337,7 @@
 
 var table;
 var admin = '{{admin}}' == 'True';
+var user = '{{session["user_name"]}}';
 
 $(document).ready(function() {
     table = $("#dataTables").DataTable({
@@ -328,7 +358,7 @@ $(document).on('show.bs.modal', function (e) {
     var operation = $(source).attr('class').split(' ')[1];
     var datasource = $(source).closest('.data-container.id.'+model)
     var id = datasource.data('id');
-    $(target).find('.data-sender.id').val(id);
+    $(target).find('.data-sender.id').val(id).change();
     $(target).find('.data-sender.model').val(model);
     $(target).find('.data-sender.operation').val(operation);
     datasource.find('.data-container.'+model).each(function() {
@@ -506,6 +536,41 @@ $('#edit_document_users input.users').bind('change', function() {
     })
 });
 
+$('#show_messages input.id').bind('change', function() {
+    var id = $(this).val().trim();
+    var target = $('.current-messages');
+    var source = $('.data-container.document.id[data-id="'+id+'"] .contributor-cell');
+    if (source.data('owner') == 1) {
+        $('.new-message').show();
+    } else {
+        $('.new-message').hide();
+    }
+    target.empty();
+    $.ajax({
+        data:{id:id}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'get_messages',
+        success: function(data) { 
+            console.log(data.messages);
+
+            if (data.messages) {
+
+                for (i in data.messages) {
+                    m = data.messages[i];
+                    operations = '';
+                    if (m.owner || admin) {
+                        operations = '<span class="pull-right"><a href="#" class="delete-message" data-id="'+m.id+'"><i class="fa fa-close"></i></a></span>'
+                    }
+                    html = '<li><div class="panel panel-default"><div class="panel-heading"><strong>'+m.user+'</strong><span class="small text-muted pull-right">'+m.created+operations+'</div><div class="panel-body comment-text">'+m.body+'</div></div></li>';
+                    $('.current-messages').append(html)
+                }
+            } else {
+                target.html('<li class="text-muted no-messages">No discussion yet.</li>')
+            }
+        }
+    });
+});
+
 function getTreebank(id) {
     $.ajax({
         data:{id:id}, 
@@ -586,15 +651,57 @@ function updateContributors() {
         if (you == 1) {
             owner = true;
             element.append('<span class="user"><span class="text-muted">You </span> </span> ');
+            element.data('owner', 1);
         } else {
             element.append('<span class="user">'+$(this).text()+' </span> ');
         }
     });
 
     if (!owner && !admin) {
+        $('.data-container.document.id[data-id="'+document_id+'"] .operation:not(.messages)').remove();
+        element.data('owner', 0);
         $('.modal.in').modal('toggle');
     }
 }
+
+$(document).on('click', '.add-message', function(e) {
+    e.preventDefault();
+    var id = $('#show_messages input.id').val();
+    var body = $('#show_messages textarea').val();
+    console.log(body);
+    $.ajax({
+        data:{id:id, body:body}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'add_message',
+        success: function(data) { 
+            if (data.status == 'ok') {
+                $('.no-messages').remove();
+                $('textarea.comment-text').val('').empty();
+                html = '<li><div class="panel panel-default"><div class="panel-heading"><strong>'+user+'</strong><span class="small text-muted pull-right">'+data.created+'<span class="pull-right"><a href="#" class="delete-message" data-id="'+data.id+'"><i class="fa fa-close"></i></a></span></div><div class="panel-body comment-text">'+data.body+'</div></div></li>';
+                $('.current-messages').append(html)            
+            }
+        }
+    })
+});
+
+$(document).on('click', '.delete-message', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        data:{id:id}, 
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'delete_message',
+        success: function(data) { 
+            if (data.status == 'ok') {
+                $('.delete-message[data-id="'+id+'"]').closest('li').remove();
+
+                if (!$('.current-messages li').length) {
+                    $('.current-messages').html('<li class="text-muted no-messages">No discussion yet.</li>')
+                }
+            }
+        }
+    })
+});
 
 </script>
 

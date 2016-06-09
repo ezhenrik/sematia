@@ -5,7 +5,6 @@ from sqlalchemy.orm import mapper
 
 db = SQLAlchemy()
 
-
 userdocument = db.Table('userdocument',
                    db.Column('id', db.Integer, primary_key=True),
                    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -28,8 +27,6 @@ class User(db.Model):
     auth_provider = db.Column(db.String(80))
     created = db.Column(db.DateTime, default=datetime.today())
     role = db.Column(db.Integer)
-    #documents = db.relationship('Document', backref='user',
-    #                            lazy='dynamic')
 
     def __init__(self, name, role, auth_id, auth_provider):
         self.name = name
@@ -55,6 +52,9 @@ class Document(db.Model):
                              lazy='dynamic')
     users = db.relationship('User', secondary=userdocument,
         backref=db.backref('documents', lazy='dynamic'))
+
+    messages = db.relationship('Message', backref='document',
+                                cascade="all, delete-orphan")
 
     def __init__(self, url, html, title, date_not_before, 
             date_not_after, provenience):
@@ -113,3 +113,18 @@ class Layertreebank(db.Model):
         self.name = name
         self.type = type
         self.hand_id = hand_id
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.UnicodeText(4294967295))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    document_id = db.Column(db.Integer, db.ForeignKey('document.id'))
+    created = db.Column(db.DateTime, default=datetime.today())
+    updated = db.Column(db.DateTime)
+    user = db.relationship('User', backref='message')
+
+
+    def __init__(self, body, user_id, document_id):
+        self.body = body
+        self.user_id = user_id
+        self.document_id = document_id

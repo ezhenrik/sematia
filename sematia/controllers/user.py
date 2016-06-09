@@ -11,6 +11,10 @@ db = models.db
 class User():
 
     @staticmethod
+    def get(id):
+        return models.User.query.get(id)
+
+    @staticmethod
     def get_contributors(ids):
         contributors = []
         all_users = []

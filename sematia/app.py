@@ -26,15 +26,16 @@ if app.config['LOG']:
 # Check user before each request
 @app.before_request
 def before_request():
-    if 'user_id' not in session \
-        and request.endpoint != 'user.index' \
-        and request.endpoint != 'user.tokensignin' \
-        and request.endpoint != 'user.logout' \
-        and '/static/' not in request.path:
-            return redirect(url_for('user.index'))
-    else:
-        if 'user_role' not in session or 'user_admin' not in session:
-            session.clear()
+    if ('user_id' not in session 
+                or 'user_role' not in session 
+                or 'user_name' not in session 
+                or 'user_admin' not in session) and \
+                request.endpoint not in ['user.index', 
+                                         'user.tokensignin', 
+                                         'user.logout'] and \
+                '/static/' not in request.path:
+        session.clear()
+        return redirect(url_for('user.index'))
 
 @app.route('/')
 def index():

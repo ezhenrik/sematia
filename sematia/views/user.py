@@ -37,12 +37,14 @@ def tokensignin():
     user = User.query.filter_by(auth_id=userid).first()
     if user:
         user.name = idinfo['name']
+        if not user.role:
+            user.role = 0
     else:
         user = User(idinfo['name'], 1, userid, 'google')
         db.session.add(user)
     db.session.commit()
 
-    session['user_name'] = idinfo['name']
+    session['user_name'] = user.name
     session['user_id'] = user.id
     session['user_role'] = user.role
     session['user_admin'] = user.role > 1

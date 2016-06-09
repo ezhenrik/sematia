@@ -12,15 +12,18 @@
     }   
 }
 
-@media(min-width:768px) {
+@media(min-width:992px) {
     #page-wrapper {
         margin-left:175px;
     }
 }
 
-@media(max-width:767px) {
+@media(max-width:991px) {
     .sidebar {
         display:none;
+    }
+    #page-wrapper {
+        margin-left:0;
     }
 }
 
@@ -95,6 +98,11 @@ body {
     color: #333;
 }
 
+.dropdown-messages {
+    max-height:400px;
+    overflow:scroll;
+}
+
 .sidebar {
     width:175px;
 }
@@ -151,8 +159,8 @@ tr.hand table tr td:first-child {
 
 .operation {
     color: #333;
-    font-size: 13px;
-    padding: 0 1px;
+    font-size: 12px;
+    padding: 0 0px;
     display: inline-block;
     line-height: 30px;
 }
@@ -576,4 +584,28 @@ a.add-document {
     float: right;
     font-weight: 500;
     padding: 0 14px;
+}
+a.delete-message {
+    color:#333;
+    margin-left:5px;
+}
+
+.comment-text {
+    font-weight:300;
+}
+
+.dropdown-messages li.message {
+    padding:10px;
+}
+
+.dropdown-messages .well {
+    font-weight:300;
+    font-size: 13px;
+}
+
+.dropdown-messages .divider {
+    height: 1px;
+    margin: 0px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
 }

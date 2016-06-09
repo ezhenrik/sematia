@@ -6,9 +6,9 @@ from . import document
 from .. import models
 from ..utils import log
 
-Log = log.Log
-Document = document.Document
 db = models.db
+Document = document.Document
+Log = log.Log
 
 class Hand():
 

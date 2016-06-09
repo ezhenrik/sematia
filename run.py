@@ -7,7 +7,6 @@ from config import VENV_PATH
 
 sys.path.append(VENV_PATH + '/lib/python3.5/site-packages')
 
-
 from sematia import app
 
 application = app.app

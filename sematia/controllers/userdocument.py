@@ -10,8 +10,12 @@ db = models.db
 Document = document.Document
 Log = log.Log
 
-
 class Userdocument():
+
+    @staticmethod
+    def get_contributor_ids(doc_id):
+        return [d.user_id for d in models.Userdocument.query \
+            .filter_by(document_id=doc_id).all()]
 
     @staticmethod
     def get_editable(id, user_id):
@@ -21,7 +25,7 @@ class Userdocument():
     @staticmethod
     def add(user_id, document_id):
         try:
-            if Document.get_editable(document_id, user_id):
+            if Document.get_editable(document_id):
                 userdocument = models.Userdocument.query.filter_by(
                     document_id=document_id, user_id=user_id).first()
                 if not userdocument:

@@ -4,12 +4,13 @@ import traceback
 from flask import Blueprint, render_template, session, jsonify, redirect, \
                   url_for, request
 
-from ..controllers import document, hand, layertreebank, user, \
+from ..controllers import document, hand, layertreebank, message, user, \
                           userdocument
 
 Document = document.Document
 Hand = hand.Hand
 Layertreebank = layertreebank.Layertreebank
+Message = message.Message
 User = user.User
 Userdocument = userdocument.Userdocument
 
@@ -22,8 +23,10 @@ def index(id):
         hand = layertreebank.hand
         document = hand.document
         my = Userdocument.get_editable(document.id, session['user_id'])
+        my_messages = Message.get_my()
         return render_template('pages/edit.html', ltb=layertreebank, 
-                                doc=document, my=my, hand=hand)
+                                doc=document, my=my, hand=hand, 
+                                my_messages=my_messages)
     else:
         return redirect(url_for('documents.index'))
 

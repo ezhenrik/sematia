@@ -4,22 +4,25 @@ import traceback
 from flask import Blueprint, render_template, session, jsonify, redirect, \
                   url_for, request
 
-from ..controllers import document, hand, layertreebank, user, \
-                          userdocument
+from ..controllers import document, hand, layertreebank, message, \
+                          user, userdocument
 
 documents = Blueprint('documents', __name__, static_folder='/static')
 
 Document = document.Document
 Hand = hand.Hand
 Layertreebank = layertreebank.Layertreebank
+Message = message.Message
 User = user.User
 Userdocument = userdocument.Userdocument
 
 @documents.route('/')
 def index():
     documents = Document.get_all()
-
+    my_messages = Message.get_my()
+    print(my_messages)
     return render_template('pages/documents.html', documents=documents, 
+                            my_messages=my_messages,
                             user_id=session['user_id'], 
                             admin=session['user_admin'], 
                             user_role=session['user_role']
@@ -129,3 +132,19 @@ def remove_contributor():
     id = request.form.get('id').strip()
     document_id = request.form.get('document_id').strip()
     return jsonify(Userdocument.delete(id, document_id))
+
+@documents.route('/get_messages', methods=['POST'])
+def get_messages():
+    id = request.form.get('id')
+    return jsonify(Message.get_document_messages(id))
+
+@documents.route('/add_message', methods=['POST'])
+def add_message():
+    id = request.form.get('id')
+    body = request.form.get('body')
+    return jsonify(Message.add(id, body))
+
+@documents.route('/delete_message', methods=['POST'])
+def delete_message():
+    id = request.form.get('id')
+    return jsonify(Message.delete(id))
