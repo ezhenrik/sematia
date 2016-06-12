@@ -297,7 +297,9 @@ pre code {
     border:none !important;
 }
 
-.div[data-type="textpart"] {
+.div[data-type="textpart"] {   
+    position:relative;
+    display:block;
 
 }
 

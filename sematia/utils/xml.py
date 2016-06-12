@@ -149,8 +149,8 @@ class Xml():
 
 
         # Remove empty entries
-        dates_not_before = filter(None, dates_not_before)
-        dates_not_after = filter(None, dates_not_after)
+        dates_not_before = list(filter(None, dates_not_before))
+        dates_not_after = list(filter(None, dates_not_after))
 
         if dates_not_before:
             date_not_before = min(dates_not_before)

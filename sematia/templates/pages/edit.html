@@ -254,10 +254,14 @@ function generalFormatting(el) {
     el.find('.lb').each(function() {
         $(this).text($(this).data('n'))
 
-        if ($(this).data('break') == 'no') {
-            $(this).prev('.text').text($(this).prev('.text').text().replace(/[ \n]+$/,''));
-        } else {
-            $(this).prev('.text').text($(this).prev('.text').text().replace(/\s*$/," "));
+        var prevtext = $(this).prev('.text').length ? $(this).prev('.text') : $(this).prev().find('.text');
+        
+        if (prevtext.length) {
+            if ($(this).data('break') == 'no') {
+                prevtext.text(prevtext.text().replace(/[ \n\s]+$/,''));
+            } else {
+                prevtext.text(prevtext.text().replace(/\s*$/," "));
+            }
         }
     });
 
