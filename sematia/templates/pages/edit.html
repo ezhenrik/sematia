@@ -254,7 +254,7 @@ function generalFormatting(el) {
     el.find('.lb').each(function() {
         $(this).text($(this).data('n'))
 
-        var prevtext = $(this).prev('.text').length ? $(this).prev('.text') : $(this).prev().find('.text');
+        var prevtext = $(this).prev('.text').length ? $(this).prev('.text') : $(this).prev().find('.text').last();
         
         if (prevtext.length) {
             if ($(this).data('break') == 'no') {
