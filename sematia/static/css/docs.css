@@ -1,0 +1,20 @@
+.document ol > li {
+    padding-bottom:20px
+}
+
+.document li blockquote {
+    margin-bottom:0px;
+}
+
+.document dl dt {
+    font-weight: normal;
+    margin-bottom:10px;
+}
+
+.document dl dd {
+    margin-left:40px;
+}
+
+.underline {
+  text-decoration: underline;
+}

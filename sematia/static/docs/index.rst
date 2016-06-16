@@ -13,5 +13,6 @@ Contents
    :maxdepth: 2
 
    about
-   installation
    how_to_use
+   installation
+   
