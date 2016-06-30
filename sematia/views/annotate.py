@@ -15,8 +15,8 @@ def index(id):
         plaintext = layertreebank.plaintext
         if plaintext:
             resp = Response(plaintext)
-            resp.headers['Access-Control-Allow-Origin'] = 'http://www.perseids.org'
-            resp.headers['Content-Type'] = 'text/css; charset=utf-8'
+            resp.headers['Access-Control-Allow-Origin'] = '*'
+            resp.headers['Content-Type'] = 'text/plain'
             return resp
         else:
             return ''
