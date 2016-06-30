@@ -1,4 +1,4 @@
-from flask import Blueprint, Response, render_template
+from flask import Blueprint, make_response, render_template
 
 from .. import app
 
@@ -14,10 +14,10 @@ def index(id):
     if layertreebank:
         plaintext = layertreebank.plaintext
         if plaintext:
-            resp = Response()
-            resp.headers['Access-Control-Allow-Origin'] = 'http://www.perseids.org'
-            resp.headers['Content-Type'] = 'text/html; charset=utf-8'
-            return render_template('pages/annotate.txt', plaintext=plaintext)
+            r = make_response(render_template('pages/annotate.txt', plaintext=plaintext))
+            r.headers.set('Access-Control-Allow-Origin', 'http://www.perseids.org')
+            r.headers.set('Content-Type', 'text/html; charset=utf-8')
+            return r
         else:
             return ''
     else:
