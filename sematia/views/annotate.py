@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, Response
 
 from .. import app
 
@@ -14,9 +14,10 @@ def index(id):
     if layertreebank:
         plaintext = layertreebank.plaintext
         if plaintext:
-            return plaintext, 200, 
-                {'Content-Type': 'text/css; charset=utf-8',
-                 'Access-Control-Allow-Origin': 'http://www.perseids.org'}
+            resp = Response(plaintext)
+            resp.headers['Access-Control-Allow-Origin'] = 'http://www.perseids.org'
+            resp.headers['Content-Type'] = 'text/css; charset=utf-8'
+            return resp
         else:
             return ''
     else:
