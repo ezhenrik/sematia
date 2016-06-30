@@ -283,7 +283,7 @@ pre code {
     position: relative;
 }
 
-.glyphicon.copy {
+.text-content .fa {
     color:#563d7c;
     cursor: pointer;
     display: block;

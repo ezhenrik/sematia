@@ -5,7 +5,7 @@ from flask import Flask, redirect, request, session, url_for
 from flask.ext.bootstrap import Bootstrap
 
 from .models import db
-from .views import documents, docs, edit, user, users
+from .views import annotate, documents, docs, edit, user, users
 
 app = Flask(__name__)
 
@@ -16,6 +16,7 @@ app.basedir = os.path.abspath(os.path.dirname(__file__))
 app.register_blueprint(documents.documents, url_prefix='/documents')
 app.register_blueprint(docs.docs, url_prefix='/docs')
 app.register_blueprint(edit.edit, url_prefix='/edit')
+app.register_blueprint(annotate.annotate, url_prefix='/annotate')
 app.register_blueprint(user.user, url_prefix='/user')
 app.register_blueprint(users.users, url_prefix='/users')
 
@@ -32,7 +33,8 @@ def before_request():
                 or 'user_admin' not in session) and \
                 request.endpoint not in ['user.index', 
                                          'user.tokensignin', 
-                                         'user.logout'] and \
+                                         'user.logout',
+                                         'annotate.index'] and \
                 '/static/' not in request.path:
         session.clear()
         return redirect(url_for('user.index'))

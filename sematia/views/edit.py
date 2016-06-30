@@ -51,3 +51,9 @@ def get_treebank():
 def delete_treebank():
     id = request.form.get('id').strip()
     return jsonify(Layertreebank.delete_treebank(id))
+
+@edit.route('/store_plaintext', methods=['POST'])
+def store_plaintext():
+    id = request.form.get('id').strip()
+    text = request.form.get('text').strip()
+    return jsonify(Layertreebank.store_plaintext(id, text))

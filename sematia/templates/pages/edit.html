@@ -132,7 +132,7 @@ function selectText(element) {
 function getTextValues(el, handno) {
     textcontent = '<div class="part">';
     {% if my %}
-    textcontent = '<div class="part"><span class="glyphicon glyphicon-briefcase copy"></span>';
+    textcontent = '<div class="part"><span class="fa fa-paper-plane annotate"></span>';
     {% endif %}
 
     currentHand = 1;
@@ -400,6 +400,9 @@ function enableLayer(layer, el, paths, handno) {
 
     var textContent = getTextValues($('.editorview'), handno);
     $('.text-content').html(textContent);
+    {% if my %}
+    storePlainText($(textcontent).text().trim());
+    {% endif %}
 }
 
 
@@ -521,9 +524,28 @@ function getTreebank(id) {
 }
 
 {% if my %}
+
+var storePlainText = function(text) {
+    var data = {
+        id: {{ltb.id}},
+        text:text,
+    };
+    $.ajax({
+        data:data,
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'store_plaintext',
+        success: function(data) { 
+            console.log('saved');
+        }
+    })
+}
     
 $(document).on('click', '.copy', function() {
     selectText($(this).parent());
+});
+
+$(document).on('click', '.annotate', function() {
+    $(location).attr('href', 'http://www.perseids.org/apps/treebank?text_uri=http://sematia.hum.helsinki.fi/annotate/{{ltb.id}}');
 });
 
 $(document).on('click', '.ab .choice > *, .ab .app > *', function(e) {
@@ -558,6 +580,9 @@ $(document).on('click', '.ab .choice > *, .ab .app > *', function(e) {
         success: function(data) { 
             var textContent = getTextValues($('.editorview'), {{hand.hand_no}});
             $('.text-content').html(textContent);
+            {% if my %}
+            storePlainText($(textContent).text().trim());
+            {% endif %}
         }
     })
 });

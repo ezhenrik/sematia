@@ -86,3 +86,16 @@ class Layertreebank():
             return {'status':'error', 
                             'message': 'Could not retrieve the treebank.'}
         return data
+
+    @staticmethod
+    def store_plaintext(id, text):
+        try:
+            layertreebank = Layertreebank.get_editable(id)
+            if layertreebank:
+                layertreebank.plaintext = text
+                db.session.commit()
+                data = {'status':'ok'}
+        except Exception:
+            return {'status':'error', 
+                            'message': 'Could not retrieve the treebank.'}
+        return data

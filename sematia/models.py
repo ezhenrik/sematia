@@ -105,6 +105,7 @@ class Layertreebank(db.Model):
     hand_id = db.Column(db.Integer, db.ForeignKey('hand.id'))
     body = db.Column(db.UnicodeText(4294967295))
     settings = db.Column(db.UnicodeText(4294967295))
+    plaintext = db.Column(db.UnicodeText(4294967295))
     created = db.Column(db.DateTime, default=datetime.today())
     updated = db.Column(db.DateTime)
     approved_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
