@@ -14,7 +14,7 @@ def index(id):
     if layertreebank:
         plaintext = layertreebank.plaintext
         if plaintext:
-            return return plaintext, 200, {'Content-Type': 'text/css; charset=utf-8'}
+            return plaintext, 200, {'Content-Type': 'text/css; charset=utf-8'}
         else:
             return ''
     else:
