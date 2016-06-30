@@ -14,9 +14,10 @@ def index(id):
     if layertreebank:
         plaintext = layertreebank.plaintext
         if plaintext:
-            r = make_response(render_template('pages/annotate.txt', plaintext=plaintext))
+            plaintext = plaintext
+            r = make_response(render_template('pages/annotate.xml', plaintext=plaintext))
             r.headers.set('Access-Control-Allow-Origin', 'http://www.perseids.org')
-            r.headers.set('Content-Type', 'text/html; charset=utf-8')
+            r.headers.set('Content-Type', 'application/xml; charset=utf-8')
             return r
         else:
             return ''
