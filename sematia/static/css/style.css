@@ -43,6 +43,10 @@ a:focus {
     font-size:75%;
 }
 
+.light {
+    font-weight:300;
+}
+
 .table-fixed {
     table-layout: fixed;
     word-wrap: break-word;

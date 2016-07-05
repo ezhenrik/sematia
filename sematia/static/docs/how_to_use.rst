@@ -15,7 +15,7 @@ How to use
     - :underline:`Original` layer gives you the text as it is preserved in the original papyrus, that is, the abbreviations are not resolved (simply marked with a dummy marker “A”), supplied text is omitted (marked with dummy “SU”), the forms written in the papyrus are included (not the regularized forms). The unclear letters (underdot) are included as “certain” letters, so, if you hesitate with some underdotted letters, you can decide not to annotate those words. It is always advisable to keep the Papyrological Navigator page open as well when working with a text!
     - The :underline:`standard` layer gives the text in the form the editor has interpreted it (i.e. according to the Papyrological Navigator, where later corrections may also be available): the abbreviated words are expanded, the supplied text is included, as are regularized spellings. If the editor has not supplied anything in a *lacuna*, the gap is marked with G. 
     - The :underline:`variation` layer is based on the original layer. This feature is still under development and there is no need to worry about it for the time being.
-#. **Export the layer text to the annotation framework** (e.g. in Arethusa in `Perseids platform <http://sites.tufts.edu/perseids/>`_.). Click the suitcase icon on the right side of Plain text. This selects the whole text of the wanted layer. Copy it. Paste it to the input window in Arethusa.
+#. **Export the layer text to the annotation framework.** Click the paper plane icon on the right side of Plain text. This transports the layer text into the Arethusa annotation service in `Perseids Platform <http://sites.tufts.edu/perseids/>`_ (you need to have your own account there).
 #. After you have annotated the text, **import your treebank to Sematia**. You first need to “Download Copy” in Arethusa, which saves your treebank to your computer. In Sematia, click ”Upload treebank” in the layer you want to attach the treebank with, browse for the copy you downloaded from Arethusa and select it.
 #. If you wish to **discuss** some matters concerning your layers or treebanks, the envelope icon takes you to the discussion mode (everyone who signs in can see the discussion, but only admin and the owner(s) of the document can take part). If the icon is black, there is no discussion, if it is transparent, there is discussion.
 
@@ -25,7 +25,7 @@ The **date** and **provenance** of each document are taken automatically from th
 
 For each **hand** (i.e. “act of writing”) you can add metadata about the handwriting, the writer / author and text type.
 
-In the expanded view of a document, you see either a number 1 with three layers, or several consecutive numbers, if there are several hands in one papyrus. Under the number is a cogwheel symbol which opens up a window where metadata can be inserted.
+In the expanded view of a document, you see either a number 1 with three layers, or several consecutive numbers, if there are several hands in one papyrus. Under the number is a cogwheel icon which opens up a window where metadata can be inserted.
 
 The idea is to add info, if it exists. Otherwise, leave blank.
 
