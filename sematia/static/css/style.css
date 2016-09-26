@@ -147,6 +147,10 @@ body {
     margin-right:3px;
 }
 
+.open-external {
+    float:right;
+}
+
 .fa-external-link {
     font-size:9px !important;
     color:#999;
