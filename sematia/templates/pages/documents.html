@@ -38,10 +38,10 @@
                     {% if own.append(1) %}{% endif %}
                 {% endif %}
             {% endfor %}
-            <tr class="data-container document id load-hand" data-id="{{document.id}}" data-my="{% if own or admin %}1{% endif %}" data-toggle="collapse" data-target="#hands-{{document.id}}"> 
+            <tr class="data-container document id" data-id="{{document.id}}" data-my="{% if own or admin %}1{% endif %}" data-target="#hands-{{document.id}}"> 
                 <td class="col-md-2">
-                  <span class="data-container document meta_title">
-                      <a href="{{document.url}}" target="_blank" style="color:#333">{{document.meta_title}}</a>
+                  <span class="data-container document meta_title"><i class="fa fa-plus-square-o unloaded load-hand"></i> 
+                      {{document.meta_title}} <a href="{{document.url}}" target="_blank" style="color:#333"><i class="fa fa-external-link"></i></a>
                   </span></td> 
                 
                 <td class="col-md-7">
@@ -380,20 +380,31 @@ $(document).on('show.bs.modal', function (e) {
 
 $(document).on('click', '.load-hand', function(e) {
     var t = $(e.target);
-    if (t.is('td, tr')) {
-        var id = $(this).data('id');
-        var my = $(this).data('my');
-        t.removeClass('load-hand');
-        t.closest('tr').removeClass('load-hand');
+    var id = $(this).closest('tr').data('id');
+    var my = $(this).closest('tr').data('my');
+    if (t.is('.shown')) {
+        $('table[id="hands-'+id+'"]').addClass('collapse')
+        t.removeClass('shown fa-minus-square-o').addClass('unshown fa-plus-square-o')
+    } else if (t.is('.unshown')) {
+        $('table[id="hands-'+id+'"]').removeClass('collapse')
+        t.removeClass('unshown fa-plus-square-o').addClass('shown fa-minus-square-o')
+    }
+    if (t.is('.unloaded')) {
         $.ajax({
             data:{id:id, my:my}, 
             type: 'POST', 
             url: $SCRIPT_ROOT + 'get_hands',
             success: function(data) { 
-                $('table[id="hands-'+id+'"]').html(data);
+                $('table[id="hands-'+id+'"]').html(data).removeClass('collapse')
             }
         })
+        t.removeClass('unloaded fa-plus-square-o').addClass('fa-minus-square-o shown')
     }
+
+});
+
+$(document).on('click', '.shown-hand', function(e) {
+    $(this)
 });
 
 $(document).on('click', '.operation, a, button', function(e) {

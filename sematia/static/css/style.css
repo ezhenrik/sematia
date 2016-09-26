@@ -136,6 +136,22 @@ body {
 
 /* Documents */
 
+.document.meta_title {
+    font-weight:500;
+    font-size:12px;
+}
+
+.load-hand {
+    cursor:pointer;
+    font-size:14px;
+    margin-right:3px;
+}
+
+.fa-external-link {
+    font-size:9px !important;
+    color:#999;
+}
+
 .treebank-link {
     color: #333;
     font-size: 16px;
