@@ -25,6 +25,12 @@ def logout():
     session.pop('user_name', None)
     return redirect(url_for('user.index'))
 
+@user.route('/oauth')
+def oauth():
+    code = request.args.get('code')
+    print(code)
+    return 'test'
+
 @user.route('/tokensignin',  methods=['POST'])
 def tokensignin():
     token = request.form['idtoken']
