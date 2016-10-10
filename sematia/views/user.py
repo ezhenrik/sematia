@@ -30,7 +30,24 @@ def logout():
 @user.route('/oauth')
 def oauth():
     code = request.args.get('code')
-    Log.p('code: '+code)
+
+    if code:
+        Log.p('code: '+code)
+        url = 'https://sosol-test.perseids.org/sosol/oauth/token'
+        payload = {
+            'code': code,
+            'client_id': app.app.config['PERSEIDS_CLIENT_ID'],
+            'client_secret': app.app.config['PERSEIDS_CLIENT_SECRET'],
+            'grant_type': 'authorization_code',
+            'redirect_uri': app.app.config['PERSEIDS_REDIRECT_URI']
+        }
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        }
+
+        r = requests.get(url, headers=headers, payload=payload)
+        Log.p(r.text)
+
     return 'test'
 
 @user.route('/tokensignin',  methods=['POST'])
