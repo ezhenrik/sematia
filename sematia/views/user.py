@@ -35,7 +35,7 @@ def oauth():
         Log.p('code: '+code)
         url = 'https://sosol.perseids.org/sosol/oauth/token'
         payload = {
-            'code': code,
+            'code': code+'false',
             'client_id': app.app.config['PERSEIDS_CLIENT_ID'],
             'client_secret': app.app.config['PERSEIDS_CLIENT_SECRET'],
             'grant_type': 'authorization_code',
@@ -46,7 +46,7 @@ def oauth():
         }
         Log.p(payload)
         r = requests.post(url, data=payload, headers=headers)
-        Log.p(r.text)
+        Log.p(r.json())
 
     return 'test'
 
