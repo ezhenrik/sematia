@@ -44,7 +44,7 @@ def oauth():
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
-
+        Log.p(payload)
         r = requests.post(url, data=payload, headers=headers)
         Log.p(r.text)
 
