@@ -45,7 +45,7 @@ def oauth():
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }
 
-        r = requests.get(url, headers=headers, payload=payload)
+        r = requests.get(url, headers=headers, params=payload)
         Log.p(r.text)
 
     return 'test'
