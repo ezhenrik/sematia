@@ -8,8 +8,10 @@ from flask import Blueprint, jsonify, redirect, render_template, \
 from oauth2client import client, crypt
 
 from ..models import db, User
+from ..utils import log
 
 user = Blueprint('user', __name__)
+Log = log.Log
 
 
 @user.route('/')
@@ -28,7 +30,7 @@ def logout():
 @user.route('/oauth')
 def oauth():
     code = request.args.get('code')
-    print(code)
+    Log.p('code: '+code)
     return 'test'
 
 @user.route('/tokensignin',  methods=['POST'])
