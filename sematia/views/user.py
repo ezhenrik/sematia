@@ -46,7 +46,12 @@ def oauth():
         }
         Log.p(payload)
         r = requests.post(url, data=payload, headers=headers)
-        Log.p(r.json())
+        r_json = r.json()
+        if 'access_token' in r_json:
+            Log.p(r_json['access_token'])
+            Log.p('success!')
+        else:
+            Log.p('error!')
 
     return 'test'
 
