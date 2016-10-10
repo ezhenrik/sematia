@@ -33,7 +33,7 @@ def oauth():
 
     if code:
         Log.p('code: '+code)
-        url = 'https://sosol-test.perseids.org/sosol/oauth/token'
+        url = 'https://sosol.perseids.org/sosol/oauth/token'
         payload = {
             'code': code,
             'client_id': app.app.config['PERSEIDS_CLIENT_ID'],
