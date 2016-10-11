@@ -543,7 +543,7 @@ var validatePerseids = function(success, error) {
 
 var loggedToPerseids = function(win) {
     console.log('access granted')
-    win.close()
+    setTimeout("win.close();", 500);
 }
 
 var logToPerseids = function(win) {

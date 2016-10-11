@@ -26,7 +26,10 @@
 
 <script>
 
-setTimeout("window.close();", 1000);
+validatePerseids(
+    loggedToPerseids, 
+    function() {$('.panel-body').html('An error occurred. Please sign out and try again.')}
+)
 
 </script>
 
