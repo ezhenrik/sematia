@@ -93,10 +93,10 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <p><strong>Language</strong></p>
-                        <form id="langForm">
+                        <p><form id="langForm">
                             <label class="radio-inline"><input type="radio" name="lang" checked="checked" val="grc" data-coll="urn:cite:perseus:grctb">Greek</label>
                             <label class="radio-inline"><input type="radio" name="lang" val="lat" data-coll="urn:cite:perseus:lattb">Latin</label>
-                        </form>
+                        </form></p>
                     </div>
                 </div>
                 <div class="row">
@@ -583,7 +583,15 @@ var generateTreebank = function() {
 }
 
 var perseidsFinish = function() {
-    console.log('Ready')
+    var xml = $('.tb-result').text()
+    $.ajax({
+        data:{xml:xml},
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'post_treebank',
+        success: function(data) { 
+            console.log(data)
+        }
+    })
 }
 
 var afterLogging = function(win) {
@@ -621,6 +629,7 @@ $(document).on('change', 'input[name=lang]', function() {
 });
 
 $(document).on('click', '#put_treebank .save:not(.disabled)', function() {
+    $('#put_treebank messages').empty()
     initPerseids()
 });
 

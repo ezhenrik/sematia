@@ -58,3 +58,22 @@ def store_plaintext():
     id = request.form.get('id').strip()
     text = request.form.get('text').strip()
     return jsonify(Layertreebank.store_plaintext(id, text))
+
+@edit.route('/post_treebank',  methods=['POST'])
+def post_treebank():
+    xml = request.form.get('xml').strip()
+    if ('perseids' in session):
+        access_token = session['perseids']
+
+        url = 'https://sosol.perseids.org/sosol/api/v1/xmlitems/TreebankCite'
+        headers = {
+            'Content-Type': 'application/xml',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '+access_token
+        }
+        r = requests.post(url, headers=headers, data=xml)
+        r_json = r.json()
+        print(r_json)
+        return 'ok'
+    else:
+        return ''
