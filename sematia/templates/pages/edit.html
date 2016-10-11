@@ -605,7 +605,7 @@ var logToPerseids = function(win) {
 
 var initPerseids = function() {
     var html = '<img src="http://www.perseids.org/perseids_banner31.png">'
-    var win = window.open('about:blank').document.body.innerHTML = html
+    var win = window.open('about:blank')
     validatePerseids(
         function() {return loggedToPerseids(win)}, 
         function() {return logToPerseids(win)}
