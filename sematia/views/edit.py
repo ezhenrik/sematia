@@ -88,7 +88,8 @@ def post_treebank():
                 'Authorization': 'Bearer '+access_token
             }
             data = {
-                'publication_community_name': app.app.config['PERSEIDS_COMMUNITY_NAME']
+                'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME'],
+                'id': r_json['id']
             }
             r = requests.put(url, headers=headers, data=data)
             Log.p(r.status_code)
