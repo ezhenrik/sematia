@@ -527,11 +527,49 @@ function getTreebank(id) {
 
 {% if my %}
 
+var validatePerseids = function(success, error) {
+    $.ajax({
+        type: 'POST', 
+        url: $SCRIPT_ROOT + '/user/perseids_validate',
+        success: function(status) { 
+            if (status == 'ok') {
+                success()
+            } else {
+                error()
+            }
+        }
+    })
+}
+
+var loggedToPerseids(win) {
+    console.log('access granted')
+    win.close()
+}
+
+var logToPerseids(win) {
+    var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+    var baseUrl = ''
+    var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
+    var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
+    var URL = 'http://sosol.perseids.org/sosol/oauth/authorize?response_type=code&redirect_uri='+redirectURI+'&client_id='+clientID+'&scope=write'
+    win = window.open(URL, "newPage", strWindowFeatures);
+}
+
+var initPerseids = function() {
+    var win = window.open("about:blank", "newPage");
+    validatePerseids(
+        function() {return loggedToPerseids(win)}, 
+        function() {return logToPerseids(win)}
+    )
+}
+
 $(document).on('click', '.magic', function() {
     //var text = $('.text-content *:not(span)').text()
     //var transformation = getTransformation(text)
-    var win = window.open("about:blank", "newPage");
-    $.ajax({
+    
+    //validatePerseids(loggedToPerseids, function() {return notLoggedToPerseids(win, validate)})
+    initPerseids()
+    /*$.ajax({
         type: 'POST', 
         url: $SCRIPT_ROOT + '/user/perseids_validate',
         success: function(status) { 
@@ -548,6 +586,7 @@ $(document).on('click', '.magic', function() {
             }
         }
     })
+    */
 
 });
 
