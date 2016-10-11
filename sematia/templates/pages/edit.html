@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p class="tb-result"></p>
+                    <p class="tb-result"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i></p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -612,6 +612,7 @@ var initPerseids = function() {
 }
 
 $(document).on('change', 'input[name=lang]', function() {
+    $('.tb-result').html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>')
     generateTreebank()
 });
 
