@@ -91,5 +91,7 @@ def post_treebank():
             }
             r = requests.put(url, headers=headers, data=data)
             Log.p(r.status_code)
+            Log.p(r.text)
+            Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
             if (r.status_code == '200'):
                 return 'ok'
