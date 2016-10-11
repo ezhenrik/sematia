@@ -61,7 +61,7 @@ def store_plaintext():
 
 @edit.route('/post_treebank',  methods=['POST'])
 def post_treebank():
-    xml = request.form.get('xml').strip()
+    xml = request.form.get('xml').strip().encode('utf-8')
     if ('perseids' in session):
         access_token = session['perseids']
 
