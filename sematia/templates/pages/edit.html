@@ -603,7 +603,7 @@ var logToPerseids = function(win) {
 }
 
 var initPerseids = function() {
-    var html = '<img src="http://sosol.perseids.org/sosol/images/perseids_notag_150.png" style="display:block; padding:10px">'
+    var html = '<div style="padding:10px"><h3>Please wait...</h3><img src="http://sosol.perseids.org/sosol/images/perseids_notag_150.png" style="display:block;">'
     var win = window.open('about:blank')
     $(win.document.body).html(html);
     validatePerseids(
