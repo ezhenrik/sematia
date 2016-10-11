@@ -12,11 +12,22 @@ var haveTransformation = function(xml) {
 }
 
 var getTransformation = function(text) {
-    paramString = '?xml=false&inline=true&splitting=true&merging=false&shifting=false&remove_node[]=teiHeader&remove_node[]=head&remove_node[]=speaker&remove_node[]=note&remove_node[]=ref&go_to_root=TEI&ns=http%3A%2F%2Fwww.tei-c.org%2Fns%2F1.0&text='+text
-
+    var endpoint = 'http://services.perseids.org/llt/segtok'
+    //paramString = '?xml=false&inline=true&splitting=true&merging=false&shifting=false&remove_node[]=teiHeader&remove_node[]=head&remove_node[]=speaker&remove_node[]=note&remove_node[]=ref&go_to_root=TEI&ns=http%3A%2F%2Fwww.tei-c.org%2Fns%2F1.0&text='+text
+    params = {
+        'xml': 'false',
+        'inline': 'true',
+        'splitting': 'true',
+        'merging': 'false',
+        'shifting': 'false',
+        'remove_node': ['teiHeader', 'head', 'speaker', 'note', 'ref'],
+        'go_to_root': 'TEI',
+        'ns': 'http://www.tei-c.org/ns/1.0',
+        'text': text
+    }
     $.ajax({
-        url: $SCRIPT_ROOT + '/edit/get_segtok',
-        data: {params:paramString},
+        url: endpoint,
+        data: params,
         //url: endpoint + '?xml=false&inline=true&splitting=true&merging=false&shifting=false&remove_node[]=teiHeader&remove_node[]=head&remove_node[]=speaker&remove_node[]=note&remove_node[]=ref&go_to_root=TEI&ns=http%3A%2F%2Fwww.tei-c.org%2Fns%2F1.0&text='+text,
         dataType: 'text',
         success: function(data) {

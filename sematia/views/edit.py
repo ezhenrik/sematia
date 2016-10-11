@@ -58,11 +58,3 @@ def store_plaintext():
     id = request.form.get('id').strip()
     text = request.form.get('text').strip()
     return jsonify(Layertreebank.store_plaintext(id, text))
-
-@edit.route('/get_segtok', methods=['POST'])
-def get_segtok():
-    url = 'http://services.perseids.org/llt/segtok'
-    params = request.form.get('param').strip()
-
-    r = requests.get(url+params)
-    return r.text
