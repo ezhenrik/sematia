@@ -80,7 +80,7 @@ def post_treebank():
         r_json = r.json()
         if ('id' in r_json):
 
-            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+r_json['id']
+            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+str(r_json['id'])
             headers = {
                 'Content-Type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json',
