@@ -88,12 +88,12 @@ def post_treebank():
                 'Authorization': 'Bearer '+access_token
             }
             data = {
-                'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME']
+                'publication_community_name': app.app.config['PERSEIDS_COMMUNITY_NAME']
             }
             r = requests.put(url, headers=headers, data=data)
             Log.p(r.status_code)
             Log.p(r.text)
             Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
-            if r.status_code == '200':
+            if r.status_code == 200:
                 return 'ok'
     return 'false'
