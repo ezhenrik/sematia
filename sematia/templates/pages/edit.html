@@ -573,7 +573,7 @@ var perseidsFinish = function() {
     $('put_treebank').modal('show');
 }
 
-var afterLogging = function() {
+var afterLogging = function(win) {
     setTimeout(function(){win.close()}, 1000);
     perseidsFinish()
 }
