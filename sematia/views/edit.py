@@ -78,8 +78,8 @@ def post_treebank():
         }
         r = requests.post(url, headers=headers, data=xml)
         r_json = r.json()
-        if ('publication_id' in r_json):
-            pubid = str(r_json['publication_id'])
+        if ('publication' in r_json):
+            pubid = str(r_json['publication'])
 
             url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+pubid
             headers = {
