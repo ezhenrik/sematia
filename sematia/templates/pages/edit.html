@@ -604,7 +604,8 @@ var logToPerseids = function(win) {
 }
 
 var initPerseids = function() {
-    var win = window.open('<h1>Contacting the Perseids API...</h1>');
+    var html = '<img src="http://www.perseids.org/perseids_banner31.png">'
+    var win = window.open('about:blank').document.body.innerHTML = html
     validatePerseids(
         function() {return loggedToPerseids(win)}, 
         function() {return logToPerseids(win)}
