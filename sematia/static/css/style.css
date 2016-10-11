@@ -635,3 +635,8 @@ a.delete-message {
     overflow: hidden;
     background-color: #e5e5e5;
 }
+
+.fa-magic {
+    color:hotpink;
+    cursor:pointer;
+}

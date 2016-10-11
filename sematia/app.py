@@ -2,7 +2,7 @@ import os
 import logging
 
 from flask import Flask, redirect, request, session, url_for
-from flask.ext.bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap
 
 from .models import db
 from .views import annotate, documents, docs, edit, user, users
@@ -34,6 +34,7 @@ def before_request():
                 request.endpoint not in ['user.index', 
                                          'user.tokensignin', 
                                          'user.logout',
+                                         'user.oauth',
                                          'annotate.index'] and \
                 '/static/' not in request.path:
         session.clear()

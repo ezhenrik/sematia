@@ -102,6 +102,8 @@
     </div>
 </div>
 
+<div class="magic"><span class="fa fa-magic"></span></div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -524,6 +526,29 @@ function getTreebank(id) {
 }
 
 {% if my %}
+
+$(document).on('click', '.magic', function() {
+    //var text = $('.text-content *:not(span)').text()
+    //var transformation = getTransformation(text)
+    window.open("about:blank", "newPage");
+    $.ajax({
+        type: 'POST', 
+        url: $SCRIPT_ROOT + '/user/perseids_validate',
+        success: function(status) { 
+            if (status == 'ok') {
+                console.log('access granted')
+            } else {
+                var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+                var baseUrl = ''
+                var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
+                var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
+                var URL = 'http://sosol.perseids.org/sosol/oauth/authorize?response_type=code&redirect_uri='+redirectURI+'&client_id='+clientID+'&scope=write'
+                window.open(URL, "newPage", strWindowFeatures);
+            }
+        }
+    })
+
+});
 
 var storePlainText = function(text) {
     var data = {

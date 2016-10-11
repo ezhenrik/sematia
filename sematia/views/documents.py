@@ -20,7 +20,6 @@ Userdocument = userdocument.Userdocument
 def index():
     documents = Document.get_all()
     my_messages = Message.get_my()
-    print(my_messages)
     return render_template('pages/documents.html', documents=documents, 
                             my_messages=my_messages,
                             user_id=session['user_id'], 

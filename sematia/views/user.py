@@ -50,10 +50,31 @@ def oauth():
         if 'access_token' in r_json:
             Log.p(r_json['access_token'])
             Log.p('success!')
+            session['perseids'] = r_json['access_token']
+            return render_template('pages/perseids-success.html')
         else:
             Log.p('error!')
+            return 'An error occurred.'
 
-    return 'test'
+
+@user.route('/perseids_validate',  methods=['POST'])
+def perseids_validate():
+    if ('perseids' in session):
+        access_token = session['perseids']
+
+        url = 'https://sosol.perseids.org/sosol/api/v1/user'
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '+access_token
+        }
+        r = requests.get(url, headers=headers)
+        r_json = r.json()
+        if 'user' in r_json:
+            return 'ok'
+    else:
+        return 'noaccess'
+
 
 @user.route('/tokensignin',  methods=['POST'])
 def tokensignin():
