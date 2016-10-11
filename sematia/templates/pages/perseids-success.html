@@ -29,7 +29,7 @@
 var parentWin = window.opener;
 
 parentWin.validatePerseids(
-    parentWin.afterLogging
+    parentWin.afterLogging,
     function() {$('.panel-body').text('An unknown error occurred. Please sign out and try again.')}
 )
 
