@@ -78,9 +78,10 @@ def post_treebank():
         }
         r = requests.post(url, headers=headers, data=xml)
         r_json = r.json()
-        if ('id' in r_json):
+        if ('publication_id' in r_json):
+            pubid = str(r_json['publication_id'])
 
-            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+str(r_json['id'])
+            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+pubid
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -89,7 +90,7 @@ def post_treebank():
             data = {
                 'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME']
             }
-            r = requests.post(url, headers=headers, data=data)
+            r = requests.put(url, headers=headers, data=data)
             Log.p(r.status_code)
             Log.p(r.text)
             Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
