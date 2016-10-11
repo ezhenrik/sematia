@@ -74,6 +74,7 @@ def perseids_validate():
         r = requests.get(url, headers=headers)
         if (r.status_code == '200'):
             r_json = r.json()
+            Log.p(r_json)
 
             if 'user' in r_json:
                 return 'ok'
