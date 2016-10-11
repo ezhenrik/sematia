@@ -589,25 +589,25 @@ var afterLogging = function(win) {
     perseidsFinish()
 }
 
-var loggedToPerseids = function(win) {
+var loggedToPerseids = function() {
     win.close()
     perseidsFinish()
 }
 
-var logToPerseids = function(win) {
+var logToPerseids = function() {
     var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
     var baseUrl = ''
     var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
     var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
     var URL = 'http://sosol.perseids.org/sosol/oauth/authorize?response_type=code&redirect_uri='+redirectURI+'&client_id='+clientID+'&scope=write'
-    win = window.open(URL, "newPage", strWindowFeatures);
+    var win = window.open(URL, "newPage", strWindowFeatures);
 }
 
 var initPerseids = function() {
-    var win = window.open("about:blank", "newPage");
+    //var win = window.open("about:blank", "newPage");
     validatePerseids(
-        function() {return loggedToPerseids(win)}, 
-        function() {return logToPerseids(win)}
+        loggedToPerseids(),
+        logToPerseids()
     )
 }
 
