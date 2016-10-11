@@ -26,9 +26,11 @@
 
 <script>
 
-validatePerseids(
-    loggedToPerseids, 
-    function() {$('.panel-body').html('An error occurred. Please sign out and try again.')}
+var parentWin = window.opener;
+
+parentWin.validatePerseids(
+    parentWin.afterLogging
+    function() {$('.panel-body').text('An unknown error occurred. Please sign out and try again.')}
 )
 
 </script>
