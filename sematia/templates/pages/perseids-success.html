@@ -1,17 +1,20 @@
-{% extends "layouts/normal.html" %}
+{% extends "layouts/base.html" %}
 
-{% block title %}Success{% endblock %}
+{% block title %}Log in{% endblock %}
+    
+{% block body %}
 
-{% block titlehtml %}
-{% endblock %}
-
-{% block sidebar %}
-{% endblock %}
-
-{% block main %}
-<div class="row">
-    <div class="col-xs-12">
-        Success.
+<div id="wrapper">
+    <div class="container">
+        <div style="text-align:center;">
+            <div class="col-sm-4 col-centered col-fixed">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-body">
+                        Logged in to Perseids. Just a moment...
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -23,7 +26,7 @@
 
 <script>
 
-setTimeout("window.close();", 3000);
+setTimeout("window.close();", 1000);
 
 </script>
 
