@@ -25,6 +25,9 @@ def index():
 def logout():
     session.pop('user_id', None)
     session.pop('user_name', None)
+    session.pop('user_role', None)
+    session.pop('user_admin', None)
+    session.pop('perseids', None)
     return redirect(url_for('user.index'))
 
 @user.route('/oauth')

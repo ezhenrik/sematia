@@ -20,6 +20,15 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Google client ID
 GOOGLE_CLIENT_ID = ''
 
+# Perseids client ID
+PERSEIDS_CLIENT_ID = ''
+
+# Perseids client secret
+PERSEIDS_CLIENT_SECRET = ''
+
+# Perseids redirect uri
+PERSEIDS_REDIRECT_URI = ''
+
 # Hand metadata fields
 METADATA_VALUES = {
     'meta_handwriting_professional': [
