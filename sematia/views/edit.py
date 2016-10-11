@@ -67,7 +67,7 @@ def post_treebank():
 
         url = 'https://sosol.perseids.org/sosol/api/v1/xmlitems/TreebankCite'
         headers = {
-            'Content-Type': 'application/xml',
+            'Content-Type': 'application/xml; charset=UTF-8',
             'Accept': 'application/json',
             'Authorization': 'Bearer '+access_token
         }
