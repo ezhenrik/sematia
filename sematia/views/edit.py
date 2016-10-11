@@ -74,6 +74,7 @@ def post_treebank():
         r = requests.post(url, headers=headers, data=xml)
         r_json = r.json()
         print(r_json)
+        Log.p(r_json)
         return 'ok'
     else:
         return ''
