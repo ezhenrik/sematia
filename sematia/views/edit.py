@@ -1,6 +1,7 @@
 from datetime import datetime
 import traceback
 import requests
+import json
 
 from .. import app
 
@@ -81,7 +82,7 @@ def post_treebank():
         if ('publication' in r_json):
             pubid = str(r_json['publication'])
 
-            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'
+            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+pubid
             headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -89,9 +90,8 @@ def post_treebank():
             }
             data = {
                 'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME'],
-                'id': pubid
             }
-            r = requests.put(url, headers=headers, data=data)
+            r = requests.put(url, headers=headers, data=json.dumps(data))
             Log.p(r.status_code)
             Log.p(r.text)
             Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
