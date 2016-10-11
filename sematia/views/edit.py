@@ -8,12 +8,15 @@ from flask import Blueprint, render_template, session, jsonify, redirect, \
 from ..controllers import document, hand, layertreebank, message, user, \
                           userdocument
 
+from ..utils import log
+
 Document = document.Document
 Hand = hand.Hand
 Layertreebank = layertreebank.Layertreebank
 Message = message.Message
 User = user.User
 Userdocument = userdocument.Userdocument
+Log = log.Log
 
 edit = Blueprint('edit', __name__, static_folder='/static')
 
@@ -73,7 +76,6 @@ def post_treebank():
         }
         r = requests.post(url, headers=headers, data=xml)
         r_json = r.json()
-        print(r_json)
         Log.p(r_json)
         return 'ok'
     else:
