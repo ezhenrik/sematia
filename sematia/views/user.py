@@ -72,6 +72,7 @@ def perseids_validate():
             'Authorization': 'Bearer '+access_token
         }
         r = requests.get(url, headers=headers)
+        Log.p(r.status_code)
         if (r.status_code == '200'):
             r_json = r.json()
             Log.p(r_json)
