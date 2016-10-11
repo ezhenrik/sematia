@@ -9,7 +9,7 @@ var getSegtok = function() {
 
 var haveTransformation = function(xml) {
     console.log(xml)
-    return xml
+    $('.tb-result').text(xml)
 }
 
 var getTransformation = function(text) {
@@ -24,15 +24,23 @@ var getTransformation = function(text) {
     });
 }
 
+var getLanguage = function() {
+    $('input[name=lang]:checked', '#langForm').val()
+}
+
+var getCollection = function() {
+    $('input[name=lang]:checked', '#langForm').attr('data-collection')
+}
+
 $(document).ready(function() {
     $('body').ctsXSLT("llt.segtok_to_tb", {
         "endpoint" : '/static/xslt/segtok_to_tb.xsl',
         "xml" : getSegtok,
         "driver" : {
-            "e_lang" : function() { return 'grc'},
+            "e_lang" : getLanguage,
             "e_dir" : function() { return 'ltr'},
             "e_attachtoroot" : function() { return false},
-            "e_collection" : function() { return 'urn:cite:perseus:grctb'},
+            "e_collection" : getCollection,
             "e_agenturi" : function() { return 'http://services2.perseids.org/llt/segtok'}
         },
         "trigger" : "llt-transform",

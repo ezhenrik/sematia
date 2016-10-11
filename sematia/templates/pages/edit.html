@@ -93,8 +93,10 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h3>Language</h3>
-                        <label class="radio-inline"><input type="radio" name="lang" selected>Greek</label>
-                        <label class="radio-inline"><input type="radio" name="lang">Latin</label>
+                        <form id="langForm">
+                            <label class="radio-inline"><input type="radio" name="lang" checked="checked" val="grc" data-coll="urn:cite:perseus:grctb">Greek</label>
+                            <label class="radio-inline"><input type="radio" name="lang" val="lat" data-coll="urn:cite:perseus:lattb">Latin</label>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
@@ -571,6 +573,11 @@ var validatePerseids = function(success, error) {
     })
 }
 
+var generateTreebank = function() {
+    var text = $('.text-content *:not(span)').text()
+    getTransformation(text)
+}
+
 var perseidsFinish = function() {
     console.log('Ready')
     $('#put_treebank').modal('show');
@@ -603,31 +610,12 @@ var initPerseids = function() {
     )
 }
 
-$(document).on('click', '.magic', function() {
-    //var text = $('.text-content *:not(span)').text()
-    //var transformation = getTransformation(text)
-    
-    //validatePerseids(loggedToPerseids, function() {return notLoggedToPerseids(win, validate)})
-    initPerseids()
-    /*$.ajax({
-        type: 'POST', 
-        url: $SCRIPT_ROOT + '/user/perseids_validate',
-        success: function(status) { 
-            if (status == 'ok') {
-                console.log('access granted')
-                win.close()
-            } else {
-                var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
-                var baseUrl = ''
-                var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
-                var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
-                var URL = 'http://sosol.perseids.org/sosol/oauth/authorize?response_type=code&redirect_uri='+redirectURI+'&client_id='+clientID+'&scope=write'
-                win = window.open(URL, "newPage", strWindowFeatures);
-            }
-        }
-    })
-    */
+$(document).on('change', 'input[name=lang]', function() {
+    generateTreebank()
+});
 
+$(document).on('click', '.magic', function() {
+    initPerseids()
 });
 
 var storePlainText = function(text) {
