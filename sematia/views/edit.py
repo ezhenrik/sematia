@@ -2,6 +2,8 @@ from datetime import datetime
 import traceback
 import requests
 
+from .. import app
+
 from flask import Blueprint, render_template, session, jsonify, redirect, \
                   url_for, request
 
@@ -76,7 +78,18 @@ def post_treebank():
         }
         r = requests.post(url, headers=headers, data=xml)
         r_json = r.json()
-        Log.p(r_json)
-        return 'ok'
-    else:
-        return ''
+        if ('id' in r_json):
+
+            url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+r_json['id']
+            headers = {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '+access_token
+            }
+            data = {
+                'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME']
+            }
+            r = requests.put(url, headers=headers, data=data)
+            Log.p(r.status_code)
+            if (r.status_code == '200'):
+                return 'ok'
