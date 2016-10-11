@@ -570,11 +570,12 @@ var validatePerseids = function(success, error) {
 }
 
 var perseidsFinish = function() {
+    console.log('Ready')
     $('put_treebank').modal('show');
 }
 
 var afterLogging = function(win) {
-    setTimeout(function(){win.close()}, 1000);
+    setTimeout(function(){win.close()}, 500);
     perseidsFinish()
 }
 
