@@ -29,6 +29,9 @@ PERSEIDS_CLIENT_SECRET = ''
 # Perseids redirect uri
 PERSEIDS_REDIRECT_URI = ''
 
+# Perseids community name
+PERSEIDS_COMMUNITY_NAME = ''
+
 # Hand metadata fields
 METADATA_VALUES = {
     'meta_handwriting_professional': [

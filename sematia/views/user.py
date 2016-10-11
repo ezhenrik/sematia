@@ -72,11 +72,12 @@ def perseids_validate():
             'Authorization': 'Bearer '+access_token
         }
         r = requests.get(url, headers=headers)
-        r_json = r.json()
-        if 'user' in r_json:
-            return 'ok'
-    else:
-        return 'noaccess'
+        if (r.status_code == '200'):
+            r_json = r.json()
+
+            if 'user' in r_json:
+                return 'ok'
+    return 'noaccess'
 
 
 @user.route('/tokensignin',  methods=['POST'])
