@@ -7,8 +7,8 @@ var getSegtok = function() {
 }
 
 var haveTransformation = function(xml) {
-    console.log(xml)
     $('.tb-result').text(xml)
+    $('#put_treebank .save').removeClass('disabled')
 }
 
 var getTransformation = function(text) {

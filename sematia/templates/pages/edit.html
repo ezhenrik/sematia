@@ -106,7 +106,7 @@
             <div class="modal-footer">
                 <span class="messages label"></span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-warning save">Send</button>
+                <button type="button" class="btn btn-warning save disabled">Send</button>
             </div>
         </div>
     </div>
@@ -575,13 +575,12 @@ var validatePerseids = function(success, error) {
 
 var generateTreebank = function() {
     var text = $('.text-content *:not(span)').text()
+    $('#put_treebank .save').addClass('disabled')
     getTransformation(text)
 }
 
 var perseidsFinish = function() {
     console.log('Ready')
-    $('#put_treebank').modal('show');
-    generateTreebank()
 }
 
 var afterLogging = function(win) {
@@ -604,7 +603,7 @@ var logToPerseids = function(win) {
 }
 
 var initPerseids = function() {
-    var html = '<img src="http://sosol.perseids.org/sosol/images/perseids_notag_150.png" style="display:block; padding:30px">'
+    var html = '<img src="http://sosol.perseids.org/sosol/images/perseids_notag_150.png" style="display:block; padding:10px">'
     var win = window.open('about:blank')
     $(win.document.body).html(html);
     validatePerseids(
@@ -618,8 +617,13 @@ $(document).on('change', 'input[name=lang]', function() {
     generateTreebank()
 });
 
-$(document).on('click', '.magic', function() {
+$(document).on('click', '#put_treebank .save:not(.disabled)', function() {
     initPerseids()
+});
+
+$(document).on('click', '.magic', function() {
+    $('#put_treebank').modal('show');
+    generateTreebank()
 });
 
 var storePlainText = function(text) {
