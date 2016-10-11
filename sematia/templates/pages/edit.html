@@ -555,6 +555,8 @@ function getTreebank(id) {
 
 {% if my %}
 
+$('#put_treebank').modal({ show: false})
+
 var validatePerseids = function(success, error) {
     $.ajax({
         type: 'POST', 
@@ -571,7 +573,7 @@ var validatePerseids = function(success, error) {
 
 var perseidsFinish = function() {
     console.log('Ready')
-    $('put_treebank').modal('show');
+    $('#put_treebank').modal('show');
 }
 
 var afterLogging = function(win) {
