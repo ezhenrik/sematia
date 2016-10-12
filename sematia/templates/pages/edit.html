@@ -609,7 +609,7 @@ var logToPerseids = function(win) {
     var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
     var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
     var URL = 'http://sosol.perseids.org/sosol/oauth/authorize?response_type=code&redirect_uri='+redirectURI+'&client_id='+clientID+'&scope=write'
-    win = window.open(URL, "newPage", strWindowFeatures);
+    win = window.open(URL, "newPage");
 }
 
 var initPerseids = function() {
