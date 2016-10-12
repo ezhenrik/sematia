@@ -65,6 +65,14 @@ def store_plaintext():
     text = request.form.get('text').strip()
     return jsonify(Layertreebank.store_plaintext(id, text))
 
+@edit.route('/update_arethusa_ids', methods=['POST'])
+def update_arethusa_ids():
+    id = request.form.get('id').strip()
+    arethusa_id = request.form.get('arethusa_id').strip()
+    arethusa_publication_id = request.form.get('arethusa_publication_id').strip()
+    return jsonify(Layertreebank.update_arethusa(id, arethusa_id, 
+        arethusa_publication_id))
+
 @edit.route('/post_treebank',  methods=['POST'])
 def post_treebank():
     xml = request.form.get('xml').strip().encode('utf-8')

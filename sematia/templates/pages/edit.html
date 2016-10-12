@@ -515,6 +515,8 @@ $(document).on('click', '.modal .save, .modal .delete', function(e) {
 
     if (action == 'add_treebank') {
         data = new FormData($('.upload')[0]);
+    } else if (action == 'put_treebank') {
+        return
     }
     sendData.each(function() {
         key = $(this).attr('class').split(' ')[1];
@@ -618,7 +620,23 @@ var perseidsFinish = function() {
                         var url = base+data.pubid+'/treebank_cite_identifiers/'+data.id+'/edit'
                         $('#put_treebank').modal('hide');
                         $('#show_treebank_link .treebankUrl').prop('href', url)
-                        setTimeout(function() {$('#show_treebank_link').modal()}, 300)
+                            $.ajax({
+                                data:{
+                                    id:{{ltb.id}},
+                                    arethusa_id:data.id,
+                                    arethusa_publication_id:pubid
+                                },
+                                type: 'POST', 
+                                url: $SCRIPT_ROOT + 'update_arethusa_ids',
+                                success: function(result) { 
+                                    if ('status' in result && result.status == 'ok') {
+                                        setTimeout(function() {$('#show_treebank_link').modal()}, 300)
+                                    } else {
+                                        alert('Your treebank was submitted to Arethusa, but an error happened while connecting it with Sematia.')
+                                    }
+                                }
+                            })
+                        
                     }, 
                     1000
                 );
