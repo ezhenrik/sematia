@@ -29,11 +29,9 @@ var getTransformation = function(text) {
         method: 'POST',
         url: endpoint,
         data: params,
-        //url: endpoint + '?xml=false&inline=true&splitting=true&merging=false&shifting=false&remove_node[]=teiHeader&remove_node[]=head&remove_node[]=speaker&remove_node[]=note&remove_node[]=ref&go_to_root=TEI&ns=http%3A%2F%2Fwww.tei-c.org%2Fns%2F1.0&text='+text,
         dataType: 'text',
         success: function(data) {
             segtok = data
-            console.log(segtok)
             $('body').trigger("llt-transform");
         }
     });

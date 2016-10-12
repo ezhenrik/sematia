@@ -88,6 +88,20 @@ class Layertreebank():
         return data
 
     @staticmethod
+    def update_arethusa(id, arethusa_id, arethusa_publication_id):
+        try:
+            layertreebank = Layertreebank.get_editable(id)
+            if layertreebank:
+                layertreebank.arethusa_id = arethusa_id
+                layertreebank.arethusa_publication_id = arethusa_publication_id
+                db.session.commit()
+                data = {'status':'ok'}
+        except Exception:
+            return {'status':'error', 
+                            'message': 'Could not retrieve the treebank.'}
+        return data
+
+    @staticmethod
     def store_plaintext(id, text):
         try:
             layertreebank = Layertreebank.get_editable(id)
