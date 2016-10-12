@@ -87,7 +87,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Send Treebank to Arethusa</h4>
+                <h4 class="modal-title">Send to Arethusa</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -110,6 +110,27 @@
                 <span class="messages label"></span>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-warning save disabled">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="show_treebank_link" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Treebank added to Arethusa!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                       <p>You can access your new treebank <a class="treebankUrl" href="" target="_blank">here</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -561,6 +582,7 @@ function getTreebank(id) {
 {% if my %}
 
 $('#put_treebank').modal({ show: false})
+$('#show_treebank_link').modal({ show: false})
 
 var validatePerseids = function(success, error) {
     $.ajax({
@@ -589,7 +611,21 @@ var perseidsFinish = function() {
         type: 'POST', 
         url: $SCRIPT_ROOT + 'post_treebank',
         success: function(data) { 
-            console.log(data)
+            if ('id' in data) {
+                $('#put_treebank .messages').addClass('label-success').text('Success!')
+                setTimeout(
+                    function() { 
+                        var base = 'http://sosol.perseids.org/sosol/publications/'
+                        var url = base+data.pubid+'/treebank_cite_identifiers/'+data.id+'/edit'
+                        $('#put_treebank').modal('hide');
+                        $('#show_treebank_link treebankUrl').attr('href', url)
+                        setTimeout(function() {$('#show_treebank_link').show()}, 100})
+                    }, 
+                    1000
+                );
+            } else {
+                $('#put_treebank .messages').addClass('label-danger').text('An unknown error occurred.')
+            }
         }
     })
 }
