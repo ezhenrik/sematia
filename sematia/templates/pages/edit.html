@@ -605,7 +605,6 @@ var loggedToPerseids = function(win) {
 }
 
 var logToPerseids = function(win) {
-    var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
     var baseUrl = ''
     var redirectURI = '{{config['PERSEIDS_REDIRECT_URI']}}'
     var clientID = '{{config['PERSEIDS_CLIENT_ID']}}'
@@ -615,7 +614,8 @@ var logToPerseids = function(win) {
 
 var initPerseids = function() {
     var html = '<div style="padding:10px"><h3>Please wait...</h3><img src="http://sosol.perseids.org/sosol/images/perseids_notag_150.png" style="display:block;">'
-    var win = window.open('about:blank')
+    var winFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+    var win = window.open('about:blank', "newPage", winFeatures)
     $(win.document.body).html(html);
     validatePerseids(
         function() {return loggedToPerseids(win)}, 
