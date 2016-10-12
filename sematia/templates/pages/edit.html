@@ -582,7 +582,6 @@ function getTreebank(id) {
 {% if my %}
 
 $('#put_treebank').modal({ show: false})
-$('#show_treebank_link').modal({ show: false})
 
 var validatePerseids = function(success, error) {
     $.ajax({
@@ -619,7 +618,7 @@ var perseidsFinish = function() {
                         var url = base+data.pubid+'/treebank_cite_identifiers/'+data.id+'/edit'
                         $('#put_treebank').modal('hide');
                         $('#show_treebank_link .treebankUrl').prop('href', url)
-                        setTimeout(function() {$('#show_treebank_link').show()}, 100)
+                        setTimeout(function() {$('#show_treebank_link').modal()}, 300)
                     }, 
                     1000
                 );
