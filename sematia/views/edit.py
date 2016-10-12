@@ -96,5 +96,5 @@ def post_treebank():
             Log.p(r.text)
             Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
             if r.status_code == 200:
-                return {'id': r_json['id'], 'pubid':pubid}
+                return jsonify({'id': r_json['id'], 'pubid':pubid})
     return 'false'
