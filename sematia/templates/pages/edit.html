@@ -125,7 +125,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-xs-12">
-                       <p>You can access your new treebank <a class="treebankUrl" href="" target="_blank">here</a>.</p>
+                       <p>You can access your new treebank <a class="treebankUrl" href="#" target="_blank">here</a>.</p>
                     </div>
                 </div>
             </div>
@@ -618,7 +618,7 @@ var perseidsFinish = function() {
                         var base = 'http://sosol.perseids.org/sosol/publications/'
                         var url = base+data.pubid+'/treebank_cite_identifiers/'+data.id+'/edit'
                         $('#put_treebank').modal('hide');
-                        $('#show_treebank_link treebankUrl').attr('href', url)
+                        $('#show_treebank_link treebankUrl').prop('href', url)
                         setTimeout(function() {$('#show_treebank_link').show()}, 100)
                     }, 
                     1000
