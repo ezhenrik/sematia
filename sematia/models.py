@@ -109,6 +109,8 @@ class Layertreebank(db.Model):
     created = db.Column(db.DateTime, default=datetime.today())
     updated = db.Column(db.DateTime)
     approved_user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    arethusa_id = db.Column(db.Integer)
+    arethusa_publication_id = db.Column(db.Integer)
 
     def __init__(self, name, type, hand_id):
         self.name = name
