@@ -86,6 +86,7 @@ def post_treebank():
             'Authorization': 'Bearer '+access_token
         }
         r = requests.post(url, headers=headers, data=xml)
+        Log.p(r.text)
         r_json = r.json()
         if ('publication' in r_json):
             pubid = str(r_json['publication'])
