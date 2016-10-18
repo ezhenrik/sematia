@@ -12,9 +12,8 @@ var haveTransformation = function(xml) {
 }
 
 var getTransformation = function(text) {
-    var endpoint = 'http://services.perseids.org/llt/segtok'
-    //paramString = '?xml=false&inline=true&splitting=true&merging=false&shifting=false&remove_node[]=teiHeader&remove_node[]=head&remove_node[]=speaker&remove_node[]=note&remove_node[]=ref&go_to_root=TEI&ns=http%3A%2F%2Fwww.tei-c.org%2Fns%2F1.0&text='+text
-    params = {
+    var endpoint = 'https://services.perseids.org/llt/segtok'
+    var params = {
         'xml': 'false',
         'inline': 'true',
         'splitting': 'true',
