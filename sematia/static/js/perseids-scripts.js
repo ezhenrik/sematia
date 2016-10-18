@@ -53,7 +53,7 @@ $(document).ready(function() {
             "e_dir" : function() { return 'ltr'},
             "e_attachtoroot" : function() { return false},
             "e_collection" : getCollection,
-            "e_agenturi" : function() { return 'http://services2.perseids.org/llt/segtok'}
+            "e_agenturi" : function() { return 'https://services2.perseids.org/llt/segtok'}
         },
         "trigger" : "llt-transform",
         "callback" : function(data) {
