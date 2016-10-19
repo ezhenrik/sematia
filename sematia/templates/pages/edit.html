@@ -188,7 +188,7 @@ function selectText(element) {
 function getTextValues(el, handno) {
     textcontent = '<div class="part">';
     {% if my %}
-    textcontent = '<div class="part"><span class="fa fa-paper-plane annotate"></span>';
+    textcontent = '<div class="part"><span class="fa fa-paper-plane annotate magic"></span>';
     {% endif %}
 
     currentHand = 1;
@@ -710,9 +710,11 @@ $(document).on('click', '.copy', function() {
     selectText($(this).parent());
 });
 
+/*
 $(document).on('click', '.annotate', function() {
     window.open('http://www.perseids.org/apps/treebank?text_uri=https://sematia.hum.helsinki.fi/annotate/{{ltb.id}}');
 });
+*/
 
 $(document).on('click', '.ab .choice > *, .ab .app > *', function(e) {
     e.stopPropagation();
