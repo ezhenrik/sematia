@@ -37,11 +37,11 @@ var getTransformation = function(text) {
 }
 
 var getLanguage = function() {
-    return $('input[name=lang]:checked', '#langForm').val()
+    return $('#langForm input[name=lang]:checked').attr('val')
 }
 
 var getCollection = function() {
-    return $('input[name=lang]:checked', '#langForm').attr('data-collection')
+    return $('#langForm input[name=lang]:checked').attr('data-collection')
 }
 
 $(document).ready(function() {
@@ -49,10 +49,10 @@ $(document).ready(function() {
         "endpoint" : '/static/xslt/segtok_to_tb.xsl',
         "xml" : getSegtok,
         "driver" : {
-            "e_lang" : function() { getLanguage() },
+            "e_lang" : function() { return getLanguage() },
             "e_dir" : function() { return 'ltr'},
             "e_attachtoroot" : function() { return false},
-            "e_collection" : function() {getCollection() },
+            "e_collection" : function() {return getCollection() },
             "e_agenturi" : function() { return 'https://services2.perseids.org/llt/segtok'}
         },
         "trigger" : "llt-transform",
