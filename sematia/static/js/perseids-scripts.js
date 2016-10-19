@@ -12,8 +12,8 @@ var haveTransformation = function(xml) {
 }
 
 var getTransformation = function(text) {
-    var endpoint = 'https://services.perseids.org/llt/segtok'
-    var params = {
+    let endpoint = 'https://services.perseids.org/llt/segtok',
+        params = {
         'xml': 'false',
         'inline': 'true',
         'splitting': 'true',
@@ -37,11 +37,11 @@ var getTransformation = function(text) {
 }
 
 var getLanguage = function() {
-    $('input[name=lang]:checked', '#langForm').val()
+    return $('input[name=lang]:checked', '#langForm').val()
 }
 
 var getCollection = function() {
-    $('input[name=lang]:checked', '#langForm').attr('data-collection')
+    return $('input[name=lang]:checked', '#langForm').attr('data-collection')
 }
 
 $(document).ready(function() {
