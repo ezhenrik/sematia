@@ -86,7 +86,6 @@ def post_treebank():
             'Authorization': 'Bearer '+access_token
         }
         r = requests.post(url, headers=headers, data=xml)
-        Log.p(r.text)
         r_json = r.json()
         if ('publication' in r_json):
             pubid = str(r_json['publication'])
@@ -101,10 +100,7 @@ def post_treebank():
                 'community_name': app.app.config['PERSEIDS_COMMUNITY_NAME'],
             }
             r = requests.put(url, headers=headers, data=json.dumps(data))
-            Log.p(r.status_code)
-            Log.p(r.text)
             Log.p(app.app.config['PERSEIDS_COMMUNITY_NAME'])
             if r.status_code == 200:
-                Log.p(r_json)
                 return jsonify({'id': r_json['id'], 'pubid':pubid})
     return 'false'
