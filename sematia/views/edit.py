@@ -118,7 +118,7 @@ def perseids_get():
             'Authorization': 'Bearer '+access_token
         }
 
-        r = requests.put(url, headers=headers)
+        r = requests.get(url, headers=headers)
         Log.p(r.json())
         return jsonify(r.json())
     return 'false'
