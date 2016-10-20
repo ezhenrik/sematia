@@ -611,6 +611,7 @@ var perseidsFinish = function() {
         url: $SCRIPT_ROOT + 'post_treebank',
         success: function(data) { 
             if ('id' in data) {
+                var pubid = data.pubid
                 $('#put_treebank .messages').addClass('label-success').text('Success!')
                 setTimeout(
                     function() { 
@@ -622,13 +623,22 @@ var perseidsFinish = function() {
                                 data:{
                                     id:{{ltb.id}},
                                     arethusa_id:data.id,
-                                    arethusa_publication_id:data.pubid
+                                    arethusa_publication_id:pubid
                                 },
                                 type: 'POST', 
                                 url: $SCRIPT_ROOT + 'update_arethusa_ids',
                                 success: function(result) { 
                                     if ('status' in result && result.status == 'ok') {
                                         setTimeout(function() {$('#show_treebank_link').modal()}, 300)
+                                        $.ajax({
+                                            data:{
+                                                pubid:pubid
+                                            },
+                                            type: 'POST', 
+                                            url: $SCRIPT_ROOT + 'perseids_get',
+                                            success: function(result) { 
+                                                console.log(result)
+                                            }
                                     } else {
                                         alert('Your treebank was submitted to Arethusa, but an error happened while connecting it with Sematia.')
                                     }

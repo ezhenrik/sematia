@@ -104,3 +104,20 @@ def post_treebank():
             if r.status_code == 200:
                 return jsonify({'id': r_json['id'], 'pubid':pubid})
     return 'false'
+
+@edit.route('/perseids_get',  methods=['POST'])
+def perseids_get():
+    pubid = request.form.get('pubid').strip()
+    if ('perseids' in session):
+        access_token = session['perseids']
+
+        url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+pubid
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '+access_token
+        }
+
+        r = requests.put(url, headers=headers)
+        return jsonify(r.json())
+    return 'false'
