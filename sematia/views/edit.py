@@ -107,11 +107,11 @@ def post_treebank():
 
 @edit.route('/perseids_get',  methods=['POST'])
 def perseids_get():
-    pubid = request.form.get('pubid').strip()
+    item_id = request.form.get('id').strip()
     if ('perseids' in session):
         access_token = session['perseids']
 
-        url = 'https://sosol.perseids.org/sosol/api/v1/publications/'+pubid
+        url = 'https://sosol.perseids.org/sosol/api/v1/items/'+item_id+'/peek'
         headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',

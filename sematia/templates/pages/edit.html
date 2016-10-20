@@ -612,6 +612,7 @@ var perseidsFinish = function() {
         success: function(data) { 
             if ('id' in data) {
                 var pubid = data.pubid
+                var id = data.id
                 $('#put_treebank .messages').addClass('label-success').text('Success!')
                 setTimeout(
                     function() { 
@@ -622,7 +623,7 @@ var perseidsFinish = function() {
                             $.ajax({
                                 data:{
                                     id:{{ltb.id}},
-                                    arethusa_id:data.id,
+                                    arethusa_id:id,
                                     arethusa_publication_id:pubid
                                 },
                                 type: 'POST', 
@@ -632,7 +633,7 @@ var perseidsFinish = function() {
                                         setTimeout(function() {$('#show_treebank_link').modal()}, 300)
                                         $.ajax({
                                             data:{
-                                                pubid:pubid
+                                                id:id
                                             },
                                             type: 'POST', 
                                             url: $SCRIPT_ROOT + 'perseids_get',
