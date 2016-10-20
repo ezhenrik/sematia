@@ -7,9 +7,11 @@ var getSegtok = function() {
 }
 
 var haveTransformation = function(xml) {
-    xml = $($.parseXML('<root>'+xml+'</root>'))
+    /*xml = $($.parseXML('<root>'+xml+'</root>'))
     xml.find('treebank').attr('sematiaID', $('.edit-hand').attr('data-id'))
-    $('.tb-result').text(xml.find('root').html())
+    $('.tb-result').text(xml.find('root').html())*/
+    $('.tb-result').text(xml)
+
     $('#put_treebank .save').removeClass('disabled')
 }
 
