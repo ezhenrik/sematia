@@ -119,5 +119,6 @@ def perseids_get():
         }
 
         r = requests.put(url, headers=headers)
+        Log.p(r.json())
         return jsonify(r.json())
     return 'false'
