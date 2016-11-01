@@ -409,7 +409,7 @@ function enableLayer(layer, el, paths, handno) {
             replaceString = 'OM';
           }
           var text = $(this).text();
-          var text = text.replace(/([“”—\"‘’\.,:;··;\?!\[\]{}\-])/g, " $1 ");
+          var text = text.replace(/([“”—\"‘’\.,:;···;\?!\[\]{}\-])/g, " $1 ");
           var text = text.replace(/([ ]{2,})/g, " ");
           var text = text.replace(/[^\s^\.]+/g, replaceString);
           $(this).addClass('modified');
