@@ -378,6 +378,12 @@ function enableLayer(layer, el, paths, handno) {
 
     if (layer == "original" || layer == "standard" || layer == "variation") {
 
+        // mid-punct
+        clone.find('.g[data-type="mid-punctus"]').each(function() {
+            $(this).text('·')
+            $(this).prev('span.text').text($(this).prev('span.text').text().replace(/\s+$/, ''))
+        });
+
         // subst
         clone.find('.subst').each(function() {
             $(this).find('.del').remove();
