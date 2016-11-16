@@ -15,12 +15,13 @@ var haveTransformation = function(xml) {
     $('#put_treebank .save').removeClass('disabled')
 }
 
-var getTransformation = function(text) {
+var getTransformation = function(text, semicolon_delimiter) {
     let endpoint = 'https://services.perseids.org/llt/segtok',
         params = {
         'xml': 'false',
         'inline': 'true',
         'splitting': 'true',
+        'semicolon_delimiter': semicolon_delimiter,
         'merging': 'false',
         'shifting': 'false',
         'remove_node': ['teiHeader', 'head', 'speaker', 'note', 'ref'],

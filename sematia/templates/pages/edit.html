@@ -606,7 +606,8 @@ var validatePerseids = function(success, error) {
 var generateTreebank = function() {
     var text = $('.text-content *:not(span)').text()
     $('#put_treebank .save').addClass('disabled')
-    getTransformation(text)
+    var semicolon_delimiter = $('#langForm input[name=lang]:checked').attr('val') == 'grc'
+    getTransformation(text, semicolon_delimiter)
 }
 
 var perseidsFinish = function() {
