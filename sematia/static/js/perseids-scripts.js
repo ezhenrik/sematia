@@ -55,6 +55,7 @@ $(document).ready(function() {
         "driver" : {
             "e_lang" : function() { return getLanguage() },
             "e_dir" : function() { return 'ltr'},
+            "e_docuri": function() { return window.location.href },
             "e_attachtoroot" : function() { return false},
             "e_collection" : function() {return getCollection() },
             "e_agenturi" : function() { return 'https://services2.perseids.org/llt/segtok'}
