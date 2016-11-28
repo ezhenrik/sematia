@@ -5,6 +5,8 @@ from datetime import datetime
 import xml.etree.ElementTree as etree
 import logging
 
+
+
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
 from config import VENV_PATH
@@ -33,7 +35,7 @@ with app.app_context():
 
     for filename in glob.iglob(app.config['TB_REPO']+'/**/*.xml', recursive=True):
         files += 1
-        f = open(filename, 'r')
+        f = open(filename, 'r', encoding='utf-8')
         xml = f.read()
         xml_root = etree.fromstring(xml)
         all_elements = xml_root.findall(".//*") 

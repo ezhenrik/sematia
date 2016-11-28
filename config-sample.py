@@ -20,6 +20,9 @@ SQLALCHEMY_TRACK_MODIFICATIONS = False
 # Google client ID
 GOOGLE_CLIENT_ID = ''
 
+# Sematia-tb repo location
+TB_REPO = ''
+
 # Perseids client ID
 PERSEIDS_CLIENT_ID = ''
 
