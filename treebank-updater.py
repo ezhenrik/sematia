@@ -26,9 +26,13 @@ app.config.from_object('config')
 if app.config['LOG']:
     logging.basicConfig(filename=app.config['LOGFILE'], level=logging.DEBUG)
 
+files = 0
+updated = 0
+
 with app.app_context():
 
     for filename in glob.iglob(app.config['TB_REPO']+'/**/*.xml', recursive=True):
+        files += 1
         f = open(filename, 'r')
         xml = f.read()
         xml_root = etree.fromstring(xml)
@@ -48,9 +52,15 @@ with app.app_context():
                     layertreebank.body = xml
                     layertreebank.updated = datetime.today()
                     db.session.commit()
+                    updated += 1
                 else:
                     Log.p('No layertreebank '+tb_id)
             except Exception:
                 Log.e()
         else:
             Log.p('No tb_id for file '+filename)
+
+time = datetime.today().strftime("%Y-%m-%d %H:%M:%S")
+
+Log.p(time+ ' - Updated '+str(updated)+' of '+str(files)+ ' treebanks.')
+
