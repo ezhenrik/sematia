@@ -96,6 +96,16 @@
                         </span>
                     </td>
                 </tr>
+                <tr {% if xstr(hand.meta_writer_trismegistos_id) == '' or hand.meta_writer_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                    <td>Writer TM ID</td>
+                    <td>
+                        <span class="data-container hand meta_writer_trismegistos_id">
+                            {% if xstr(hand.meta_writer_trismegistos_id) != '' and hand.meta_writer_trismegistos_id != 0 %}
+                                {{hand.meta_writer_trismegistos_id}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
                 <tr {% if xstr(hand.meta_scribal_name) == '' %}class="hidden"{% endif %}>
                     <td>Scibal name</td>
                     <td>
@@ -116,6 +126,16 @@
                         </span>
                     </td>
                 </tr>
+                <tr {% if xstr(hand.meta_scribal_trismegistos_id) == '' or hand.meta_scribal_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                    <td>Scribal TM ID</td>
+                    <td>
+                        <span class="data-container hand meta_scribal_trismegistos_id">
+                            {% if xstr(hand.meta_scribal_trismegistos_id) != '' and hand.meta_scribal_trismegistos_id != 0 %}
+                                {{hand.meta_scribal_trismegistos_id}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
                 <tr {% if xstr(hand.meta_author_name) == '' %}class="hidden"{% endif %}>
                     <td>Author name</td>
                     <td>
@@ -132,6 +152,16 @@
                         <span class="data-container hand meta_author_title">
                             {% if xstr(hand.meta_author_title) != '' %}
                                 {{hand.meta_author_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_author_trismegistos_id) == '' or hand.meta_author_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                    <td>Author TM ID</td>
+                    <td>
+                        <span class="data-container hand meta_author_trismegistos_id">
+                            {% if xstr(hand.meta_author_trismegistos_id) != '' and hand.meta_author_trismegistos_id != 0 %}
+                                {{hand.meta_author_trismegistos_id}}
                             {% endif %}
                         </span>
                     </td>
@@ -180,6 +210,16 @@
                         <span class="data-container hand meta_addressee_title">
                             {% if xstr(hand.meta_addressee_title) != '' %}
                                 {{hand.meta_addressee_title}}
+                            {% endif %}
+                        </span>
+                    </td>
+                </tr>
+                <tr {% if xstr(hand.meta_addressee_trismegistos_id) == '' or hand.meta_addressee_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                    <td>Addressee TM ID</td>
+                    <td>
+                        <span class="data-container hand meta_addressee_trismegistos_id">
+                            {% if xstr(hand.meta_addressee_trismegistos_id) != '' and hand.meta_addressee_trismegistos_id != 0 %}
+                                {{hand.meta_addressee_trismegistos_id}}
                             {% endif %}
                         </span>
                     </td>

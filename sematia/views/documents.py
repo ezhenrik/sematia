@@ -69,14 +69,20 @@ def edit_hand():
         .get('meta_writer_name').strip()
     meta_writer_title = request.form \
         .get('meta_writer_title').strip()
+    meta_writer_trismegistos_id = request.form \
+        .get('meta_writer_trismegistos_id').strip()
     meta_scribal_name = request.form \
         .get('meta_scribal_name').strip()
     meta_scribal_title = request.form \
         .get('meta_scribal_title').strip()
+    meta_scribal_trismegistos_id = request.form \
+        .get('meta_scribal_trismegistos_id').strip()
     meta_author_name = request.form \
         .get('meta_author_name').strip()
     meta_author_title = request.form \
         .get('meta_author_title').strip()
+    meta_author_trismegistos_id = request.form \
+        .get('meta_author_trismegistos_id').strip()
     meta_text_type = request.form \
         .get('meta_text_type').strip()
     meta_addressee = request.form \
@@ -85,6 +91,8 @@ def edit_hand():
         .get('meta_addressee_name').strip()
     meta_addressee_title = request.form \
         .get('meta_addressee_title').strip()
+    meta_addressee_trismegistos_id = request.form \
+        .get('meta_addressee_trismegistos_id').strip()
 
     return jsonify(Hand.edit(
         id,
@@ -94,14 +102,18 @@ def edit_hand():
         meta_handwriting_same_hand,
         meta_writer_name,
         meta_writer_title,
+        meta_writer_trismegistos_id,
         meta_scribal_name,
         meta_scribal_title,
+        meta_scribal_trismegistos_id,
         meta_author_name,
         meta_author_title,
+        meta_author_trismegistos_id,
         meta_text_type,
         meta_addressee,
         meta_addressee_name,
-        meta_addressee_title
+        meta_addressee_title,
+        meta_addressee_trismegistos_id
     ))
 
 @documents.route('/get_treebank', methods=['POST'])

@@ -78,18 +78,22 @@ class Hand(db.Model):
 
     meta_writer_name = db.Column(db.UnicodeText())
     meta_writer_title = db.Column(db.UnicodeText())
+    meta_writer_trismegistos_id = db.Column(db.Integer)
 
     meta_scribal_name = db.Column(db.UnicodeText())
     meta_scribal_title = db.Column(db.UnicodeText())
+    meta_scribal_trismegistos_id = db.Column(db.Integer)
 
     meta_author_name = db.Column(db.UnicodeText())
     meta_author_title = db.Column(db.UnicodeText())
+    meta_author_trismegistos_id = db.Column(db.Integer)
 
     meta_text_type = db.Column(db.UnicodeText())
 
     meta_addressee = db.Column(db.UnicodeText())
     meta_addressee_name = db.Column(db.UnicodeText())
     meta_addressee_title = db.Column(db.UnicodeText())
+    meta_addressee_trismegistos_id = db.Column(db.Integer)
     layertreebanks = db.relationship('Layertreebank', backref='hand', 
                                       cascade="all, delete-orphan", 
                                       lazy='dynamic')
