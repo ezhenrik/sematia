@@ -136,10 +136,17 @@ class Layertreebank():
 
         for hc in hand_counts:
             if not len(set(hand_counts[hc])) <= 1:
-                erroneous[hc] = hand_counts[hc]
+                hand = models.Hand.query.get(hc)
+                hand_no = hand.hand_no
+                hand_document = models.Document.query.get(hand.document_id).meta_title
+                erroneous[str(hand_document)+', hand '+str(hand_no)] = hand_counts[hc]
 
         if erroneous:
-            data['message'] = str(erroneous)
+            msg = ''
+            for er in erroneous:
+                msg += er+': '+str(erroneous[er])+'\n'
+
+            data['message'] = msg
 
         else:
             data = {
