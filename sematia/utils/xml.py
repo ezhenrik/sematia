@@ -196,7 +196,7 @@ class Xml():
         all_elements = xml_root.findall(".//*")   
 
         for element in all_elements:
-            if element.tag.endswith('word'):
+            if element.tag.endswith('word') and 'artificial' not in element.attrib:
                 count += 1
 
         return count
