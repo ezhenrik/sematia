@@ -16,6 +16,10 @@ class Layertreebank():
         return models.Layertreebank.query.get(id)
 
     @staticmethod
+    def get_all():
+        return models.Layertreebank.query.all()
+
+    @staticmethod
     def get_editable(id):
         doc_id = models.Layertreebank.query.get(id).hand.document_id
         if Document.get_editable(doc_id):
@@ -112,4 +116,33 @@ class Layertreebank():
         except Exception:
             return {'status':'error', 
                             'message': 'Could not retrieve the treebank.'}
+        return data
+
+    @staticmethod
+    def validate_word_counts():
+        data = {
+            'status': 'error',
+            'message': 'Failed to test for word counts'
+        }
+        hand_counts = {}
+        erroneous = {}
+        layertreebanks = Layertreebank.get_all()
+        if layertreebanks:
+            for lt in layertreebanks:
+                if lt.body:
+                    if lt.hand_id not in hand_counts:
+                        hand_counts[lt.hand_id] = []
+                    hand_counts[lt.hand_id].append(Xml.count_words(lt.body))
+
+        for hc in hand_counts:
+            if not len(set(hand_counts[hc])) <= 1:
+                erroneous[hc] = hand_counts[hc]
+
+        if erroneous:
+            data['message'] = str(erroneous)
+
+        else:
+            data = {
+                'status':'ok', 
+            }
         return data

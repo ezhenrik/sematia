@@ -3,7 +3,11 @@
 {% block title %}Documents{% endblock %}
 
 {% block titlehtml %}
-
+{% if admin %}
+    <a class="add btn btn-default validate-word-counts" href="">
+        Word counts <i class="fa fa-balance-scale" aria-hidden="true"></i>
+    </a>
+{% endif %}
  <a class="operation add btn btn-default add-document" href="" data-toggle="modal" data-target="#add_document" data-model="document"> 
     New <i class="fa fa-cloud-upload" aria-hidden="true"></i>
 </a>
@@ -719,6 +723,22 @@ $(document).on('click', '.delete-message', function(e) {
                 if (!$('.current-messages li').length) {
                     $('.current-messages').html('<li class="text-muted no-messages">No discussion yet.</li>')
                 }
+            }
+        }
+    })
+});
+
+$(document).on('click', '.validate-word-counts', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    $.ajax({
+        type: 'POST', 
+        url: $SCRIPT_ROOT + 'validate_word_counts',
+        success: function(data) { 
+            if (data.status == 'ok') {
+                alert('Words match!')
+            } else {
+                alert(data.message)
             }
         }
     })

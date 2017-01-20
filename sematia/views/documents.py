@@ -159,3 +159,7 @@ def add_message():
 def delete_message():
     id = request.form.get('id')
     return jsonify(Message.delete(id))
+
+@documents.route('/validate_word_counts', methods=['POST'])
+def validate_word_counts():
+    return jsonify(Layertreebank.validate_word_counts())

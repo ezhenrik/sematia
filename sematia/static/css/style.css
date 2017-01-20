@@ -606,6 +606,13 @@ a.my-contributions {
     margin-right:6px;
 }
 
+a.validate-word-counts {
+    float: right;
+    font-weight: 500;
+    padding: 5px 14px;
+    margin-left:6px;
+}
+
 a.add-document {
     float: right;
     font-weight: 500;

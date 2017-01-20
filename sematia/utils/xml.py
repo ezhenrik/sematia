@@ -188,3 +188,15 @@ class Xml():
         except Exception:
             log.e()
             return {'status': 'error', 'message':'Parsing error.'}   
+
+    @staticmethod
+    def count_words(xml):
+        count = 0
+        xml_root = etree.fromstring(xml)
+        all_elements = xml_root.findall(".//*")   
+
+        for element in all_elements:
+            if element.tag.endswith('word'):
+                count += 1
+
+        return count
