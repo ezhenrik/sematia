@@ -1,5 +1,7 @@
 
 
+
+
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -8,7 +10,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>How to use Sematia &mdash; Sematia documentation</title>
+  <title>How to use &mdash; Sematia documentation</title>
   
 
   
@@ -28,10 +30,15 @@
   
 
   
+    <link rel="stylesheet" href="/static/css/docs.css" type="text/css" />
+  
 
   
+        <link rel="author" title="About these documents"
+              href="about.html"/>
     <link rel="top" title="Sematia documentation" href="index.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
+        <link rel="next" title="Installation" href="installation.html"/>
+        <link rel="prev" title="About" href="about.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -81,8 +88,9 @@
             
             
                 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use Sematia</a></li>
 </ul>
 
             
@@ -113,7 +121,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>How to use Sematia</li>
+    <li>How to use</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -127,27 +135,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="how-to-use-sematia">
-<h1>How to use Sematia<a class="headerlink" href="#how-to-use-sematia" title="Permalink to this headline">¶</a></h1>
-<ol class="arabic simple">
-<li>Google sign in (and allow everything; sign-in does not work if you block something in Google). The sign in is used in order to direct users to their own dashboards.</li>
+  <div class="section" id="how-to-use">
+<h1>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first"><strong>Sign in</strong> using Google account or other operators provided (with Google you need to  allow everything; sign-in does not work if your browser settings block something). The dashboard opens up with a list of all documents imported to Sematia by all users. You can restrict the view to your own texts by clicking “Your contributions”.</p>
+</li>
+<li><p class="first"><strong>Import the document</strong> you have selected to work with from the Papyrological Navigator (<a class="reference external" href="http://papyri.info/">http://papyri.info/</a>). Click the button <strong>”New”</strong> at the top right of the page and provide the source URL to the box which opens up. The URL should be of the form, e.g. <a class="reference external" href="http://papyri.info/ddbdp/p.adl;;G1/source">http://papyri.info/ddbdp/p.adl;;G1/source</a>. You can get the source URL from the Papyrological Navigator either by</p>
+<blockquote>
+<div><ul class="simple">
+<li>taking the “Canonical URI” and adding “/source” behind it, <strong>or</strong></li>
+<li>going down to “DDbDP transcription” in the PN page of the document and clicking the [xml] and then copying the URL. You can simply paste the address into the box in Sematia.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Sematia creates automatically three layers</strong> of the document you imported: original, standard and variation layers (see below what they mean). Moreover, the text is divided into parts according to the handshifts. To expand the view of your imported document (i.e to see the layer options), click the plus symbol.</p>
+</li>
+<li><p class="first">When you <strong>select a layer of your document</strong> (click the buttons “original” or “standard”), you see the list of EpiDoc XML elements present in the current text and the color codes show how they are shown in the Transcript. The transcript is the same in both layers and you have the possibility to edit the layer text (e.g. if there are two or more options given in the apparatus of the text in the Papyrological Navigator, you can choose the one you want with the slider and it changes the text in the Plain text view). The Plain text is the form which is taken to the annotation environment. The layers have the following features:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="underline">Original</span> layer gives you the text as it is preserved in the original papyrus, that is, the abbreviations are not resolved (simply marked with a dummy marker “A”), supplied text is omitted (marked with dummy “SU”), the forms written in the papyrus are included (not the regularized forms). The unclear letters (underdot) are included as “certain” letters, so, if you hesitate with some underdotted letters, you can decide not to annotate those words. It is always advisable to keep the Papyrological Navigator page open as well when working with a text!</li>
+<li>The <span class="underline">standard</span> layer gives the text in the form the editor has interpreted it (i.e. according to the Papyrological Navigator, where later corrections may also be available): the abbreviated words are expanded, the supplied text is included, as are regularized spellings. If the editor has not supplied anything in a <em>lacuna</em>, the gap is marked with G.</li>
+<li>The <span class="underline">variation</span> layer is based on the original layer. This feature is still under development and there is no need to worry about it for the time being.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>Export the layer text to the annotation framework.</strong> Click the paper plane icon on the right side of Plain text. This transports the layer text into the Arethusa annotation service in <a class="reference external" href="http://sites.tufts.edu/perseids/">Perseids Platform</a> (you need to have your own account there. If you are not signed in when you export a text from Sematia, Perseids will ask you to sign in at this point).</p>
+</li>
+<li><p class="first">After you have annotated the text, submit it to the Sematia board in Perseids (Overview). You can add comments and questions at this stage, or (concernig a selected word) earlier in Arethusa via comment tab. The board either sends it back for revisions with comments or accepts it. After finalization by the board,  the treebank will be saved to the GitHub repository and it will automatically be imported to Sematia and attached to the layer it originated from. It will also stay in your Perseids account as Archived and  Committed.</p>
+</li>
+<li><p class="first">If you wish to <strong>discuss</strong> some matters concerning your layers or treebanks, the envelope icon takes you to the discussion mode (everyone who signs in can see the discussion, but only admin and the owner(s) of the document can take part). If the icon is black, there is no discussion, if it is transparent, there is discussion.</p>
+</li>
 </ol>
-<p>2) Import a document you wish to work with. Click ”Import a document” and provide the source URL to the box. It is of the form <a class="reference external" href="http://papyri.info/ddbdp/p.adl;;G1/source">http://papyri.info/ddbdp/p.adl;;G1/source</a>. You can get it for the text you want from the Papyrological Navigator either by
-Taking the “Canonical URI” and adding “/source” behind it, or
-going down to “DDbDP transcription” in the PN page of the document and clicking the [xml] and then copying the URL. You can simply paste the address into the box in Sematia.</p>
-<ol class="arabic simple" start="3">
-<li>Sematia creates automatically two layers of the document you imported: original and standard layer (see below what they mean). Moreover, the text is divided into parts according to the handshifts. Click the symbol (three lines) next to the title of your imported document and it expands the view, so that you can select which layer of which act of writing you want to work with. (if you click the title itself, it goes to the source xml of the document like in PN). All your imported documents can be expanded at the same time from the small arrow next to the title “Imported documents”. The alphabetical order can be switched between a&#8211;&gt;z and z&#8211;&gt;a.)</li>
-<li>When you go to a layer, you see the list of EpiDoc XML elements present in the current text and the color codes show how they are shown in the Edit view. The Edit view is the same in both layers and you have the possibility to edit the layer text (e.g. if there are two or more options given in the apparatus of the text in the Papyrological Navigator, you can choose the one you want with the slider). The Text view is the one where you take the text from into the annotation environment (by clicking the suitcase icon which selects the text and then copying it).</li>
-</ol>
-<p>Original layer gives you the text as it is preserved in the original papyrus, that is, the abbreviations are not resolved (simply marked with a dummy marker “A”), supplied text is omitted (marked with dummy “SU”), the forms written in the papyrus are taken in (not the regularized forms). The unclear letters (underdot) are taken in as “certain” letters, so, if you hesitate with some underdotted letters, you can decide not to annotate them. It is always advisable to keep the Papyrological Navigator page open as well!</p>
-<p>The standard layer gives the text in the form the editor has interpreted it (i.e. according to the Papyrological Navigator, where later corrections may also be available): the abbreviated words are expanded, the supplied text is included, as are regularized spellings. If the editor has not supplied anything in a lacuna, the gap is marked with G.</p>
-<ol class="arabic simple" start="5">
-<li>After you have annotated your treebank (e.g. in Arethusa in Perseids platform), import the XML to Sematia by copying the treebank xml and pasting it to the window which pops up when you click ”Add treebank” by the layer you want to attach the treebank with.</li>
-</ol>
-<p>Metadata:
-The date and provenance for each document will be taken automatically from the PN...</p>
-<p>For each hand (act of writing) you can add metadata about the handwriting, about the writer / author.
-… to be continued...</p>
+<p class="rubric">Metadata</p>
+<p>The <strong>date</strong> and <strong>provenance</strong> of each document are taken automatically from the PN (HGV) during the import process.</p>
+<p>For each <strong>hand</strong> (i.e. “act of writing”) you can add metadata (the cogwheel icon) about the handwriting, the writer / author, scribal official, text type and addressee. The idea is to add info, if it exists. Otherwise, leave blank.</p>
+<dl class="docutils">
+<dt><strong>Handwriting</strong></dt>
+<dd><ul class="first last simple">
+<li>You can write a <span class="underline">description of the hand as it is in the edition</span>, be it editio princeps or later editions or paleographical handbooks.</li>
+<li><span class="underline">“Custom description”</span> is your own view of the hand (if you have one, based on the original or an image).</li>
+<li>The level of <span class="underline">professionality</span> can be added from the drop-down menu. If you are sure that the text is written by a scribal professional, choose “Professional”. If the hand is clearly written by someone not accustomed to write, choose “Non-professional”. In private letters, the hand can be practised, but it is uncertain if the writer is a professional, then choose “Practised letterhand”. In all other cases, choose (not known).</li>
+<li>If you know that the <span class="underline">same handwriting</span> is attested in other documents, add the stable URL of that document into the box, e.g. <a class="reference external" href="http://papyri.info/ddbdp/p.lond;7;2191">http://papyri.info/ddbdp/p.lond;7;2191</a> and separate several documents by comma.</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Writer and author</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Name and title of the <span class="underline">actual writer</span>, if they are known. By actual writer, we mean the person who held the pen and wrote down the text. (Very often this has to be left blank)</li>
+<li>Name and title of the <span class="underline">scribal official</span> in charge of the text, e.g. the notary who has signed the document or has been mentioned in the text.</li>
+<li>Name and title of the <span class="underline">author of the text</span>. By author, we mean the person whom we may expect to be in charge of the text, e.g. the petitioner in a petition, the sender of the private letter, i.e. the person who could have dictated to a scribe what he wants to have written down. Contracts, however, are not normally authored by the contracting parties.</li>
+</ul>
+</div></blockquote>
+<dl class="docutils">
+<dt><strong>Text type</strong></dt>
+<dd><ul class="first last simple">
+<li>Choose from the drop-down menu. The main categories include some subcategories. For example, you can choose only “Letter” or only “Contract”, or be more specific and choose the type of the letter or type of the contract. If the subcategories do not match to your document, use the main ones. If none of the options is suitable, use “Other”.</li>
+</ul>
+</dd>
+<dt><strong>Addressee</strong></dt>
+<dd><ul class="first last simple">
+<li>If there is someone, to whom the document is addressed to, add the applicable information: Professional / non-professional, name and title.</li>
+</ul>
+</dd>
+</dl>
 </div>
 
 
@@ -157,8 +208,10 @@ The date and provenance for each document will be taken automatically from the P
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="about.html" class="btn btn-neutral" title="About" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -168,7 +221,7 @@ The date and provenance for each document will be taken automatically from the P
   <div role="contentinfo">
     <p>
         &copy; Copyright 2016, Marja Vierros &amp; Erik Henriksson.
-      Last updated on May 16, 2016.
+      Last updated on Jan 23, 2017.
 
     </p>
   </div>
