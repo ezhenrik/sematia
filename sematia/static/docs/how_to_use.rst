@@ -2,7 +2,7 @@
     :class: underline
 
 How to use
---------
+************
 
 #. **Sign in** using Google account or other operators provided (with Google you need to  allow everything; sign-in does not work if your browser settings block something). The dashboard opens up with a list of all documents imported to Sematia by all users. You can restrict the view to your own texts by clicking “Your contributions”.
 #. **Import the document** you have selected to work with from the Papyrological Navigator (http://papyri.info/). Click the button **”New”** at the top right of the page and provide the source URL to the box which opens up. The URL should be of the form, e.g. http://papyri.info/ddbdp/p.adl;;G1/source. You can get the source URL from the Papyrological Navigator either by
