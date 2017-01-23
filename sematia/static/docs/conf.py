@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Sematia'
-copyright = u'2016, Marja Vierros & Erik Henriksson'
+copyright = u'2017, Marja Vierros & Erik Henriksson'
 author = u'Marja Vierros & Erik Henriksson'
 
 # The version info for the project you're documenting, acts as replacement for
