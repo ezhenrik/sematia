@@ -36,9 +36,10 @@ For each **hand** (i.e. “act of writing”) you can add metadata (the cogwheel
     - Name and title of the :underline:`actual writer`, if they are known. By actual writer, we mean the person who held the pen and wrote down the text. (Very often this has to be left blank)
     - Name and title of the :underline:`scribal official` in charge of the text, e.g. the notary who has signed the document or has been mentioned in the text.
     - Name and title of the :underline:`author of the text`. By author, we mean the person whom we may expect to be in charge of the text, e.g. the petitioner in a petition, the sender of the private letter, i.e. the person who could have dictated to a scribe what he wants to have written down. Contracts, however, are not normally authored by the contracting parties.
+    - For the people involved, it is possible to add the Person ID used in Trismegistos People (http://www.trismegistos.org/ref/index.php). This should be inserted in the stable URL format, for example “www.trismegistos.org/person/12813” for Ptolemaios, son of Glaukias, who lived in Memphis in the Hellenistic period. (NB. no name IDs, only person IDs.)
 
 **Text type**
     - Choose from the drop-down menu. The main categories include some subcategories. For example, you can choose only “Letter” or only “Contract”, or be more specific and choose the type of the letter or type of the contract. If the subcategories do not match to your document, use the main ones. If none of the options is suitable, use “Other”.
 
 **Addressee**
-    - If there is someone, to whom the document is addressed to, add the applicable information: Professional / non-professional, name and title.
+    - If there is someone, to whom the document is addressed to, add the applicable information: Professional / non-professional, name and title, Trismegistos Person ID in the same as with writer / author.
