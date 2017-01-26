@@ -96,11 +96,11 @@
                         </span>
                     </td>
                 </tr>
-                <tr {% if xstr(hand.meta_writer_trismegistos_id) == '' or hand.meta_writer_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                <tr {% if xstr(hand.meta_writer_trismegistos_id) == '' or hand.meta_writer_trismegistos_id == 0 or hand.meta_writer_trismegistos_id == '0' %}class="hidden"{% endif %}>
                     <td>Writer TM ID</td>
                     <td>
                         <span class="data-container hand meta_writer_trismegistos_id">
-                            {% if xstr(hand.meta_writer_trismegistos_id) != '' and hand.meta_writer_trismegistos_id != 0 %}
+                            {% if xstr(hand.meta_writer_trismegistos_id) != '' and hand.meta_writer_trismegistos_id != 0 and hand.meta_writer_trismegistos_id != '0' %}
                                 {{hand.meta_writer_trismegistos_id}}
                             {% endif %}
                         </span>
@@ -126,11 +126,11 @@
                         </span>
                     </td>
                 </tr>
-                <tr {% if xstr(hand.meta_scribal_trismegistos_id) == '' or hand.meta_scribal_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                <tr {% if xstr(hand.meta_scribal_trismegistos_id) == '' or hand.meta_scribal_trismegistos_id == 0 or hand.meta_scribal_trismegistos_id == '0' %}class="hidden"{% endif %}>
                     <td>Scribal TM ID</td>
                     <td>
                         <span class="data-container hand meta_scribal_trismegistos_id">
-                            {% if xstr(hand.meta_scribal_trismegistos_id) != '' and hand.meta_scribal_trismegistos_id != 0 %}
+                            {% if xstr(hand.meta_scribal_trismegistos_id) != '' and hand.meta_scribal_trismegistos_id != 0 and hand.meta_scribal_trismegistos_id != '0' %}
                                 {{hand.meta_scribal_trismegistos_id}}
                             {% endif %}
                         </span>
@@ -156,11 +156,11 @@
                         </span>
                     </td>
                 </tr>
-                <tr {% if xstr(hand.meta_author_trismegistos_id) == '' or hand.meta_author_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                <tr {% if xstr(hand.meta_author_trismegistos_id) == '' or hand.meta_author_trismegistos_id == 0 or hand.meta_author_trismegistos_id == '0' %}class="hidden"{% endif %}>
                     <td>Author TM ID</td>
                     <td>
                         <span class="data-container hand meta_author_trismegistos_id">
-                            {% if xstr(hand.meta_author_trismegistos_id) != '' and hand.meta_author_trismegistos_id != 0 %}
+                            {% if xstr(hand.meta_author_trismegistos_id) != '' and hand.meta_author_trismegistos_id != 0 and hand.meta_author_trismegistos_id != '0' %}
                                 {{hand.meta_author_trismegistos_id}}
                             {% endif %}
                         </span>
@@ -214,11 +214,11 @@
                         </span>
                     </td>
                 </tr>
-                <tr {% if xstr(hand.meta_addressee_trismegistos_id) == '' or hand.meta_addressee_trismegistos_id == 0 %}class="hidden"{% endif %}>
+                <tr {% if xstr(hand.meta_addressee_trismegistos_id) == '' or hand.meta_addressee_trismegistos_id == 0 or hand.meta_addressee_trismegistos_id == '0' %}class="hidden"{% endif %}>
                     <td>Addressee TM ID</td>
                     <td>
                         <span class="data-container hand meta_addressee_trismegistos_id">
-                            {% if xstr(hand.meta_addressee_trismegistos_id) != '' and hand.meta_addressee_trismegistos_id != 0 %}
+                            {% if xstr(hand.meta_addressee_trismegistos_id) != '' and hand.meta_addressee_trismegistos_id != 0 and hand.meta_addressee_trismegistos_id != '0' %}
                                 {{hand.meta_addressee_trismegistos_id}}
                             {% endif %}
                         </span>
