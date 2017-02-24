@@ -22,7 +22,7 @@ class Document():
         for doc in docs:
             with urllib.request.urlopen(doc.url) as doc_url:
                 xml = doc_url.read().decode('utf-8')
-                doc.xml = xml
+                doc.xml = xml 
                 db.session.commit()
             print('reading '+doc.url)
             if xml:
