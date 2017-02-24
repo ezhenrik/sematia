@@ -18,22 +18,6 @@ class Document():
 
     @staticmethod
     def get_all():
-        docs = models.Document.query.all()
-        for doc in docs:
-            with urllib.request.urlopen(doc.url) as doc_url:
-                xml = doc_url.read().decode('utf-8')
-                doc.xml = xml 
-                db.session.commit()
-            print('reading '+doc.url)
-            if xml:
-                hands = Xml.get_hand_names_temp(xml)
-                for i in range(0, len(hands)):
-                    hand = models.Hand.query.filter_by(document_id=doc.id, hand_no=i+1).first()
-                    if hand:
-                        hand.hand_name = hands[i]
-                        db.session.commit()
-            else:
-                print('ERROR!!!!')
         return models.Document.query.all()
 
     @staticmethod
