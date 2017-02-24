@@ -69,6 +69,19 @@ class Xml():
         return cls.xmlstr
 
     @staticmethod
+    def get_hand_names_temp(xml):
+        hands = ['m1']
+
+        xml_root = etree.fromstring(xml)
+        all_elements = xml_root.findall(".//*")   
+
+        for element in all_elements:
+            if element.tag.endswith('handShift'):
+                hands.append(element.attrib['new'])
+
+        return hands
+
+    @staticmethod
     def get_metadata(xml):
         special_dates = app.app.config['DATE_STRINGS']
         dates_not_before = []

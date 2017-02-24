@@ -67,9 +67,10 @@ class Document(db.Model):
     messages = db.relationship('Message', backref='document',
                                 cascade="all, delete-orphan")
 
-    def __init__(self, url, html, title, date_not_before, 
+    def __init__(self, url, xml, html, title, date_not_before, 
             date_not_after, provenience):
         self.url = url
+        self.xml = xml
         self.html = html
         self.meta_title = title
         self.meta_date_not_before = date_not_before,
