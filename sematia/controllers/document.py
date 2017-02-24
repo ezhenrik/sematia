@@ -37,7 +37,7 @@ class Document():
                 with urllib.request.urlopen(url) as doc_url:
                     s = doc_url.read().decode('utf-8')
                 data = Xml.start(s)
-
+                
                 document = models.Document(
                     url, 
                     data['html'],
@@ -56,8 +56,8 @@ class Document():
 
                 layers = ['original', 'standard', 'variation']
 
-                for i in range(1, data['hands']+1):
-                    hand = models.Hand(document.id, i)
+                for i in range(0, len(data['hands'])):
+                    hand = models.Hand(document.id, i+1, data['hands'][i])
                     db.session.add(hand)
                     db.session.commit()
                     for k in range(0, 3):

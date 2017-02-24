@@ -77,17 +77,18 @@ class Xml():
         title = ''
         date_not_before = ''
         date_not_after = ''
-        hands = 0
+        hands = ['m1']
 
         xml_root = etree.fromstring(xml)
         title = xml_root.find('.//titleStmt/title').text
         if not title:
             title = ''.join(xml_root.find('.//titleStmt/title').itertext())
-        hands = len(xml_root.findall('.//handShift')) + 1
 
         all_elements = xml_root.findall(".//*")   
 
         for element in all_elements:
+            if element.tag.endswith('handShift'):
+                hands.append(element.attrib['new'])
             if element.tag.endswith('date'):
                 date = element.text
                 if date in special_dates:
@@ -101,7 +102,6 @@ class Xml():
                             dates_not_after.append(proposed_date)
             elif element.tag.endswith('placeName'):
                 place = element.text
-
         if xml_root.findall(".//*[@type='HGV']"):
             hgv_id = xml_root.findall(".//*[@type='HGV']")[0].text.split()[0]
             if hgv_id:

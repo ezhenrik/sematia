@@ -5,6 +5,17 @@ from sqlalchemy.orm import mapper
 
 db = SQLAlchemy()
 
+class Stats(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    original_count = db.Column(db.Integer)
+    standard_count = db.Column(db.Integer)
+    variation_count = db.Column(db.Integer)
+
+    def __init__(self, original_count, standard_count, variation_count):
+        self.original_count = original_count
+        self.standard_count = standard_count
+        self.variation_count = variation_count
+
 userdocument = db.Table('userdocument',
                    db.Column('id', db.Integer, primary_key=True),
                    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -69,6 +80,8 @@ class Hand(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     document_id = db.Column(db.Integer, db.ForeignKey('document.id'))
     hand_no = db.Column(db.Integer)
+    hand_id = db.Column(db.String(256))
+    hand_name = db.Column(db.String(256))
     created = db.Column(db.DateTime, default=datetime.today())
     updated = db.Column(db.DateTime)
     meta_handwriting_description_edition = db.Column(db.UnicodeText())
@@ -78,29 +91,30 @@ class Hand(db.Model):
 
     meta_writer_name = db.Column(db.UnicodeText())
     meta_writer_title = db.Column(db.UnicodeText())
-    meta_writer_trismegistos_id = db.Column(db.Integer)
+    meta_writer_trismegistos_id = db.Column(db.UnicodeText())
 
     meta_scribal_name = db.Column(db.UnicodeText())
     meta_scribal_title = db.Column(db.UnicodeText())
-    meta_scribal_trismegistos_id = db.Column(db.Integer)
+    meta_scribal_trismegistos_id = db.Column(db.UnicodeText())
 
     meta_author_name = db.Column(db.UnicodeText())
     meta_author_title = db.Column(db.UnicodeText())
-    meta_author_trismegistos_id = db.Column(db.Integer)
+    meta_author_trismegistos_id = db.Column(db.UnicodeText())
 
     meta_text_type = db.Column(db.UnicodeText())
 
     meta_addressee = db.Column(db.UnicodeText())
     meta_addressee_name = db.Column(db.UnicodeText())
     meta_addressee_title = db.Column(db.UnicodeText())
-    meta_addressee_trismegistos_id = db.Column(db.Integer)
+    meta_addressee_trismegistos_id = db.Column(db.UnicodeText())
     layertreebanks = db.relationship('Layertreebank', backref='hand', 
                                       cascade="all, delete-orphan", 
                                       lazy='dynamic')
 
-    def __init__(self, document_id, hand_no):
+    def __init__(self, document_id, hand_no, hand_name):
         self.document_id = document_id
         self.hand_no = hand_no
+        self.hand_name = hand_name
 
 class Layertreebank(db.Model):
     id = db.Column(db.Integer, primary_key=True)
