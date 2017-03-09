@@ -100,7 +100,23 @@
                                 
                             {% endfor %}
                             </div>
-                        
+                            <p></p>
+                            <h4>Addressee</h4>
+                            <div class="row">
+                            {% set count = 1 %}
+                            {% for key, val in config.METADATA_VALUES.meta_addressee %}
+                                {% if key != 'SEPARATOR' and key != '' %}
+                                    <div class="col-xs-6">
+                                    <label class="checkbox-inline"><input type="checkbox" value="{{key or 'unspecified'}}" class="hand_addressee" >{{val or 'Unspecified'}}</label>
+                                    </div>
+                                    {% if count is divisibleby 2 %}
+                                        </div><div class="row">
+                                    {% endif %}
+                                    {% set count = count + 1 %}
+                                {% endif %}
+                                
+                            {% endfor %}
+                            </div>
                     </div>
                 </div>
                 <div class="row">
@@ -111,7 +127,7 @@
                         <div class="input-group original_group">
                             <span class="input-group-addon"><span class="field-label">Word</span></span>
                             <input type="text" class="form-control original">
-                            {% include 'pages/includes/buttons.html' %}
+                            {% include 'pages/includes/buttons-minimal.html' %}
                         </div>
 
                         <p></p>
@@ -135,7 +151,7 @@
                         <div class="input-group standard_group">
                             <span class="input-group-addon"><span class="field-label">Word</span></span>
                             <input type="text" class="form-control standard">
-                            {% include 'pages/includes/buttons.html' %}
+                            {% include 'pages/includes/buttons-minimal.html' %}
                         </div>
                   
                         <p></p>
@@ -284,6 +300,12 @@
                 hand_text_type.push($(this).val());
             })
 
+            var hand_addressee = [];
+
+            $('.hand_addressee:checked').each(function() {
+                hand_addressee.push($(this).val());
+            })
+
             var original = $('.original').val();
             var original_plain = $('.original_group .plain').is('.active');
             var original_mode = $('.original_group .alt.active').attr('class').split(/\s+/)[0];
@@ -316,6 +338,7 @@
                 'hand_handwriting': hand_handwriting,
 
                 'hand_text_type': hand_text_type,
+                'hand_addressee': hand_addressee,
 
                 'original': original,
                 'original_plain': original_plain,

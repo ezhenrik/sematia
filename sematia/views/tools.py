@@ -43,6 +43,7 @@ def find():
     options['document_date_not_after'] = request.form.get('document_date_not_after')
     options['hand_handwriting'] = request.form.getlist('hand_handwriting[]')
     options['hand_text_type'] = request.form.getlist('hand_text_type[]')
+    options['hand_addressee'] = request.form.getlist('hand_addressee[]')
     query['original'] = {
         'q': request.form.get('original'),
         'plain': request.form.get('original_plain'),
