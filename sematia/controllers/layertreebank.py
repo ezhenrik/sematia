@@ -326,7 +326,7 @@ class Layertreebank():
 
                 for element in all_elements:
                     if element.tag.endswith('word'):
-                        print(element.attrib['id'])
+                        
                         all_data[int(element.attrib['id'])] = {
                              'word': {
                                 'standard': '',
@@ -344,24 +344,44 @@ class Layertreebank():
 
                 xml_root = etree.fromstring(standard)
                 all_elements = xml_root.findall(".//*")   
-
+               
                 for i, element in enumerate(all_elements):
                     if element.tag.endswith('word'):
-                        if element.attrib['id'] in all_data:
-                            all_data[element.attrib['id']]['word']['standard'] = element.attrib['form'] if 'form' in element.attrib else ''
-                            all_data[element.attrib['id']]['relation']['standard'] = element.attrib['relation'] if 'relation' in element.attrib else ''
-                            all_data[element.attrib['id']]['postag']['standard'] = element.attrib['postag'] if 'postag' in element.attrib else ''
-                    
+                        if int(element.attrib['id']) in all_data:
+                            print('oli')
+
+                            all_data[int(element.attrib['id'])]['word']['standard'] = element.attrib['form'] if 'form' in element.attrib else ''
+                            all_data[int(element.attrib['id'])]['relation']['standard'] = element.attrib['relation'] if 'relation' in element.attrib else ''
+                            all_data[int(element.attrib['id'])]['postag']['standard'] = element.attrib['postag'] if 'postag' in element.attrib else ''
+                        '''else:
+                            all_data[int(element.attrib['id'])] = {
+                                 'word': {
+                                    'original': '',
+                                    'standard': element.attrib['form'] if 'form' in element.attrib else '',
+                                },
+                                'relation': {
+                                    'original': '',
+                                    'standard': element.attrib['relation'] if 'relation' in element.attrib else '',
+                                },
+                                'postag': {
+                                    'original': '',
+                                    'standard': element.attrib['postag'] if 'postag' in element.attrib else '',
+                                },
+                            }'''
+                
+                keys_to_delete = []
                 for i, d in enumerate(all_data):
-                    if (query['original']['q'] and d['word']['original'] != query['original']['q']) or \
-                    (query['original']['relation'] and d['relation']['original'] != query['original']['relation']) or \
-                    (query['original']['postag'] and d['postag']['original'] != query['original']['postag']) or \
-                    (query['standard']['q'] and d['word']['standard'] != query['standard']['q']) or \
-                    (query['standard']['relation'] and d['relation']['standard'] != query['standard']['relation']) or \
-                    (query['standard']['postag'] and d['postag']['standard'] != query['standard']['postag']):
+                    if (query['original']['q'] and all_data[d]['word']['original'].lower() != query['original']['q'].lower()) or \
+                    (query['original']['relation'] and all_data[d]['relation']['original'].lower() != query['original']['relation'].lower()) or \
+                    (query['original']['postag'] and all_data[d]['postag']['original'].lower() != query['original']['postag'].lower()) or \
+                    (query['standard']['q'] and all_data[d]['word']['standard'].lower() != query['standard']['q'].lower()) or \
+                    (query['standard']['relation'] and all_data[d]['relation']['standard'].lower() != query['standard']['relation'].lower()) or \
+                    (query['standard']['postag'] and all_data[d]['postag']['standard'].lower() != query['standard']['postag'].lower()):
 
-                            del all_data[i]
+                            keys_to_delete.append(d)
 
+                for k in keys_to_delete:
+                    all_data.pop(k, None)
 
                 if all_data:
 
