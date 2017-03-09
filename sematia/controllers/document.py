@@ -21,6 +21,10 @@ class Document():
         return models.Document.query.all()
 
     @staticmethod
+    def get_filtered(filters):
+        return models.Document.query.filter(*filters).all()
+
+    @staticmethod
     def get_editable(id):
         if models.Userdocument.query.filter_by(
                 document_id=id, user_id=session['user_id']).first() or \

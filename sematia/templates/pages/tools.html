@@ -14,9 +14,9 @@
 {% endblock %}
 
 {% block main %}
-<div class="row tools">
+<div class="row sematia-tools">
     <div class="col-xs-12">
-        <div class="panel panel-info export">
+        <div class="panel panel-default export">
             <div class="panel-heading">
                 Export
             </div>
@@ -30,10 +30,154 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-12 col-xs-12">
-        <h4>Search</h4>
-        Search
+        <div class="panel panel-info search">
+            <div class="panel-heading">
+                Search
+            </div>
+            <div class="panel-body">
+                <div class="row" style="padding-bottom:20px">
+                    <div class="col-xs-12 col-md-6">
+                        <h4>Document</h4>
+                        <div class="input-group document_title_group">
+                            <span class="input-group-addon"><span class="field-label">Title</span></span>
+                            <input type="text" class="form-control document_title">
+                            {% include 'pages/includes/buttons-basic.html' %}
+                        </div>
+                        <p></p>
+                        <div class="input-group document_provenience_group">
+                            <span class="input-group-addon"><span class="field-label">Place</span></span>
+                            <input type="text" class="form-control document_provenience">
+                            {% include 'pages/includes/buttons-basic.html' %}
+                        </div>
+                        <p></p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="field-label">Date >=</span></span>
+                            <input type="text" class="form-control document_date_not_before">
+                            
+                        </div>
+                        <p></p>
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="field-label">Date <=</span></span>
+                            <input type="text" class="form-control document_date_not_after">
+                            
+                        </div>
+                        <div style="padding-bottom:10px"></div>
+
+                        <h4>Handwriting type</h4>
+                            
+                            <div class="row">
+                            {% set count = 1 %}
+                            {% for key, val in config.METADATA_VALUES.meta_handwriting_professional %}
+                                {% if key != 'SEPARATOR' and key != '' %}
+                                    <div class="col-xs-6">
+                                    <label class="checkbox-inline"><input type="checkbox" value="{{key or 'unspecified'}}" class="hand_handwriting" >{{val or 'Unspecified'}}</label>
+                                    </div>
+                                    {% if count is divisibleby 2 %}
+                                        </div><div class="row">
+                                    {% endif %}
+
+                                    {% set count = count + 1 %}
+                                {% endif %}
+                                
+                            {% endfor %}
+                            </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                            <p></p>
+                            <h4>Text type</h4>
+                            <div class="row">
+                            {% set count = 1 %}
+                            {% for key, val in config.METADATA_VALUES.meta_text_type %}
+                                {% if key != 'SEPARATOR' and key != '' %}
+                                    <div class="col-xs-6">
+                                    <label class="checkbox-inline"><input type="checkbox" value="{{key or 'unspecified'}}" class="hand_text_type" >{{val or 'Unspecified'}}</label>
+                                    </div>
+                                    {% if count is divisibleby 2 %}
+                                        </div><div class="row">
+                                    {% endif %}
+                                    {% set count = count + 1 %}
+                                {% endif %}
+                                
+                            {% endfor %}
+                            </div>
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+
+                        <h4>Original</h4>
+                        <p></p>
+                        <div class="input-group original_group">
+                            <span class="input-group-addon"><span class="field-label">Word</span></span>
+                            <input type="text" class="form-control original">
+                            {% include 'pages/includes/buttons.html' %}
+                        </div>
+
+                        <p></p>
+                        <div class="input-group original_relation_group">
+                            <span class="input-group-addon"><span class="field-label">Relation</span></span>
+                            <input type="text" class="form-control original_relation">
+                            {% include 'pages/includes/buttons-minimal.html' %}
+                        </div>
+       
+                        <p></p>
+                        <div class="input-group original_postag_group">
+                            <span class="input-group-addon"><span class="field-label">Postag</span></span>
+                            <input type="text" class="form-control original_postag">
+                            {% include 'pages/includes/buttons-minimal.html' %}
+                        </div>
+                        <p></p>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <h4>Standard</h4>
+                        <p></p>
+                        <div class="input-group standard_group">
+                            <span class="input-group-addon"><span class="field-label">Word</span></span>
+                            <input type="text" class="form-control standard">
+                            {% include 'pages/includes/buttons.html' %}
+                        </div>
+                  
+                        <p></p>
+                        <div class="input-group standard_relation_group">
+                            <span class="input-group-addon"><span class="field-label">Relation</span></span>
+                            <input type="text" class="form-control standard_relation">
+                            {% include 'pages/includes/buttons-minimal.html' %}
+                        </div>
+               
+                        <p></p>
+                        <div class="input-group standard_postag_group">
+                            <span class="input-group-addon"><span class="field-label">Postag</span></span>
+                            <input type="text" class="form-control standard_postag">
+                            {% include 'pages/includes/buttons-minimal.html' %}
+                        </div>
+                        <p></p>
+                    </div>
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary submit" type="button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Results
+            </div>
+            <div class="panel-body">
+                <p class="results">
+                    <div class="dataTable_wrapper">
+                        <table class="table results-table table-striped table-bordered table-hover" id="dataTables-results">
+                            <thead>
+                                <th>Word</th>
+                                <th>Relation</th>
+                                <th>Postag</th>
+                                <th>Hand id</th>
+                            </thead>
+                        </table>
+                    </div>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -42,7 +186,157 @@
 {% block scripts %}
 
 {{super()}}
+<script>
 
+    var resultsTable;
+
+    function search(data) {
+        var retval,
+        settings = {
+            type: 'POST',
+            url: '/tools/find',
+            data: data,
+            dataType: 'json',
+
+            success: function(data) { 
+                $('.loader').fadeOut('fast');
+                console.log(data['result'])
+                resultsTable.clear().rows.add(data.result[0]).draw();
+                $('html, body').animate({
+                    scrollTop: $("#dataTables-results").offset().top
+                }, 500);
+
+            },
+            error(xhr,status,error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        }
+        $.ajax(settings);
+        return retval;
+    }
+
+    function clearErrors() {
+        $('.alert').hide();
+    }
+
+    function showError(text) {
+        $('.alert').fadeIn('fast').find('.error-text').text(text);
+        $('.alert').delay(2000).fadeOut('slow'); 
+    }
+
+    var isInt = function(n) { return parseInt(n) === n };
+
+    $(document).ready(function() {
+
+        /* Enable Datatables */
+        resultsTable = $('#dataTables-results').DataTable({
+            "responsive": true,
+            "pageLength": 50
+        });
+
+        $(document).on('click', '.sematia-tools .btn-xs', function(e) {
+            e.preventDefault();
+
+            if ($(this).is('.alt')) {
+                if (!$(this).siblings('.alt.active').length) {
+                    return
+                } else {
+                    $(this).siblings('.alt').removeClass('active');
+                }
+            }
+
+            $(this).toggleClass('active');
+
+        });
+
+        $(document).on('click', '.select-all', function(e) {
+            e.preventDefault();
+            $('.series').prop( "checked", true );
+        });
+        $(document).on('click', '.select-none', function(e) {
+            e.preventDefault();
+            $('.series').prop( "checked", false );
+        });
+        $(document).on('click', '.submit', function(e) {
+            e.preventDefault();
+
+            clearErrors();
+
+            var document_title = $('.document_title').val();
+            var document_title_mode = $('.document_title_group .alt.active').attr('class').split(/\s+/)[0];
+            var document_provenience = $('.document_provenience').val();
+            var document_provenience_mode = $('.document_provenience_group .alt.active').attr('class').split(/\s+/)[0];
+
+            var document_date_not_before = $('.document_date_not_before').val();
+            var document_date_not_after = $('.document_date_not_after').val();
+
+            var hand_handwriting = [];
+
+            $('.hand_handwriting:checked').each(function() {
+                hand_handwriting.push($(this).val());
+            })
+
+            var hand_text_type = [];
+
+            $('.hand_text_type:checked').each(function() {
+                hand_text_type.push($(this).val());
+            })
+
+            var original = $('.original').val();
+            var original_plain = $('.original_group .plain').is('.active');
+            var original_mode = $('.original_group .alt.active').attr('class').split(/\s+/)[0];
+            var original_relation = $('.original_relation').val();
+            var original_relation_mode = $('.original_relation_group .alt.active').attr('class').split(/\s+/)[0];
+            var original_postag = $('.original_postag').val();
+            var original_postag_mode = $('.original_postag_group .alt.active').attr('class').split(/\s+/)[0];
+
+            var standard = $('.standard').val();
+            var standard_plain = $('.standard_group .plain').is('.active');
+            var standard_mode = $('.standard_group .alt.active').attr('class').split(/\s+/)[0];
+            var standard_relation = $('.standard_relation').val();
+            var standard_relation_mode = $('.standard_relation_group .alt.active').attr('class').split(/\s+/)[0];
+            var standard_postag = $('.standard_postag').val();
+            var standard_postag_mode = $('.standard_postag_group .alt.active').attr('class').split(/\s+/)[0];
+
+
+            $('.loader').fadeIn('fast');
+
+            data = {
+
+                'document_title': document_title,
+                'document_title_mode': document_title_mode,
+                'document_provenience': document_provenience,
+                'document_provenience_mode': document_provenience_mode,
+
+                'document_date_not_before': document_date_not_before,
+                'document_date_not_after': document_date_not_after,
+
+                'hand_handwriting': hand_handwriting,
+
+                'hand_text_type': hand_text_type,
+
+                'original': original,
+                'original_plain': original_plain,
+                'original_mode': original_mode,
+                'original_relation': original_relation,
+                'original_relation_mode': original_relation_mode,
+                'original_postag': original_postag,
+                'original_postag_mode': original_postag_mode,
+
+                'standard': standard,
+                'standard_plain': standard_plain,
+                'standard_mode': standard_mode,
+                'standard_relation': standard_relation,
+                'standard_relation_mode': standard_relation_mode,
+                'standard_postag': standard_postag,
+                'standard_postag_mode': standard_postag_mode,
+            }
+
+            search(data);
+        })
+    });
 
 </script>
 

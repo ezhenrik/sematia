@@ -654,3 +654,179 @@ a.delete-message {
     height: 200px;
     overflow: scroll;
 }
+
+
+/* From Paratypa */
+/* Bootstrap tweaks */
+
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    text-align:left;
+    margin-right:-4px;
+}
+
+.col-fixed {
+    width:320px;
+}
+
+/* Search */
+
+.navbar-header {
+    width:100%;
+}
+.navbar-top-links {
+    float:right;
+}
+.sidebar {
+    width:200px;
+}
+.sidebar ul {
+    padding-left: 15px;
+}
+.sidebar ul li {
+    border-bottom:none;
+    padding-bottom:10px;
+}
+@media(min-width:768px) {
+    #page-wrapper {
+        margin-left:200px;
+    }
+}
+@media(max-width:767px) {
+    .sidebar {
+        display:none;
+    }
+}
+
+.instructions {
+    padding:15px;
+}
+
+.separator {
+    color: #ccc;
+    text-shadow: 1px 0 0 rgba(255, 255, 255, 0.5);
+}
+
+.field-label {
+    display: inline-block;
+    width: 60px;
+}
+
+.paratypa-search .btn-xs {
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+.paratypa-search .alert {
+    float: left;
+    margin-bottom: 0;
+    padding: 6px 15px 6px 12px;
+}
+
+.results-table {
+    font-size:12px;
+}
+
+.results-table strong.red {
+    color: red;
+    padding: 0;
+}
+
+.results-table strong.green {
+    color: green;
+    padding: 0;
+}
+
+.input-group-addon button {
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+span.meta {
+    font-size:11px;
+    margin-right:3px;
+    margin-bottom: 3px;
+    font-weight:normal;
+} 
+
+span.meta.collection.badge {
+    background:#f0ad4e;
+}
+
+span.meta.filename.badge {
+    background: #337ab7;
+    cursor:pointer;
+}
+
+
+span.meta.position.badge {
+    background:#5bc0de;
+}
+
+span.loader {
+    margin-left:15px;
+    display:none;
+}
+
+/* Slider */
+
+#slider {
+    margin-top:15px;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    background: #ddd !important;
+    border-color:#ccc !important;
+}
+
+#slider > * {
+    outline:none !important;
+}
+
+.date_before.badge,
+.date_after.badge {
+    background:#5bc0de;
+}
+
+.legend {
+    height: 5px;
+    width: 100%;
+    position:relative;
+    margin-bottom:15px;
+}
+
+.legend .sep {
+    position:absolute;
+    width:1px;
+    height:5px;
+    background:#ccc;
+}
+
+.legend .sep:nth-child(5)::after {
+    content: "0";
+    display: block;
+    font-size: 11px;
+    left: -2px;
+    position: absolute;
+    top: 4px;
+}
+/* Tweak */
+
+.input-group .form-control {
+    height: 36px;
+}
+
+.input-group select {
+}
+
+.tweak-input-label {
+    border: none;
+    background: none;
+    margin-right: 20px;
+    font-size: 14px;
+    padding: 0 20px 0 0 !important;
+}
