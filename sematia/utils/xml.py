@@ -213,3 +213,13 @@ class Xml():
                 count += 1
 
         return count
+
+    @staticmethod
+    def add_metadata(xml, data):
+        new_element = etree.fromstring(data)
+        xml_root = etree.fromstring(xml)
+        xml_root.insert(0, new_element)
+
+        return etree.tostring(xml_root, encoding='utf8', method='xml')
+
+        

@@ -160,8 +160,10 @@ class Layertreebank():
 
     @staticmethod
     def export(target):
+
         treebanks = Layertreebank.get_all()
         memory_file = io.BytesIO()
+
         with zipfile.ZipFile(memory_file, 'w') as zf:
 
             for treebank in treebanks:
@@ -170,8 +172,80 @@ class Layertreebank():
                         data = zipfile.ZipInfo(str(treebank.id)+'.xml')
                         data.date_time = time.localtime(time.time())[:6]
                         data.compress_type = zipfile.ZIP_DEFLATED
-                        zf.writestr(data, str.encode(treebank.body))
+                        hand = treebank.hand
+                        document = hand.document
+                        metadata = """\
+   <sematia>
+      <id>%s</id>
+      <document_title>%s</document_title>
+      <document_provenience>%s</document_provenience>
+      <document_date_not_before>%s</document_date_not_before>
+      <document_date_not_after>%s</document_date_not_after>
+
+      <hand_no>%s</hand_no>
+      <hand_name>%s</hand_name>
+
+      <meta_handwriting_description_edition>%s</meta_handwriting_description_edition>
+      <meta_handwriting_description_custom>%s</meta_handwriting_description_custom>
+      <meta_handwriting_professional>%s</meta_handwriting_professional>
+      <meta_handwriting_same_hand>%s</meta_handwriting_same_hand>
+
+      <meta_writer_name>%s</meta_writer_name>
+      <meta_writer_title>%s</meta_writer_title>
+      <meta_writer_trismegistos_id>%s</meta_writer_trismegistos_id>
+
+      <meta_scribal_name>%s</meta_scribal_name>
+      <meta_scribal_title>%s</meta_scribal_title>
+      <meta_scribal_trismegistos_id>%s</meta_scribal_trismegistos_id>
+
+      <meta_author_name>%s</meta_author_name>
+      <meta_author_title>%s</meta_author_title>
+      <meta_author_trismegistos_id>%s</meta_author_trismegistos_id>
+
+      <meta_text_type>%s</meta_text_type>
+
+      <meta_addressee>%s</meta_addressee>
+      <meta_addressee_name>%s</meta_addressee_name>
+      <meta_addressee_title>%s</meta_addressee_title>
+      <meta_addressee_trismegistos_id>%s</meta_addressee_trismegistos_id>
+   </sematia>\n
+                        """ % (treebank.id, 
+                               document.meta_title,
+                               document.meta_provenience,
+                               document.meta_date_not_before,
+                               document.meta_date_not_after,
+                               hand.hand_no, 
+                               hand.hand_name,
+                               hand.meta_handwriting_description_edition,
+                               hand.meta_handwriting_description_custom,
+                               hand.meta_handwriting_professional,
+                                hand.meta_handwriting_same_hand,
+
+                                hand.meta_writer_name,
+                                hand.meta_writer_title,
+                                hand.meta_writer_trismegistos_id or '',
+
+                                hand.meta_scribal_name,
+                                hand.meta_scribal_title,
+                                hand.meta_scribal_trismegistos_id or '',
+
+                                hand.meta_author_name,
+                                hand.meta_author_title,
+                                hand.meta_author_trismegistos_id or '',
+
+                                hand.meta_text_type,
+
+                                hand.meta_addressee,
+                                hand.meta_addressee_name,
+                                hand.meta_addressee_title,
+                                hand.meta_addressee_trismegistos_id or ''
+                               )
+
+                        xml_data = Xml.add_metadata(treebank.body, metadata)
+                        
+                        zf.writestr(data, xml_data)
         memory_file.seek(0)
+
         return memory_file
 
         
