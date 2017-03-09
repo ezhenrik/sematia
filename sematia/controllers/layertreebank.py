@@ -392,9 +392,12 @@ class Layertreebank():
 
                     for d in all_data:
                         result_data.append([
-                            all_data[d]['word']['original']+' | '+all_data[d]['word']['standard'],
-                            all_data[d]['relation']['original']+' | '+all_data[d]['relation']['standard'],
-                            all_data[d]['postag']['original']+' | '+all_data[d]['postag']['standard'],
+                            all_data[d]['word']['original'],
+                            all_data[d]['word']['standard'],
+                            all_data[d]['relation']['original'],
+                            all_data[d]['relation']['standard'],
+                            all_data[d]['postag']['original'],
+                            all_data[d]['postag']['standard'],
                             tb.hand.id
                         ])
 
