@@ -177,6 +177,7 @@ class Layertreebank():
                         metadata = """\
    <sematia>
       <id>%s</id>
+      <type>%s</type>
       <document_title>%s</document_title>
       <document_provenience>%s</document_provenience>
       <document_date_not_before>%s</document_date_not_before>
@@ -210,6 +211,7 @@ class Layertreebank():
       <meta_addressee_trismegistos_id>%s</meta_addressee_trismegistos_id>
    </sematia>\n
                         """ % (treebank.id, 
+                               treebank.type,
                                document.meta_title,
                                document.meta_provenience,
                                document.meta_date_not_before,
@@ -219,26 +221,26 @@ class Layertreebank():
                                hand.meta_handwriting_description_edition,
                                hand.meta_handwriting_description_custom,
                                hand.meta_handwriting_professional,
-                                hand.meta_handwriting_same_hand,
+                               hand.meta_handwriting_same_hand,
 
-                                hand.meta_writer_name,
-                                hand.meta_writer_title,
-                                hand.meta_writer_trismegistos_id or '',
+                               hand.meta_writer_name,
+                               hand.meta_writer_title,
+                               hand.meta_writer_trismegistos_id or '',
 
-                                hand.meta_scribal_name,
-                                hand.meta_scribal_title,
-                                hand.meta_scribal_trismegistos_id or '',
+                               hand.meta_scribal_name,
+                               hand.meta_scribal_title,
+                               hand.meta_scribal_trismegistos_id or '',
 
-                                hand.meta_author_name,
-                                hand.meta_author_title,
-                                hand.meta_author_trismegistos_id or '',
+                               hand.meta_author_name,
+                               hand.meta_author_title,
+                               hand.meta_author_trismegistos_id or '',
 
-                                hand.meta_text_type,
+                               hand.meta_text_type,
 
-                                hand.meta_addressee,
-                                hand.meta_addressee_name,
-                                hand.meta_addressee_title,
-                                hand.meta_addressee_trismegistos_id or ''
+                               hand.meta_addressee,
+                               hand.meta_addressee_name,
+                               hand.meta_addressee_title,
+                               hand.meta_addressee_trismegistos_id or ''
                                )
 
                         xml_data = Xml.add_metadata(treebank.body, metadata)
