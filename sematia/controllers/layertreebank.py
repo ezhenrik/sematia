@@ -1,4 +1,8 @@
-from flask import session
+import zipfile
+import io
+import time
+
+from flask import session, send_file
 
 from . import document
 from .. import models
@@ -153,3 +157,21 @@ class Layertreebank():
                 'status':'ok', 
             }
         return data
+
+    @staticmethod
+    def export(target):
+        treebanks = Layertreebank.get_all()
+        memory_file = io.BytesIO()
+        with zipfile.ZipFile(memory_file, 'w') as zf:
+
+            for treebank in treebanks:
+                if treebank.body:
+                    if target is 'all' or target == treebank.type:
+                        data = zipfile.ZipInfo(str(treebank.id)+'.xml')
+                        data.date_time = time.localtime(time.time())[:6]
+                        data.compress_type = zipfile.ZIP_DEFLATED
+                        zf.writestr(data, str.encode(treebank.body))
+        memory_file.seek(0)
+        return memory_file
+
+        

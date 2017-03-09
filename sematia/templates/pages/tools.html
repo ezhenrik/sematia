@@ -1,0 +1,50 @@
+{% extends "layouts/normal.html" %}
+
+{% block title %}Tools{% endblock %}
+
+{% block titlehtml %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+<h4>Instructions</h4>
+<p></p>
+
+{% endblock %}
+
+{% block main %}
+<div class="row tools">
+    <div class="col-xs-12">
+        <div class="panel panel-info export">
+            <div class="panel-heading">
+                Export
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="btn-group"><a class="btn btn-info" href="/tools/export_all_treebanks">All</a></div>
+                        <div class="btn-group"><a class="btn btn-primary" href="/tools/export_original_treebanks">Original</a></div> 
+                        <div class="btn-group"><a class="btn btn-success" href="/tools/export_standard_treebanks">Standard</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-xs-12">
+        <h4>Search</h4>
+        Search
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{{super()}}
+
+
+</script>
+
+{% endblock %}
+

@@ -5,7 +5,7 @@ from flask import Flask, redirect, request, session, url_for
 from flask_bootstrap import Bootstrap
 
 from .models import db
-from .views import annotate, documents, docs, edit, user, users
+from .views import annotate, documents, docs, edit, user, users, tools
 
 app = Flask(__name__)
 
@@ -19,6 +19,7 @@ app.register_blueprint(edit.edit, url_prefix='/edit')
 app.register_blueprint(annotate.annotate, url_prefix='/annotate')
 app.register_blueprint(user.user, url_prefix='/user')
 app.register_blueprint(users.users, url_prefix='/users')
+app.register_blueprint(tools.tools, url_prefix='/tools')
 
 # Configure logging
 if app.config['LOG']:
