@@ -50,7 +50,7 @@ def find():
         'lemma': request.form.get('original_lemma'),
         'lemma_plain': request.form.get('original_lemma_plain'),
         'relation': request.form.get('original_relation'),
-        'postag': request.form.get('original_posta'),
+        'postag': request.form.get('original_postag'),
 
     }
     query['standard'] = {

@@ -326,21 +326,15 @@
             var original_plain = $('.original_group .plain').is('.active');
             var original_lemma = $('.original_lemma').val();
             var original_lemma_plain = $('.original_lemma_group .plain').is('.active');
-            var original_mode = $('.original_group .alt.active').attr('class').split(/\s+/)[0];
             var original_relation = $('.original_relation').val();
-            var original_relation_mode = $('.original_relation_group .alt.active').attr('class').split(/\s+/)[0];
             var original_postag = $('.original_postag').val();
-            var original_postag_mode = $('.original_postag_group .alt.active').attr('class').split(/\s+/)[0];
 
             var standard = $('.standard').val();
             var standard_plain = $('.standard_group .plain').is('.active');
             var standard_lemma = $('.standard_lemma').val();
             var standard_lemma_plain = $('.standard_lemma_group .plain').is('.active');
-            var standard_mode = $('.standard_group .alt.active').attr('class').split(/\s+/)[0];
             var standard_relation = $('.standard_relation').val();
-            var standard_relation_mode = $('.standard_relation_group .alt.active').attr('class').split(/\s+/)[0];
             var standard_postag = $('.standard_postag').val();
-            var standard_postag_mode = $('.standard_postag_group .alt.active').attr('class').split(/\s+/)[0];
 
 
             $('.loader').fadeIn('fast');
@@ -364,21 +358,15 @@
                 'original_lemma': original_lemma,
                 'original_lemma_plain': original_lemma_plain,
                 'original_plain': original_plain,
-                'original_mode': original_mode,
                 'original_relation': original_relation,
-                'original_relation_mode': original_relation_mode,
                 'original_postag': original_postag,
-                'original_postag_mode': original_postag_mode,
 
                 'standard': standard,
                 'standard_lemma': standard_lemma,
                 'standard_lemma_plain': standard_lemma_plain,
                 'standard_plain': standard_plain,
-                'standard_mode': standard_mode,
                 'standard_relation': standard_relation,
-                'standard_relation_mode': standard_relation_mode,
                 'standard_postag': standard_postag,
-                'standard_postag_mode': standard_postag_mode,
             }
 
             search(data);
