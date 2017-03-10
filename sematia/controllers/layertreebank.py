@@ -446,7 +446,7 @@ class Layertreebank():
                 keys_to_delete = []
                 for i, d in enumerate(all_data):
                     if (query['original']['q'] and not re.search(query['original']['q'], all_data[d]['word']['original'], re.I)) or \
-                    (query['original']['lemma'] and not re.search(query['original']['lemma'], all_data[d]['lemma']['standard'],  re.I)) or \
+                    (query['original']['lemma'] and not re.search(query['original']['lemma'], all_data[d]['lemma']['original'],  re.I)) or \
                     (query['original']['relation'] and not re.search(query['original']['relation'], all_data[d]['relation']['original'],  re.I)) or \
                     (query['original']['postag'] and not re.search(query['original']['postag'], all_data[d]['postag']['original'], re.I)) or \
                     (query['standard']['q'] and not re.search(query['standard']['q'], all_data[d]['word']['standard'], re.I)) or \
