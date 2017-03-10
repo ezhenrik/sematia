@@ -47,21 +47,19 @@ def find():
     query['original'] = {
         'q': request.form.get('original'),
         'plain': request.form.get('original_plain'),
-        'mode': request.form.get('original_mode'),
+        'lemma': request.form.get('original_lemma'),
+        'lemma_plain': request.form.get('original_lemma_plain'),
         'relation': request.form.get('original_relation'),
-        'relation_mode': request.form.get('original_relation_mode'),
-        'postag': request.form.get('original_postag'),
-        'postag_mode': request.form.get('original_postag_mode'),
+        'postag': request.form.get('original_posta'),
 
     }
     query['standard'] = {
         'q': request.form.get('standard'),
         'plain': request.form.get('standard_plain'),
-        'mode': request.form.get('standard_mode'),
+        'lemma': request.form.get('standard_lemma'),
+        'lemma_plain': request.form.get('standard_lemma_plain'),
         'relation': request.form.get('standard_relation'),
-        'relation_mode': request.form.get('standard_relation_mode'),
         'postag': request.form.get('standard_postag'),
-        'postag_mode': request.form.get('standard_postag_mode'),
     }
    
     result = Layertreebank.search(query, options)

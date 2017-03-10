@@ -830,3 +830,16 @@ span.loader {
     font-size: 14px;
     padding: 0 20px 0 0 !important;
 }
+
+.results-table tr[role="row"] td span:first-child {
+    color: #398439;
+}
+
+.results-table tr[role="row"] td span {
+    color: #204d74;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 3px;
+    line-height: 28px;
+}

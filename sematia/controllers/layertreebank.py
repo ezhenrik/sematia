@@ -3,6 +3,7 @@ import io
 import time
 import xml.etree.ElementTree as etree
 import re
+import unicodedata
 from flask import session, send_file
 
 from sqlalchemy import or_
@@ -331,11 +332,44 @@ class Layertreebank():
 
                 for element in all_elements:
                     if element.tag.endswith('word'):
-                        
+                        if 'form' in element.attrib:
+                            if query['original']['plain'] == 'true':
+                                word_form = ''
+                                for c in element.attrib['form']:
+                                    word_form += unicodedata.normalize('NFD', c)[0]
+                            else:
+                                word_form = element.attrib['form']
+                            word_print = element.attrib['form']
+                        else:
+                            word_form = ''
+                            word_print = ''
+                        if 'lemma' in element.attrib:
+                            if query['original']['lemma_plain'] == 'true':
+                                lemma_form = ''
+                                for c in element.attrib['lemma']:
+                                    lemma_form += unicodedata.normalize('NFD', c)[0]
+                            else:
+                                lemma_form = element.attrib['lemma']
+                            lemma_print = element.attrib['lemma']
+                        else:
+                            lemma_form = ''
+                            word_print = ''
                         all_data[int(element.attrib['id'])] = {
                              'word': {
                                 'standard': '',
-                                'original': element.attrib['form'] if 'form' in element.attrib else '',
+                                'original': word_form,
+                            },
+                             'word_print': {
+                                'standard': '',
+                                'original': word_print,
+                            },
+                            'lemma': {
+                                'standard': '',
+                                'original': lemma_form,
+                            },
+                            'lemma_print': {
+                                'standard': '',
+                                'original': lemma_print,
                             },
                             'relation': {
                                 'standard': '',
@@ -352,16 +386,52 @@ class Layertreebank():
                
                 for i, element in enumerate(all_elements):
                     if element.tag.endswith('word'):
+                        if 'form' in element.attrib:
+                            if query['standard']['plain'] == 'true':
+                                word_form = ''
+                                for c in element.attrib['form']:
+                                    word_form += unicodedata.normalize('NFD', c)[0]
+                            else:
+                                word_form = element.attrib['form']
+                            word_print = element.attrib['form']
+                        else:
+                            word_form = ''
+                            word_print = ''
+                        if 'lemma' in element.attrib:
+                            if query['standard']['lemma_plain'] == 'true':
+                                lemma_form = ''
+                                for c in element.attrib['lemma']:
+                                    lemma_form += unicodedata.normalize('NFD', c)[0]
+                            else:
+                                lemma_form = element.attrib['lemma']
+                            lemma_print = element.attrib['lemma']
+                        else:
+                            lemma_form = ''
+                            lemma_print = ''
                         if int(element.attrib['id']) in all_data:
-
-                            all_data[int(element.attrib['id'])]['word']['standard'] = element.attrib['form'] if 'form' in element.attrib else ''
+                            all_data[int(element.attrib['id'])]['word']['standard'] = word_form
+                            all_data[int(element.attrib['id'])]['word_print']['standard'] = word_print
+                            all_data[int(element.attrib['id'])]['lemma']['standard'] = lemma_form
+                            all_data[int(element.attrib['id'])]['lemma_print']['standard'] = lemma_print
                             all_data[int(element.attrib['id'])]['relation']['standard'] = element.attrib['relation'] if 'relation' in element.attrib else ''
                             all_data[int(element.attrib['id'])]['postag']['standard'] = element.attrib['postag'] if 'postag' in element.attrib else ''
                         else:
                             all_data[int(element.attrib['id'])] = {
                                  'word': {
                                     'original': '',
-                                    'standard': element.attrib['form'] if 'form' in element.attrib else '',
+                                    'standard': word_form,
+                                },
+                                 'word_print': {
+                                    'original': '',
+                                    'standard': word_print,
+                                },
+                                'lemma': {
+                                    'original': '',
+                                    'standard': lemma_form,
+                                },
+                                'lemma_print': {
+                                    'original': '',
+                                    'standard': lemma_print,
                                 },
                                 'relation': {
                                     'original': '',
@@ -376,9 +446,11 @@ class Layertreebank():
                 keys_to_delete = []
                 for i, d in enumerate(all_data):
                     if (query['original']['q'] and not re.search(query['original']['q'], all_data[d]['word']['original'], re.I)) or \
+                    (query['original']['lemma'] and not re.search(query['original']['lemma'], all_data[d]['lemma']['standard'],  re.I)) or \
                     (query['original']['relation'] and not re.search(query['original']['relation'], all_data[d]['relation']['original'],  re.I)) or \
                     (query['original']['postag'] and not re.search(query['original']['postag'], all_data[d]['postag']['original'], re.I)) or \
                     (query['standard']['q'] and not re.search(query['standard']['q'], all_data[d]['word']['standard'], re.I)) or \
+                    (query['standard']['lemma'] and not re.search(query['standard']['lemma'], all_data[d]['lemma']['standard'], re.I)) or \
                     (query['standard']['relation'] and not re.search(query['standard']['relation'], all_data[d]['relation']['standard'], re.I)) or \
                     (query['standard']['postag'] and not re.search(query['standard']['postag'], all_data[d]['postag']['standard'], re.I)):
             
@@ -392,17 +464,16 @@ class Layertreebank():
 
                     for d in all_data:
                         result_data.append([
-                            all_data[d]['word']['original'],
-                            all_data[d]['word']['standard'],
-                            all_data[d]['relation']['original'],
-                            all_data[d]['relation']['standard'],
-                            all_data[d]['postag']['original'],
-                            all_data[d]['postag']['standard'],
-                            tb.hand.id
+                            '<span>'+all_data[d]['word_print']['original']+'</span><span>'+all_data[d]['word_print']['standard']+'</span>',
+                            '<span>'+all_data[d]['lemma_print']['original']+'</span><span>'+all_data[d]['lemma_print']['standard']+'</span>',
+                            '<span>'+all_data[d]['relation']['original']+'</span><span>'+all_data[d]['relation']['standard']+'</span>',
+                            '<span>'+all_data[d]['postag']['original']+'</span><span>'+all_data[d]['postag']['standard']+'</span>',
+                            tb.hand.hand_name,
+                            tb.hand.document.meta_title
                         ])
 
                     
-
+        print(query)
         return [result_data]
 
         

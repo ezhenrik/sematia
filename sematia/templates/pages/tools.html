@@ -41,13 +41,13 @@
                         <div class="input-group document_title_group">
                             <span class="input-group-addon"><span class="field-label">Title</span></span>
                             <input type="text" class="form-control document_title">
-                            {% include 'pages/includes/buttons-basic.html' %}
+                            {% include 'pages/includes/buttons.html' %}
                         </div>
                         <p></p>
                         <div class="input-group document_provenience_group">
                             <span class="input-group-addon"><span class="field-label">Place</span></span>
                             <input type="text" class="form-control document_provenience">
-                            {% include 'pages/includes/buttons-basic.html' %}
+                            {% include 'pages/includes/buttons.html' %}
                         </div>
                         <p></p>
                         <div class="input-group">
@@ -127,9 +127,16 @@
                         <div class="input-group original_group">
                             <span class="input-group-addon"><span class="field-label">Word</span></span>
                             <input type="text" class="form-control original">
-                            {% include 'pages/includes/buttons-minimal.html' %}
+                            {% include 'pages/includes/buttons-basic.html' %}
                         </div>
 
+                        <p></p>
+                        <div class="input-group original_lemma_group">
+                            <span class="input-group-addon"><span class="field-label">Lemma</span></span>
+                            <input type="text" class="form-control original_lemma">
+                            {% include 'pages/includes/buttons-basic.html' %}
+                        </div>
+       
                         <p></p>
                         <div class="input-group original_relation_group">
                             <span class="input-group-addon"><span class="field-label">Relation</span></span>
@@ -151,10 +158,17 @@
                         <div class="input-group standard_group">
                             <span class="input-group-addon"><span class="field-label">Word</span></span>
                             <input type="text" class="form-control standard">
-                            {% include 'pages/includes/buttons-minimal.html' %}
+                            {% include 'pages/includes/buttons-basic.html' %}
                         </div>
                   
                         <p></p>
+                        <div class="input-group standard_lemma_group">
+                            <span class="input-group-addon"><span class="field-label">Lemma</span></span>
+                            <input type="text" class="form-control standard_lemma">
+                            {% include 'pages/includes/buttons-basic.html' %}
+                        </div>
+               
+                        <p></p>                        
                         <div class="input-group standard_relation_group">
                             <span class="input-group-addon"><span class="field-label">Relation</span></span>
                             <input type="text" class="form-control standard_relation">
@@ -184,13 +198,12 @@
                     <div class="dataTable_wrapper">
                         <table class="table results-table table-striped table-bordered table-hover" id="dataTables-results">
                             <thead>
-                                <th>Word-O</th>
-                                <th>Word-S</th>
-                                <th>Relation-O</th>
-                                <th>Relation-S</th>
-                                <th>Postag-O</th>
-                                <th>Postag-S</th>
-                                <th>Hand id</th>
+                                <th>Word</th>
+                                <th>Lemma</th>
+                                <th>Relation</th>
+                                <th>Postag</th>
+                                <th>Hand</th>
+                                <th>Doc.</th>
                             </thead>
                         </table>
                     </div>
@@ -311,6 +324,8 @@
 
             var original = $('.original').val();
             var original_plain = $('.original_group .plain').is('.active');
+            var original_lemma = $('.original_lemma').val();
+            var original_lemma_plain = $('.original_lemma_group .plain').is('.active');
             var original_mode = $('.original_group .alt.active').attr('class').split(/\s+/)[0];
             var original_relation = $('.original_relation').val();
             var original_relation_mode = $('.original_relation_group .alt.active').attr('class').split(/\s+/)[0];
@@ -319,6 +334,8 @@
 
             var standard = $('.standard').val();
             var standard_plain = $('.standard_group .plain').is('.active');
+            var standard_lemma = $('.standard_lemma').val();
+            var standard_lemma_plain = $('.standard_lemma_group .plain').is('.active');
             var standard_mode = $('.standard_group .alt.active').attr('class').split(/\s+/)[0];
             var standard_relation = $('.standard_relation').val();
             var standard_relation_mode = $('.standard_relation_group .alt.active').attr('class').split(/\s+/)[0];
@@ -344,6 +361,8 @@
                 'hand_addressee': hand_addressee,
 
                 'original': original,
+                'original_lemma': original_lemma,
+                'original_lemma_plain': original_lemma_plain,
                 'original_plain': original_plain,
                 'original_mode': original_mode,
                 'original_relation': original_relation,
@@ -352,6 +371,8 @@
                 'original_postag_mode': original_postag_mode,
 
                 'standard': standard,
+                'standard_lemma': standard_lemma,
+                'standard_lemma_plain': standard_lemma_plain,
                 'standard_plain': standard_plain,
                 'standard_mode': standard_mode,
                 'standard_relation': standard_relation,
