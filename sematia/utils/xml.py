@@ -247,8 +247,8 @@ class Xml():
 
         if words:
             words_s = sorted(words.items(), key=operator.itemgetter(1), reverse=True)
-        for word in words_s:
-            csv_string += word[0]+', '+str(word[1])+', '+str(round(word[1]/len(words_s), 5))+'\n'
+            for word in words_s:
+                csv_string += word[0]+', '+str(word[1])+', '+str(round(word[1]/len(words_s), 5))+'\n'
 
 
         return csv_string
