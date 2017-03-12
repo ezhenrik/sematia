@@ -261,6 +261,27 @@ class Layertreebank():
         return memory_file
 
     @staticmethod
+    def export_words(target):
+
+        treebanks = Layertreebank.get_all()
+        memory_file = io.BytesIO()
+
+        with zipfile.ZipFile(memory_file, 'w') as zf:
+
+            for treebank in treebanks:
+                if treebank.body:
+                    if target is 'all' or target == treebank.type:
+                        data = zipfile.ZipInfo(str(treebank.id)+'.csv')
+                        data.date_time = time.localtime(time.time())[:6]
+                        data.compress_type = zipfile.ZIP_DEFLATED
+                        word_data = Xml.get_word_data(treebank.body)
+                        
+                        zf.writestr(data, word_data)
+        memory_file.seek(0)
+
+        return memory_file
+
+    @staticmethod
     def search(query, options):
         hand_args = []
         if options['document_title']:

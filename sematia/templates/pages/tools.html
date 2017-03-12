@@ -15,10 +15,10 @@
 
 {% block main %}
 <div class="row sematia-tools">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
         <div class="panel panel-default export">
             <div class="panel-heading">
-                Export
+                Export Layers
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -30,6 +30,26 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="panel panel-warning export">
+            <div class="panel-heading">
+                Export Word Frequencies
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="btn-group"><a class="btn btn-info" href="/tools/export_all_words">All</a></div>
+                        <div class="btn-group"><a class="btn btn-primary" href="/tools/export_original_words">Original</a></div> 
+                        <div class="btn-group"><a class="btn btn-success" href="/tools/export_standard_words">Standard</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row sematia-tools">
+    <div class="col-xs-12">
         <div class="panel panel-info search">
             <div class="panel-heading">
                 Search

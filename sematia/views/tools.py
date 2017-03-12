@@ -15,6 +15,9 @@ Layertreebank = layertreebank.Layertreebank
 def export(target):
     return send_file(Layertreebank.export(target), attachment_filename='treebanks-'+target+'.zip', as_attachment=True)
 
+def export_words(target):
+    return send_file(Layertreebank.export_words(target), attachment_filename='words-'+target+'.zip', as_attachment=True)
+
 @tools.route('/')
 def index():
     return render_template('pages/tools.html')
@@ -30,6 +33,18 @@ def export_standard_treebanks():
 @tools.route('/export_original_treebanks', methods=['GET'])
 def export_original_treebanks():
     return export('original')
+
+@tools.route('/export_all_words', methods=['GET'])
+def export_all_words():
+    return export_words('all')
+
+@tools.route('/export_standard_words', methods=['GET'])
+def export_standard_words():
+    return export_words('standard')
+
+@tools.route('/export_original_words', methods=['GET'])
+def export_original_words():
+    return export_words('original')
 
 @tools.route('/find', methods=['POST'])
 def find():

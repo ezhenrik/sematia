@@ -4,6 +4,8 @@ import sys
 import traceback
 import urllib.request
 import xml.etree.ElementTree as etree
+import unicodedata
+import operator
 
 from ..models import db, User, Document, Hand, Layertreebank
 from .. import app
@@ -221,5 +223,34 @@ class Xml():
         xml_root.insert(0, new_element)
 
         return etree.tostring(xml_root, encoding='utf8', method='xml')
+
+    @staticmethod
+    def get_word_data(xml):
+        count = 0
+        xml_root = etree.fromstring(xml)
+        all_elements = xml_root.findall(".//*")   
+        words = {}
+        csv_string = 'word, n, frequency\n'
+
+        for element in all_elements:
+            if element.tag.endswith('word') and 'artificial' not in element.attrib \
+                and 'lemma' in element.attrib and element.attrib['lemma'].strip() \
+                and element.attrib['lemma'] != 'punc1':
+                #word_form = ''
+                #for c in element.attrib['lemma']:
+                #    word_form += unicodedata.normalize('NFD', c)[0]
+                word_form = element.attrib['lemma'].lower()
+                if word_form and word_form not in words:
+                    words[word_form] = 1
+                else:
+                    words[word_form] += 1
+
+        if words:
+            words_s = sorted(words.items(), key=operator.itemgetter(1), reverse=True)
+        for word in words_s:
+            csv_string += word[0]+', '+str(word[1])+', '+str(round(word[1]/len(words_s), 5))+'\n'
+
+
+        return csv_string
 
         
