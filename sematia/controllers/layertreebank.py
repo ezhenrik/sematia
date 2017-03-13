@@ -349,9 +349,9 @@ class Layertreebank():
             for tb in hand.layertreebanks:
 
                 if tb.type == 'standard':
-                    standard = tb.body if tb.body else ''
+                    standard = tb.body if tb.body and tb.approved_user_id else ''
                 elif tb.type == 'original':
-                    original = tb.body if tb.body else ''
+                    original = tb.body if tb.body and tb.approved_user_id else ''
 
             if standard and original:
 
