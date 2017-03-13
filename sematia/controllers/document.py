@@ -40,10 +40,12 @@ class Document():
             else:
                 with urllib.request.urlopen(url) as doc_url:
                     s = doc_url.read().decode('utf-8')
+                    print(s)
                 data = Xml.start(s)
 
                 document = models.Document(
                     url, 
+                    s,
                     data['html'],
                     data['title'], 
                     data['date_not_before'],
