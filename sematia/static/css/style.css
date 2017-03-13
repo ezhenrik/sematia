@@ -792,5 +792,9 @@ span.loader {
 }
 
 
-
+.results-table tr[role="row"] td span:empty {
+    background:#ddd;
+    position:relative;
+    top:3px;
+}
 
