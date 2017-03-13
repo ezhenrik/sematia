@@ -312,6 +312,15 @@ class Layertreebank():
         if options['document_date_not_after']:
             hand_args.append(models.Document.meta_date_not_after <= options['document_date_not_after'])
 
+        if options['actual_writer_tmid']:
+            hand_args.append(models.Hand.meta_writer_trismegistos_id == options['actual_writer_tmid'])
+        if options['scribal_official_tmid']:
+            hand_args.append(models.Hand.meta_scribal_trismegistos_id == options['scribal_official_tmid'])
+        if options['author_tmid']:
+            hand_args.append(models.Hand.meta_author_trismegistos_id == options['author_tmid'])
+        if options['addressee_tmid']:
+            hand_args.append(models.Hand.meta_addressee_trismegistos_id == options['addressee_tmid'])
+
         or_filters = []
         for handwriting in options['hand_handwriting']:
             or_filters.append(models.Hand.meta_handwriting_professional == handwriting)

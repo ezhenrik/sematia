@@ -765,3 +765,8 @@ span.loader {
     border-radius: 3px;
     line-height: 28px;
 }
+
+.tm-ids .field-label {
+    display: inline-block;
+    width: 100px;
+}

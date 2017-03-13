@@ -59,6 +59,10 @@ def find():
     options['hand_handwriting'] = request.form.getlist('hand_handwriting[]')
     options['hand_text_type'] = request.form.getlist('hand_text_type[]')
     options['hand_addressee'] = request.form.getlist('hand_addressee[]')
+    options['actual_writer_tmid'] = request.form.get('actual_writer_tmid')
+    options['scribal_official_tmid'] = request.form.get('scribal_official_tmid')
+    options['author_tmid'] = request.form.get('author_tmid')
+    options['addressee_tmid'] = request.form.get('addressee_tmid')
     query['original'] = {
         'q': request.form.get('original'),
         'plain': request.form.get('original_plain'),

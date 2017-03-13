@@ -101,8 +101,37 @@
                                 
                             {% endfor %}
                             </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
+                            <div style="padding-bottom:10px"></div>
+                            <h4>Trismegistos ID</h4>
+                            <p></p>
+                            <div class="row tm-ids">
+                            <div class="col-xs-6">
+                                <div class="input-group original_group">
+                                    <span class="input-group-addon"><span class="field-label">Actual writer</span></span>
+                                    <input type="text" class="form-control actual_writer_tmid">
+                                </div>
+
+                                <p></p>
+                                <div class="input-group original_group">
+                                    <span class="input-group-addon"><span class="field-label">Scribal official</span></span>
+                                    <input type="text" class="form-control scribal_official_tmid">
+                                </div>
+                                <p></p>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="input-group original_group">
+                                    <span class="input-group-addon"><span class="field-label">Author</span></span>
+                                    <input type="text" class="form-control  author_tmid">
+                                </div>
+                                <p></p>
+                                <div class="input-group original_group">
+                                    <span class="input-group-addon"><span class="field-label">Addressee</span></span>
+                                    <input type="text" class="form-control  addressee_tmid">
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
                             <p></p>
                             <h4>Text type</h4>
                             <div class="row">
@@ -137,6 +166,7 @@
                                 
                             {% endfor %}
                             </div>
+
                     </div>
                 </div>
                 <div class="row">
@@ -342,6 +372,11 @@
                 hand_addressee.push($(this).val());
             })
 
+            var actual_writer_tmid = $('.actual_writer_tmid').val();
+            var scribal_official_tmid = $('.scribal_official_tmid').val();
+            var author_tmid = $('.author_tmid').val();
+            var addressee_tmid = $('.addressee_tmid').val();
+
             var original = $('.original').val();
             var original_plain = $('.original_group .plain').is('.active');
             var original_lemma = $('.original_lemma').val();
@@ -373,6 +408,11 @@
 
                 'hand_text_type': hand_text_type,
                 'hand_addressee': hand_addressee,
+
+                'actual_writer_tmid': actual_writer_tmid,
+                'scribal_official_tmid': scribal_official_tmid,
+                'author_tmid': author_tmid, 
+                'addressee_tmid': addressee_tmid,
 
                 'original': original,
                 'original_lemma': original_lemma,
