@@ -690,6 +690,7 @@ a.delete-message {
 .field-label {
     display: inline-block;
     width: 60px;
+    font-size:13px;
 }
 
 .results-table {
@@ -758,15 +759,38 @@ span.loader {
 }
 
 .results-table tr[role="row"] td span {
-    color: #204d74;
-    margin-right: 10px;
+    margin-right: 4px;
     border: 1px solid #ccc;
     padding: 4px;
     border-radius: 3px;
-    line-height: 28px;
+    margin-bottom: 2px;
+    line-height: 10px;
+    display: inline-block;
 }
 
 .tm-ids .field-label {
     display: inline-block;
-    width: 100px;
+    width: 80px;
 }
+.input-group-addon {
+    padding: 6px 6px;
+}
+
+.results-table tr[role="row"] td span.author {
+    color:#6f5499;
+}
+.results-table tr[role="row"] td span.scribal {
+    color:#a94442;
+}
+
+.results-table tr[role="row"] td span.writer {
+    color:#2f6f9f;
+}
+
+.results-table tr[role="row"] td span.addressee {
+    color:#eea236;
+}
+
+
+
+

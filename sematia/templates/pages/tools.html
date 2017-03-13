@@ -107,14 +107,16 @@
                             <div class="row tm-ids">
                             <div class="col-xs-6">
                                 <div class="input-group original_group">
-                                    <span class="input-group-addon"><span class="field-label">Actual writer</span></span>
+                                    <span class="input-group-addon"><span class="field-label">Writer</span></span>
                                     <input type="text" class="form-control actual_writer_tmid">
+                                     {% include 'pages/includes/buttons-minimal.html' %}
                                 </div>
 
                                 <p></p>
                                 <div class="input-group original_group">
-                                    <span class="input-group-addon"><span class="field-label">Scribal official</span></span>
+                                    <span class="input-group-addon"><span class="field-label">Scribal</span></span>
                                     <input type="text" class="form-control scribal_official_tmid">
+                                     {% include 'pages/includes/buttons-minimal.html' %}
                                 </div>
                                 <p></p>
                             </div>
@@ -122,11 +124,13 @@
                                 <div class="input-group original_group">
                                     <span class="input-group-addon"><span class="field-label">Author</span></span>
                                     <input type="text" class="form-control  author_tmid">
+                                     {% include 'pages/includes/buttons-minimal.html' %}
                                 </div>
                                 <p></p>
                                 <div class="input-group original_group">
                                     <span class="input-group-addon"><span class="field-label">Addressee</span></span>
                                     <input type="text" class="form-control  addressee_tmid">
+                                     {% include 'pages/includes/buttons-minimal.html' %}
                                 </div>
                             </div>
                             </div>
@@ -254,6 +258,7 @@
                                 <th>Postag</th>
                                 <th>Hand</th>
                                 <th>Doc.</th>
+                                <th>TM ID</th>
                             </thead>
                         </table>
                     </div>

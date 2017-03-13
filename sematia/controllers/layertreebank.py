@@ -313,13 +313,13 @@ class Layertreebank():
             hand_args.append(models.Document.meta_date_not_after <= options['document_date_not_after'])
 
         if options['actual_writer_tmid']:
-            hand_args.append(models.Hand.meta_writer_trismegistos_id == options['actual_writer_tmid'])
+            hand_args.append(models.Hand.meta_writer_trismegistos_id.op('regexp')(options['actual_writer_tmid']))
         if options['scribal_official_tmid']:
-            hand_args.append(models.Hand.meta_scribal_trismegistos_id == options['scribal_official_tmid'])
+            hand_args.append(models.Hand.meta_scribal_trismegistos_id.op('regexp')(options['scribal_official_tmid']))
         if options['author_tmid']:
-            hand_args.append(models.Hand.meta_author_trismegistos_id == options['author_tmid'])
+            hand_args.append(models.Hand.meta_author_trismegistos_id.op('regexp')(options['author_tmid']))
         if options['addressee_tmid']:
-            hand_args.append(models.Hand.meta_addressee_trismegistos_id == options['addressee_tmid'])
+            hand_args.append(models.Hand.meta_addressee_trismegistos_id.op('regexp')(options['addressee_tmid']))
 
         or_filters = []
         for handwriting in options['hand_handwriting']:
@@ -492,14 +492,27 @@ class Layertreebank():
 
                 if all_data:
 
+                    hand_name = tb.hand.hand_name
+                    title = tb.hand.document.meta_title
+
+                    tm_ids = ''
+                    if tb.hand.meta_writer_trismegistos_id:
+                        tm_ids += '<span class="writer" title="Writer">'+str(tb.hand.meta_writer_trismegistos_id)+'</span>'
+                    if tb.hand.meta_scribal_trismegistos_id:
+                        tm_ids += '<span class="scribal" title="Scribal">'+str(tb.hand.meta_scribal_trismegistos_id)+'</span>'
+                    if tb.hand.meta_author_trismegistos_id:
+                        tm_ids += '<span class="author" alt="Author">'+str(tb.hand.meta_author_trismegistos_id)+'</span>'
+                    if tb.hand.meta_addressee_trismegistos_id:
+                        tm_ids += '<span class="addressee" alt="Addressee">'+str(tb.hand.meta_addressee_trismegistos_id)+'</span>'
                     for d in all_data:
                         result_data.append([
                             '<span>'+all_data[d]['word_print']['original']+'</span><span>'+all_data[d]['word_print']['standard']+'</span>',
                             '<span>'+all_data[d]['lemma_print']['original']+'</span><span>'+all_data[d]['lemma_print']['standard']+'</span>',
                             '<span>'+all_data[d]['relation']['original']+'</span><span>'+all_data[d]['relation']['standard']+'</span>',
                             '<span>'+all_data[d]['postag']['original']+'</span><span>'+all_data[d]['postag']['standard']+'</span>',
-                            tb.hand.hand_name,
-                            tb.hand.document.meta_title
+                            hand_name,
+                            title,
+                            tm_ids
                         ])
 
                     
