@@ -231,6 +231,7 @@ class Xml():
         all_elements = xml_root.findall(".//*")   
         words = {}
         csv_string = 'word, n, frequency\n'
+        word_count = 0
 
         for element in all_elements:
             if element.tag.endswith('word') and 'artificial' not in element.attrib \
@@ -244,11 +245,12 @@ class Xml():
                     words[word_form] = 1
                 else:
                     words[word_form] += 1
+                word_count += 1
 
         if words:
             words_s = sorted(words.items(), key=operator.itemgetter(1), reverse=True)
             for word in words_s:
-                csv_string += word[0]+', '+str(word[1])+', '+str(round(word[1]/len(words_s), 5))+'\n'
+                csv_string += word[0]+', '+str(word[1])+', '+str(round(word[1]/word_count, 5))+'\n'
 
 
         return csv_string
