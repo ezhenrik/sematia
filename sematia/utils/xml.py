@@ -225,6 +225,25 @@ class Xml():
         return etree.tostring(xml_root, encoding='utf8', method='xml')
 
     @staticmethod
+    def get_word_list(xml):
+        xml_root = etree.fromstring(xml)
+        all_elements = xml_root.findall(".//*")   
+        words = ''
+
+        for element in all_elements:
+            if element.tag.endswith('word') and 'artificial' not in element.attrib \
+                and 'lemma' in element.attrib and element.attrib['lemma'].strip() \
+                and element.attrib['lemma'] != 'punc1':
+
+                word_form = ''
+                for c in element.attrib['lemma'].strip():
+                    word_form += unicodedata.normalize('NFD', c)[0]
+                words += word_form+' '
+
+
+        return words.strip()
+
+    @staticmethod
     def get_word_data(xml):
         count = 0
         xml_root = etree.fromstring(xml)

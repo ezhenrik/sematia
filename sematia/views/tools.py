@@ -18,6 +18,10 @@ def export(target):
 def export_words(target):
     return send_file(Layertreebank.export_words(target), attachment_filename='words-'+target+'.zip', as_attachment=True)
 
+def hierarchical_clustering(target):
+    return send_file(Layertreebank.get_hierarchy(target), mimetype='image/png')
+
+
 @tools.route('/')
 def index():
     return render_template('pages/tools.html')
@@ -46,7 +50,7 @@ def export_standard_words():
 def export_original_words():
     return export_words('original')
 
-@tools.route('/find', methods=['POST'])
+@tools.route('/find', methods=['GET'])
 def find():
     query = {}
     options = {}
@@ -84,3 +88,15 @@ def find():
     result = Layertreebank.search(query, options)
 
     return jsonify(result=result)
+
+@tools.route('/hierarchy_all', methods=['GET'])
+def hierarchy_all():
+    return hierarchical_clustering('all')
+
+@tools.route('/hierarchy_standard', methods=['GET'])
+def hierarchy_standard():
+    return hierarchical_clustering('standard')
+
+@tools.route('/hierarchy_original', methods=['GET'])
+def hierarchy_original():
+    return hierarchical_clustering('original')

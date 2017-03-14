@@ -10,7 +10,7 @@ from sqlalchemy import or_
 
 from . import document
 from .. import models
-from ..utils import log, xml
+from ..utils import log, xml, learn
 
 
 
@@ -18,6 +18,7 @@ db = models.db
 Document = document.Document
 Log = log.Log
 Xml = xml.Xml
+Learn = learn.Learn
 
 class Layertreebank():
 
@@ -282,6 +283,28 @@ class Layertreebank():
         return memory_file
 
     @staticmethod
+    def get_word_lists(target):
+
+        treebanks = Layertreebank.get_all()
+        word_lists = []
+        id_list = []
+        for treebank in treebanks:
+            if treebank.body:
+
+                if target is 'all' or target == treebank.type:
+                    word_lists.append(Xml.get_word_list(treebank.body))
+                    id_list.append(treebank.id)
+
+        return {'data': word_lists, 'titles': id_list}
+
+    @staticmethod
+    def get_hierarchy(target):
+        data = Layertreebank.get_word_lists(target)
+        dist = Learn.tf_idf_vectorize(data['data'])
+        hierarchy = Learn.hierarchical_clustering(dist, data['titles'])
+        return hierarchy
+
+    @staticmethod
     def search(query, options):
         hand_args = []
         if options['document_title']:
@@ -515,8 +538,7 @@ class Layertreebank():
                             tm_ids
                         ])
 
-                    
-        print(query)
+                
         return [result_data]
 
         

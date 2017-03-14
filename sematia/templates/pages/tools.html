@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="col-xs-6">
-        <div class="panel panel-warning export">
+        <div class="panel panel-default export">
             <div class="panel-heading">
                 Export Word Frequencies
             </div>
@@ -46,6 +46,27 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="row sematia-tools">
+    <div class="col-xs-6">
+        <div class="panel panel-default export">
+            <div class="panel-heading">
+                Hierarchical Treebank Clustering
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="btn-group"><a class="btn btn-info" href="/tools/hierarchy_all">All</a></div>
+                        <div class="btn-group"><a class="btn btn-primary" href="/tools/hierarchy_original">Original</a></div> 
+                        <div class="btn-group"><a class="btn btn-success" href="/tools/hierarchy_standard">Standard</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+
     </div>
 </div>
 <div class="row sematia-tools">
@@ -280,7 +301,7 @@
     function search(data) {
         var retval,
         settings = {
-            type: 'POST',
+            type: 'GET',
             url: '/tools/find',
             data: data,
             dataType: 'json',
