@@ -19,9 +19,7 @@ def export_words(target):
     return send_file(Layertreebank.export_words(target), attachment_filename='words-'+target+'.zip', as_attachment=True)
 
 def hierarchical_clustering(target):
-    #return send_file(Layertreebank.get_hierarchy(target), mimetype='image/png')
-    return 'Soon available'
-
+    return send_file(Layertreebank.get_hierarchy(target), mimetype='image/png')
 
 @tools.route('/')
 def index():

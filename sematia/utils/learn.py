@@ -1,10 +1,10 @@
 from .. import app
 from . import log
-#from sklearn.feature_extraction.text import CountVectorizer
-#from sklearn.feature_extraction.text import TfidfVectorizer
-#from sklearn.metrics.pairwise import cosine_similarity
-#from scipy.cluster.hierarchy import ward, dendrogram
-#import matplotlib.pyplot as plt
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.cluster.hierarchy import ward, dendrogram
+import matplotlib.pyplot as plt
 from io import BytesIO
 
 log = log.Log
@@ -38,8 +38,6 @@ class Learn():
 
     @staticmethod
     def hierarchical_clustering(dist, titles):
-        return ''
-        """
         linkage_matrix = ward(dist) #define the linkage_matrix using ward clustering pre-computed distances
 
         fig, ax = plt.subplots(figsize=(15, 20)) # set size
@@ -58,4 +56,3 @@ class Learn():
         plt.savefig(buf)
         buf.seek(0)
         return buf
-        """
