@@ -4,10 +4,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.cluster.hierarchy import ward, dendrogram
-import warnings;
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore"); 
-    import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+print(mpl.get_cachedir())
 from io import BytesIO
 
 log = log.Log
