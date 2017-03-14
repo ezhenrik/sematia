@@ -1,6 +1,6 @@
 from .. import app
 from . import log
-from sklearn.feature_extraction.text import TfidfVectorizer
+#from sklearn.feature_extraction.text import TfidfVectorizer
 #import matplotlib as mpl
 #print(mpl.get_cachedir())
 #from sklearn.feature_extraction.text import CountVectorizer
