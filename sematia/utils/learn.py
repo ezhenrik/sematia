@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.cluster.hierarchy import ward, dendrogram
 import matplotlib.pyplot as plt
-print(mpl.get_cachedir())
+print(plt.get_cachedir())
 from io import BytesIO
 
 log = log.Log
