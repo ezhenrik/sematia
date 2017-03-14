@@ -26,7 +26,7 @@ class Learn():
     def tf_idf_vectorize(data):
 
         #define vectorizer parameters
-        tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=200000,
+        tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=5000,
                                          min_df=0.2, stop_words=None,
                                          use_idf=True, tokenizer=None, ngram_range=(1,3))
 
