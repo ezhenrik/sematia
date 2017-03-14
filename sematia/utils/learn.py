@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 #from sklearn.feature_extraction.text import CountVectorizer
 
 #from sklearn.metrics.pairwise import cosine_similarity
-#from scipy.cluster.hierarchy import ward, dendrogram
+from scipy.cluster.hierarchy import ward, dendrogram
 #
 #import matplotlib as mpl
 #print(mpl.get_cachedir())
