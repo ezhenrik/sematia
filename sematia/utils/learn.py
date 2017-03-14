@@ -1,13 +1,16 @@
 from .. import app
 from . import log
+from sklearn.feature_extraction.text import TfidfVectorizer
+#import matplotlib as mpl
+#print(mpl.get_cachedir())
 #from sklearn.feature_extraction.text import CountVectorizer
-#from sklearn.feature_extraction.text import TfidfVectorizer
+
 #from sklearn.metrics.pairwise import cosine_similarity
 #from scipy.cluster.hierarchy import ward, dendrogram
 #import matplotlib.pyplot as plt
 #import matplotlib as mpl
 #print(mpl.get_cachedir())
-from io import BytesIO
+#from io import BytesIO
 
 log = log.Log
 
