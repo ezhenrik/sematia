@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.cluster.hierarchy import ward, dendrogram
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from io import BytesIO
 
 log = log.Log
@@ -26,7 +26,7 @@ class Learn():
     def tf_idf_vectorize(data):
 
         #define vectorizer parameters
-        tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=5000,
+        tfidf_vectorizer = TfidfVectorizer(max_df=0.8, max_features=200000,
                                          min_df=0.2, stop_words=None,
                                          use_idf=True, tokenizer=None, ngram_range=(1,3))
 
@@ -38,6 +38,8 @@ class Learn():
 
     @staticmethod
     def hierarchical_clustering(dist, titles):
+        return ''
+        """
         linkage_matrix = ward(dist) #define the linkage_matrix using ward clustering pre-computed distances
 
         fig, ax = plt.subplots(figsize=(15, 20)) # set size
@@ -56,3 +58,4 @@ class Learn():
         plt.savefig(buf)
         buf.seek(0)
         return buf
+        """
