@@ -3,7 +3,7 @@ from . import log
 #from sklearn.feature_extraction.text import TfidfVectorizer
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-#from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 
 #from sklearn.metrics.pairwise import cosine_similarity
 #from scipy.cluster.hierarchy import ward, dendrogram
