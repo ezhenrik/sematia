@@ -1,20 +1,18 @@
 from .. import app
 from . import log
 #from sklearn.feature_extraction.text import TfidfVectorizer
-import matplotlib as mpl
+
 import matplotlib.pyplot as plt
 from sklearn.feature_extraction.text import CountVectorizer
 
-#from sklearn.metrics.pairwise import cosine_similarity
-#from scipy.cluster.hierarchy import ward, dendrogram
-#
-#import matplotlib as mpl
-#print(mpl.get_cachedir())
-#from io import BytesIO
+from sklearn.metrics.pairwise import cosine_similarity
+from scipy.cluster.hierarchy import ward, dendrogram
 
-#log = log.Log
+import matplotlib as mpl
 
-#log.p(mpl.get_cachedir())
+from io import BytesIO
+
+
 
 class Learn():
    
