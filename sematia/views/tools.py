@@ -49,7 +49,7 @@ def export_standard_words():
 def export_original_words():
     return export_words('original')
 
-@tools.route('/find', methods=['GET'])
+@tools.route('/find', methods=['POST'])
 def find():
     query = {}
     options = {}
