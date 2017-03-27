@@ -776,6 +776,11 @@ span.loader {
     padding: 6px 6px;
 }
 
+.results-table tr[role="row"] td:first-child span {
+    color:#333;
+    border:none;
+}
+
 .results-table tr[role="row"] td span.author {
     color:#6f5499;
 }

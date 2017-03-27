@@ -382,9 +382,13 @@ class Layertreebank():
 
                 xml_root = etree.fromstring(original)
                 all_elements = xml_root.findall(".//*")   
-
+                sid = 0
+                wid = 0
                 for element in all_elements:
+                    if element.tag.endswith('sentence'):
+                        sid = element.attrib['id']
                     if element.tag.endswith('word'):
+                        wid = element.attrib['id']
                         if 'form' in element.attrib:
                             if query['original']['plain'] == 'true':
                                 word_form = ''
@@ -407,7 +411,7 @@ class Layertreebank():
                         else:
                             lemma_form = ''
                             word_print = ''
-                        all_data[int(element.attrib['id'])] = {
+                        all_data[sid+'-'+wid] = {
                              'word': {
                                 'standard': '',
                                 'original': word_form,
@@ -436,9 +440,13 @@ class Layertreebank():
 
                 xml_root = etree.fromstring(standard)
                 all_elements = xml_root.findall(".//*")   
-               
+                sid = 0
+                wid = 0
                 for i, element in enumerate(all_elements):
+                    if element.tag.endswith('sentence'):
+                        sid = element.attrib['id']
                     if element.tag.endswith('word'):
+                        wid = element.attrib['id']
                         if 'form' in element.attrib:
                             if query['standard']['plain'] == 'true':
                                 word_form = ''
@@ -461,15 +469,15 @@ class Layertreebank():
                         else:
                             lemma_form = ''
                             lemma_print = ''
-                        if int(element.attrib['id']) in all_data:
-                            all_data[int(element.attrib['id'])]['word']['standard'] = word_form
-                            all_data[int(element.attrib['id'])]['word_print']['standard'] = word_print
-                            all_data[int(element.attrib['id'])]['lemma']['standard'] = lemma_form
-                            all_data[int(element.attrib['id'])]['lemma_print']['standard'] = lemma_print
-                            all_data[int(element.attrib['id'])]['relation']['standard'] = element.attrib['relation'] if 'relation' in element.attrib else ''
-                            all_data[int(element.attrib['id'])]['postag']['standard'] = element.attrib['postag'] if 'postag' in element.attrib else ''
+                        if sid+'-'+wid in all_data:
+                            all_data[sid+'-'+wid]['word']['standard'] = word_form
+                            all_data[sid+'-'+wid]['word_print']['standard'] = word_print
+                            all_data[sid+'-'+wid]['lemma']['standard'] = lemma_form
+                            all_data[sid+'-'+wid]['lemma_print']['standard'] = lemma_print
+                            all_data[sid+'-'+wid]['relation']['standard'] = element.attrib['relation'] if 'relation' in element.attrib else ''
+                            all_data[sid+'-'+wid]['postag']['standard'] = element.attrib['postag'] if 'postag' in element.attrib else ''
                         else:
-                            all_data[int(element.attrib['id'])] = {
+                            all_data[sid+'-'+wid] = {
                                  'word': {
                                     'original': '',
                                     'standard': word_form,
@@ -529,6 +537,7 @@ class Layertreebank():
                         tm_ids += '<span class="addressee" alt="Addressee">'+str(tb.hand.meta_addressee_trismegistos_id)+'</span>'
                     for d in all_data:
                         result_data.append([
+                            '<span>'+str(d)+'</span>',
                             '<span>'+all_data[d]['word_print']['original']+'</span><span>'+all_data[d]['word_print']['standard']+'</span>',
                             '<span>'+all_data[d]['lemma_print']['original']+'</span><span>'+all_data[d]['lemma_print']['standard']+'</span>',
                             '<span>'+all_data[d]['relation']['original']+'</span><span>'+all_data[d]['relation']['standard']+'</span>',
