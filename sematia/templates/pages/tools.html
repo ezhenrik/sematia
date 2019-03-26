@@ -274,6 +274,15 @@
                         <table class="table results-table table-striped table-bordered table-hover" id="dataTables-results">
                             <thead>
                                 <th>S-W</th>
+                                <th>Word (Or.)</th>
+                                <th>Word (St.)</th>
+                                <th>Lemma (Or.)</th>
+                                <th>Lemma (St.)</th>
+                                <th>Relation (Or.)</th>
+                                <th>Relation (St.)</th>
+                                <th>Postag (Or.)</th>
+                                <th>Postag (St.)</th>
+
                                 <th>Word</th>
                                 <th>Lemma</th>
                                 <th>Relation</th>
@@ -309,7 +318,6 @@
 
             success: function(data) { 
                 $('.loader').fadeOut('fast');
-                console.log(data['result'])
                 resultsTable.clear().rows.add(data.result[0]).draw();
                 $('html, body').animate({
                     scrollTop: $("#dataTables-results").offset().top
@@ -342,9 +350,32 @@
         /* Enable Datatables */
         resultsTable = $('#dataTables-results').DataTable({
             "responsive": true,
-            "pageLength": 50
+            "pageLength": 50,
+            "buttons": [
+                {
+                    "extend": 'excel',
+                    "text": 'Export',
+                    "className": 'btn btn-secondary btn-sm',
+                    "exportOptions": {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 13, 14]
+                    },
+                },
+            ],
+            
+            
         });
 
+        resultsTable.column(1).visible(false);
+        resultsTable.column(2).visible(false);
+        resultsTable.column(3).visible(false);
+        resultsTable.column(4).visible(false);
+        resultsTable.column(5).visible(false);
+        resultsTable.column(6).visible(false);
+        resultsTable.column(7).visible(false);
+        resultsTable.column(8).visible(false);
+
+        resultsTable.buttons().container()
+            .appendTo( $('.col-sm-6:eq(0)', resultsTable.table().container() ) );
         $(document).on('click', '.sematia-tools .btn-xs', function(e) {
             e.preventDefault();
 

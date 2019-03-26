@@ -538,6 +538,14 @@ class Layertreebank():
                     for d in all_data:
                         result_data.append([
                             '<span>'+str(d)+'</span>',
+                            all_data[d]['word_print']['original'],
+                            all_data[d]['word_print']['standard'],
+                            all_data[d]['lemma_print']['original'],
+                            all_data[d]['lemma_print']['standard'],
+                            all_data[d]['relation']['original'],
+                            all_data[d]['relation']['standard'],
+                            all_data[d]['postag']['original'],
+                            all_data[d]['postag']['standard'],
                             '<span>'+all_data[d]['word_print']['original']+'</span><span>'+all_data[d]['word_print']['standard']+'</span>',
                             '<span>'+all_data[d]['lemma_print']['original']+'</span><span>'+all_data[d]['lemma_print']['standard']+'</span>',
                             '<span>'+all_data[d]['relation']['original']+'</span><span>'+all_data[d]['relation']['standard']+'</span>',

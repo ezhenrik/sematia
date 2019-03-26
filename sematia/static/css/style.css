@@ -803,3 +803,9 @@ span.loader {
     top:3px;
 }
 
+.dt-buttons {
+    position: absolute;
+    left: 180px;
+    top: 0;
+}
+
